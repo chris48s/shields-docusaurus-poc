@@ -46,6 +46,7 @@ const config = {
   themeConfig:
     /** @type {import('docusaurus-preset-openapi').ThemeConfig} */
     ({
+      languageTabs: [],
       navbar: {
         title: "My Site",
         logo: {

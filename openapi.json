@@ -62,6 +62,33 @@
           },
           {"$ref": "#/components/parameters/logo"},
           {"$ref": "#/components/parameters/logoColor"}
+        ],
+        "x-code-samples": [
+            {
+                "lang": "URL",
+                "label": "URL",
+                "source": "$url"
+            },
+            {
+                "lang": "Markdown",
+                "label": "Markdown",
+                "source": "![Bitbucket Pipelines]($url)"
+            },
+            {
+                "lang": "reStructuredText",
+                "label": "rSt",
+                "source": ".. image:: $url\n:   alt: Bitbucket Pipelines"
+            },
+            {
+                "lang": "AsciiDoc",
+                "label": "AsciiDoc",
+                "source": "image:$url[Bitbucket Pipelines]"
+            },
+            {
+                "lang": "HTML",
+                "label": "HTML",
+                "source": "<img alt=\"Bitbucket Pipelines\" src=\"$url\">"
+            }
         ]
       }
     },
@@ -98,6 +125,33 @@
           },
           {"$ref": "#/components/parameters/logo"},
           {"$ref": "#/components/parameters/logoColor"}
+        ],
+        "x-code-samples": [
+            {
+                "lang": "URL",
+                "label": "URL",
+                "source": "$url"
+            },
+            {
+                "lang": "Markdown",
+                "label": "Markdown",
+                "source": "![Bitbucket Pipelines]($url)"
+            },
+            {
+                "lang": "reStructuredText",
+                "label": "rSt",
+                "source": ".. image:: $url\n:   alt: Bitbucket Pipelines"
+            },
+            {
+                "lang": "AsciiDoc",
+                "label": "AsciiDoc",
+                "source": "image:$url[Bitbucket Pipelines]"
+            },
+            {
+                "lang": "HTML",
+                "label": "HTML",
+                "source": "<img alt=\"Bitbucket Pipelines\" src=\"$url\">"
+            }
         ]
       }
     },
@@ -135,6 +189,33 @@
           },
           {"$ref": "#/components/parameters/logo"},
           {"$ref": "#/components/parameters/logoColor"}
+        ],
+        "x-code-samples": [
+            {
+                "lang": "URL",
+                "label": "URL",
+                "source": "$url"
+            },
+            {
+                "lang": "Markdown",
+                "label": "Markdown",
+                "source": "![Drone Build]($url)"
+            },
+            {
+                "lang": "reStructuredText",
+                "label": "rSt",
+                "source": ".. image:: $url\n:   alt: Drone Build"
+            },
+            {
+                "lang": "AsciiDoc",
+                "label": "AsciiDoc",
+                "source": "image:$url[Drone Build]"
+            },
+            {
+                "lang": "HTML",
+                "label": "HTML",
+                "source": "<img alt=\"Drone Build\" src=\"$url\">"
+            }
         ]
       }
     },
@@ -154,6 +235,33 @@
           },
           {"$ref": "#/components/parameters/logo"},
           {"$ref": "#/components/parameters/logoColor"}
+        ],
+        "x-code-samples": [
+            {
+                "lang": "URL",
+                "label": "URL",
+                "source": "$url"
+            },
+            {
+                "lang": "Markdown",
+                "label": "Markdown",
+                "source": "![NPM Version]($url)"
+            },
+            {
+                "lang": "reStructuredText",
+                "label": "rSt",
+                "source": ".. image:: $url\n:   alt: NPM Version"
+            },
+            {
+                "lang": "AsciiDoc",
+                "label": "AsciiDoc",
+                "source": "image:$url[NPM Version]"
+            },
+            {
+                "lang": "HTML",
+                "label": "HTML",
+                "source": "<img alt=\"NPM Version\" src=\"$url\">"
+            }
         ]
       }
     }

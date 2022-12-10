@@ -151,19 +151,18 @@ function Example({ postman, codeSamples }: Props) {
   const [codeText, setCodeText] = useState("");
 
   useEffect(() => {
+    const postmanRequest = buildPostmanRequest(postman, {
+      queryParams,
+      pathParams,
+      cookieParams,
+      contentType,
+      accept,
+      headerParams,
+      body,
+      server,
+      auth,
+    });
     if (language && !!language.options) {
-      const postmanRequest = buildPostmanRequest(postman, {
-        queryParams,
-        pathParams,
-        cookieParams,
-        contentType,
-        accept,
-        headerParams,
-        body,
-        server,
-        auth,
-      });
-
       codegen.convert(
         language.language,
         language.variant,
@@ -177,7 +176,7 @@ function Example({ postman, codeSamples }: Props) {
         }
       );
     } else if (language && !!language.source) {
-      setCodeText(language.source);
+      setCodeText(language.source.replace('$url', postmanRequest.url.toString()));
     } else {
       setCodeText("");
     }
