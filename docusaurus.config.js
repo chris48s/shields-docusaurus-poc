@@ -36,6 +36,9 @@ const config = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
+        api: {
+          apiItemComponent: require.resolve("./src/shields-theme/ApiItem.tsx"),
+        },
       }),
     ],
   ],
