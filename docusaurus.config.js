@@ -6,15 +6,15 @@ const darkCodeTheme = require("prism-react-renderer/themes/dracula");
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: "My Site",
-  tagline: "Dinosaurs are cool",
+  title: "Shields.io",
+  tagline: "Concise, consistent, and legible badges in SVG and raster format",
   url: "https://your-docusaurus-test-site.com",
   baseUrl: "/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
-  organizationName: "facebook", // Usually your GitHub org/user name.
-  projectName: "docusaurus", // Usually your repo name.
+  organizationName: "badges", // Usually your GitHub org/user name.
+  projectName: "shields", // Usually your repo name.
 
   presets: [
     [
@@ -25,13 +25,13 @@ const config = {
           sidebarPath: require.resolve("./sidebars.js"),
           // Please change this to your repo.
           editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+            "https://github.com/chris48s/shields-docusaurus-poc/",
         },
         blog: {
           showReadingTime: true,
           // Please change this to your repo.
           editUrl:
-            "https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/",
+            "https://github.com/chris48s/shields-docusaurus-poc/",
         },
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
@@ -48,10 +48,10 @@ const config = {
     ({
       languageTabs: [],
       navbar: {
-        title: "My Site",
+        title: "Shields.io",
         logo: {
           alt: "My Site Logo",
-          src: "img/logo.svg",
+          src: "img/logo.png",
         },
         items: [
           {
@@ -60,10 +60,10 @@ const config = {
             position: "left",
             label: "Tutorial",
           },
-          { to: "/api", label: "API", position: "left" },
+          { to: "/api", label: "Badges", position: "left" },
           { to: "/blog", label: "Blog", position: "left" },
           {
-            href: "https://github.com/facebook/docusaurus",
+            href: "https://github.com/badges/shields",
             label: "GitHub",
             position: "right",
           },
@@ -85,16 +85,12 @@ const config = {
             title: "Community",
             items: [
               {
-                label: "Stack Overflow",
-                href: "https://stackoverflow.com/questions/tagged/docusaurus",
-              },
-              {
                 label: "Discord",
-                href: "https://discordapp.com/invite/docusaurus",
+                href: "https://discord.gg/HjJCwm5",
               },
               {
                 label: "Twitter",
-                href: "https://twitter.com/docusaurus",
+                href: "https://twitter.com/shields_io",
               },
             ],
           },
@@ -107,12 +103,12 @@ const config = {
               },
               {
                 label: "GitHub",
-                href: "https://github.com/facebook/docusaurus",
+                href: "https://github.com/badges/shields",
               },
             ],
           },
         ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: `Copyright © ${new Date().getFullYear()} Shields.io, Inc. Built with Docusaurus.`,
       },
       prism: {
         theme: lightCodeTheme,
