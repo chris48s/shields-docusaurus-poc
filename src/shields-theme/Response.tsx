@@ -43,6 +43,10 @@ function Response() {
 
   return (
     <FloatingButton onClick={() => dispatch(clearResponse())} label="Clear">
+     { response.startsWith("<svg ")
+       &&
+         <img src={`data:image/svg+xml;utf8,${encodeURIComponent(response)}`} />
+       ||
       <pre
         style={{
           background: "var(--openapi-card-background-color)",
@@ -52,6 +56,7 @@ function Response() {
       >
         <code>{prettyResponse || "No Response"}</code>
       </pre>
+      }
     </FloatingButton>
   );
 }
