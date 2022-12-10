@@ -3,7 +3,6 @@ import React from "react";
 import ExecutionEnvironment from "@docusaurus/ExecutionEnvironment";
 import { PageMetadata } from "@docusaurus/theme-common";
 import type { Props } from "@theme/ApiItem";
-import DocPaginator from "@theme/DocPaginator";
 import clsx from "clsx";
 
 import styles from "docusaurus-theme-openapi/lib/theme/ApiItem/styles.module.css";
@@ -32,7 +31,6 @@ function ApiItem(props: Props): JSX.Element {
               </div>
             </article>
 
-            <DocPaginator previous={previous} next={next} />
           </div>
         </div>
         <div className={clsx("col", api ? "col--5" : "col--3")}>
