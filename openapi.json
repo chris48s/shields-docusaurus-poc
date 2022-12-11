@@ -232,7 +232,8 @@
               "description": "Project ID",
               "schema": {
                 "type": "string"
-              }
+              },
+              "example": "5cc34208-0418-40b1-8353-acc70c95f802"
             },
             {
               "name": "token",
@@ -241,7 +242,8 @@
               "description": "Token",
               "schema": {
                 "type": "string"
-              }
+              },
+              "example": "0f4d5e31a44f48dcbab966c52cfb0a67c5f1982186c14b85ab389a031dbc225a"
             },
             {"$ref": "#/components/parameters/logo"},
             {"$ref": "#/components/parameters/logoColor"}
@@ -287,7 +289,8 @@
             "description": "Package Name",
             "schema": {
               "type": "string"
-            }
+            },
+            "example": "got"
           },
           {"$ref": "#/components/parameters/logo"},
           {"$ref": "#/components/parameters/logoColor"}
