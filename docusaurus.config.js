@@ -56,12 +56,6 @@ const config = {
           src: "img/logo.png",
         },
         items: [
-          {
-            type: "doc",
-            docId: "intro",
-            position: "left",
-            label: "Tutorial",
-          },
           { to: "/badges", label: "Badges", position: "left" },
           { to: "/blog", label: "Blog", position: "left" },
           { to: "/community", label: "Community", position: "left" },
@@ -75,15 +69,6 @@ const config = {
       footer: {
         style: "dark",
         links: [
-          {
-            title: "Docs",
-            items: [
-              {
-                label: "Tutorial",
-                to: "/docs/intro",
-              },
-            ],
-          },
           {
             title: "Community",
             items: [

@@ -2,34 +2,14 @@
 sidebar_position: 1
 ---
 
-# Tutorial Intro
+# TODO
 
-Let's discover **Docusaurus in less than 5 minutes**.
+We can probably move some of the stuff from
 
-## Getting Started
+https://github.com/badges/shields/tree/master/doc
 
-Get started by **creating a new site**.
+and
 
-Or **try Docusaurus immediately** with **[docusaurus.new](https://docusaurus.new)**.
+https://contributing.shields.io/
 
-## Generate a new site
-
-Generate a new Docusaurus site using the **classic template**:
-
-```shell
-npm init docusaurus@latest my-website classic
-```
-
-## Start your site
-
-Run the development server:
-
-```shell
-cd my-website
-
-npx docusaurus start
-```
-
-Your site starts at `http://localhost:3000`.
-
-Open `docs/intro.md` and edit some lines: the site **reloads automatically** and displays your changes.
+here, once our website is less terrible.
