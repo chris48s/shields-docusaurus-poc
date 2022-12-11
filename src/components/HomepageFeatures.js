@@ -4,44 +4,52 @@ import styles from "./HomepageFeatures.module.css";
 
 const FeatureList = [
   {
-    title: "Easy to Use",
-    Svg: require("../../static/img/undraw_docusaurus_mountain.svg").default,
+    title: "Dynamic badges",
     description: (
       <>
-        Docusaurus was designed from the ground up to be easily installed and
-        used to get your website up and running quickly.
+        <img src="https://img.shields.io/badge/build-passing-brightgreen" alt="build:passing" />
+        <br />
+        Show metrics for your project. We've got badges for hundreds of services.
       </>
     ),
   },
   {
-    title: "Focus on What Matters",
-    Svg: require("../../static/img/undraw_docusaurus_tree.svg").default,
+    title: "Static Badges",
     description: (
       <>
-        Docusaurus lets you focus on your docs, and we&apos;ll do the chores. Go
-        ahead and move your docs into the <code>docs</code> directory.
+        Create a badge with<br />
+        <img src="https://img.shields.io/badge/any%20text-you%20like-blue" alt="any text you like" />
       </>
     ),
   },
   {
-    title: "Powered by React",
-    Svg: require("../../static/img/undraw_docusaurus_react.svg").default,
+    title: "Badge-Maker NPM library",
     description: (
       <>
-        Extend or customize your website layout by reusing React. Docusaurus can
-        be extended while reusing the same header and footer.
+        Render badges in your own application using our{' '}
+        <a href="https://www.npmjs.com/package/badge-maker">NPM library</a>
+        <br />
+        <code>npm install badge-maker</code>
+      </>
+    ),
+  },
+  {
+    title: "Host your own instance",
+    description: (
+      <>
+        Host a shields instance behind your firewall with our{' '}
+        <a href="https://registry.hub.docker.com/r/shieldsio/shields/">docker image</a>
+        <br />
+        <code>docker pull shieldsio/shields</code>
       </>
     ),
   },
 ];
 
-function Feature({ Svg, title, description }) {
+function Feature({ title, description }) {
   return (
-    <div className={clsx("col col--4")}>
-      <div className="text--center">
-        <Svg className={styles.featureSvg} alt={title} />
-      </div>
-      <div className="text--center padding-horiz--md">
+    <div className={clsx("col col--6")}>
+      <div className="text--center padding-horiz--md padding-vert--lg">
         <h3>{title}</h3>
         <p>{description}</p>
       </div>
