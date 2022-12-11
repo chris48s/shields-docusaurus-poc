@@ -16,6 +16,17 @@ const config = {
   organizationName: "badges", // Usually your GitHub org/user name.
   projectName: "shields", // Usually your repo name.
 
+  themes: [
+    [
+      require.resolve("@easyops-cn/docusaurus-search-local"),
+      /** @type {import("@easyops-cn/docusaurus-search-local").PluginOptions} */
+      ({
+        hashed: true,
+        indexPages: true,
+      }),
+    ],
+  ],
+
   presets: [
     [
       "docusaurus-preset-openapi",
