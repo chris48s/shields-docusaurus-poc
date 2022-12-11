@@ -1,0 +1,101 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Other",
+    "license": {
+      "name": "MIT"
+    }
+  },
+
+  "servers": [
+    {
+      "url": "https://img.shields.io"
+    }
+  ],
+
+  "components": {
+    "parameters": {
+      "logo": {
+        "name": "logo",
+        "in": "query",
+        "required": false,
+        "description": "Insert one of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href=\"https://simpleicons.org/\" rel=\"noopener noreferrer\" target=\"_blank\">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/slugs.md\" rel=\"noopener noreferrer\" target=\"_blank\">slugs.md</a> file in the simple-icons repository.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "logoColor": {
+        "name": "logoColor",
+        "in": "query",
+        "required": false,
+        "description": "Logo Color",
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  },
+
+  "paths": {
+
+    "/localizely/progress/{projectId}": {
+        "get": {
+          "summary": "Localizely overall progress",
+          "description": "The <b>read-only</b> API token from the Localizely account is required to fetch necessary data.<br/><br/><b>Note: Do not use the default API token as it grants full read-write permissions to your projects. You will expose your project and allow malicious users to modify the translations at will.<br/>Instead, create a new one with only read permission.</b><br/><br/>You can find more details regarding API tokens under <a href=\"https://app.localizely.com/account\" target=\"_blank\">My profile</a> page.",
+          "parameters": [
+            {
+              "name": "projectId",
+              "in": "path",
+              "required": true,
+              "description": "Project ID",
+              "schema": {
+                "type": "string"
+              },
+              "example": "5cc34208-0418-40b1-8353-acc70c95f802"
+            },
+            {
+              "name": "token",
+              "in": "query",
+              "required": true,
+              "description": "Token",
+              "schema": {
+                "type": "string"
+              },
+              "example": "0f4d5e31a44f48dcbab966c52cfb0a67c5f1982186c14b85ab389a031dbc225a"
+            },
+            {"$ref": "#/components/parameters/logo"},
+            {"$ref": "#/components/parameters/logoColor"}
+          ],
+          "x-code-samples": [
+              {
+                  "lang": "URL",
+                  "label": "URL",
+                  "source": "$url"
+              },
+              {
+                  "lang": "Markdown",
+                  "label": "Markdown",
+                  "source": "![NPM Version]($url)"
+              },
+              {
+                  "lang": "reStructuredText",
+                  "label": "rSt",
+                  "source": ".. image:: $url\n:   alt: NPM Version"
+              },
+              {
+                  "lang": "AsciiDoc",
+                  "label": "AsciiDoc",
+                  "source": "image:$url[NPM Version]"
+              },
+              {
+                  "lang": "HTML",
+                  "label": "HTML",
+                  "source": "<img alt=\"NPM Version\" src=\"$url\">"
+              }
+          ]
+        }
+      }
+
+  }
+}

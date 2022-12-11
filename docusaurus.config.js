@@ -37,6 +37,8 @@ const config = {
           customCss: require.resolve("./src/css/custom.css"),
         },
         api: {
+          path: 'categories',
+          routeBasePath: 'badges',
           apiItemComponent: require.resolve("./src/shields-theme/ApiItem.tsx"),
         },
       }),
@@ -60,7 +62,7 @@ const config = {
             position: "left",
             label: "Tutorial",
           },
-          { to: "/api", label: "Badges", position: "left" },
+          { to: "/badges", label: "Badges", position: "left" },
           { to: "/blog", label: "Blog", position: "left" },
           {
             href: "https://github.com/badges/shields",

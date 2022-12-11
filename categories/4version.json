@@ -1,0 +1,90 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Version",
+    "license": {
+      "name": "MIT"
+    }
+  },
+
+  "servers": [
+    {
+      "url": "https://img.shields.io"
+    }
+  ],
+
+  "components": {
+    "parameters": {
+      "logo": {
+        "name": "logo",
+        "in": "query",
+        "required": false,
+        "description": "Insert one of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href=\"https://simpleicons.org/\" rel=\"noopener noreferrer\" target=\"_blank\">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href=\"https://github.com/simple-icons/simple-icons/blob/develop/slugs.md\" rel=\"noopener noreferrer\" target=\"_blank\">slugs.md</a> file in the simple-icons repository.",
+        "schema": {
+          "type": "string"
+        }
+      },
+      "logoColor": {
+        "name": "logoColor",
+        "in": "query",
+        "required": false,
+        "description": "Logo Color",
+        "schema": {
+          "type": "string"
+        }
+      }
+    }
+  },
+
+  "paths": {
+
+    "/npm/v/{packageName}": {
+      "get": {
+        "summary": "NPM Version",
+        "parameters": [
+          {
+            "name": "packageName",
+            "in": "path",
+            "required": true,
+            "description": "Package Name",
+            "schema": {
+              "type": "string"
+            },
+            "example": "got"
+          },
+          {"$ref": "#/components/parameters/logo"},
+          {"$ref": "#/components/parameters/logoColor"}
+        ],
+        "x-code-samples": [
+            {
+                "lang": "URL",
+                "label": "URL",
+                "source": "$url"
+            },
+            {
+                "lang": "Markdown",
+                "label": "Markdown",
+                "source": "![NPM Version]($url)"
+            },
+            {
+                "lang": "reStructuredText",
+                "label": "rSt",
+                "source": ".. image:: $url\n:   alt: NPM Version"
+            },
+            {
+                "lang": "AsciiDoc",
+                "label": "AsciiDoc",
+                "source": "image:$url[NPM Version]"
+            },
+            {
+                "lang": "HTML",
+                "label": "HTML",
+                "source": "<img alt=\"NPM Version\" src=\"$url\">"
+            }
+        ]
+      }
+    }
+
+  }
+}
