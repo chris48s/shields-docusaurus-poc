@@ -9,12 +9,14 @@ const config = {
   title: "Shields.io",
   tagline: "Concise, consistent, and legible badges in SVG and raster format",
   url: "https://your-docusaurus-test-site.com",
-  baseUrl: "/",
+  baseUrl: "/shields-docusaurus-poc/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   favicon: "img/favicon.ico",
-  organizationName: "badges", // Usually your GitHub org/user name.
-  projectName: "shields", // Usually your repo name.
+  organizationName: "chris48s",
+  projectName: "shields-docusaurus-poc",
+  deploymentBranch: 'gh-pages',
+  trailingSlash: false,
 
   themes: [
     [
