@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://your-docusaurus-test-site.com/blog</id>
+    <id>https://your-docusaurus-test-site.com/shields-docusaurus-poc/blog</id>
     <title>Shields.io Blog</title>
     <updated>2019-05-28T00:00:00.000Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://your-docusaurus-test-site.com/blog"/>
+    <link rel="alternate" href="https://your-docusaurus-test-site.com/shields-docusaurus-poc/blog"/>
     <subtitle>Shields.io Blog</subtitle>
-    <icon>https://your-docusaurus-test-site.com/img/favicon.ico</icon>
+    <icon>https://your-docusaurus-test-site.com/shields-docusaurus-poc/img/favicon.ico</icon>
     <entry>
         <title type="html"><![CDATA[Big announcement, huge!]]></title>
         <id>first-blog-post</id>
-        <link href="https://your-docusaurus-test-site.com/blog/first-blog-post"/>
+        <link href="https://your-docusaurus-test-site.com/shields-docusaurus-poc/blog/first-blog-post"/>
         <updated>2019-05-28T00:00:00.000Z</updated>
         <summary type="html"><![CDATA[We could have a blog, if we wanted.]]></summary>
         <content type="html"><![CDATA[<p>We could have a blog, if we wanted.</p><p>Do we need a blog?</p><p>Maybe we don't need a blog.</p>]]></content>
