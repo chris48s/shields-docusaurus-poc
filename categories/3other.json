@@ -76,22 +76,22 @@
               {
                   "lang": "Markdown",
                   "label": "Markdown",
-                  "source": "![NPM Version]($url)"
+                  "source": "![Localizely overall progress]($url)"
               },
               {
                   "lang": "reStructuredText",
                   "label": "rSt",
-                  "source": ".. image:: $url\n:   alt: NPM Version"
+                  "source": ".. image:: $url\n:   alt: Localizely overall progress"
               },
               {
                   "lang": "AsciiDoc",
                   "label": "AsciiDoc",
-                  "source": "image:$url[NPM Version]"
+                  "source": "image:$url[Localizely overall progress]"
               },
               {
                   "lang": "HTML",
                   "label": "HTML",
-                  "source": "<img alt=\"NPM Version\" src=\"$url\">"
+                  "source": "<img alt=\"Localizely overall progress\" src=\"$url\">"
               }
           ]
         }

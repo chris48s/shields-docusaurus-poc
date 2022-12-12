@@ -65,22 +65,22 @@
             {
                 "lang": "Markdown",
                 "label": "Markdown",
-                "source": "![Bitbucket Pipelines]($url)"
+                "source": "![Static]($url)"
             },
             {
                 "lang": "reStructuredText",
                 "label": "rSt",
-                "source": ".. image:: $url\n:   alt: Bitbucket Pipelines"
+                "source": ".. image:: $url\n:   alt: Static"
             },
             {
                 "lang": "AsciiDoc",
                 "label": "AsciiDoc",
-                "source": "image:$url[Bitbucket Pipelines]"
+                "source": "image:$url[Static]"
             },
             {
                 "lang": "HTML",
                 "label": "HTML",
-                "source": "<img alt=\"Bitbucket Pipelines\" src=\"$url\">"
+                "source": "<img alt=\"Static\" src=\"$url\">"
             }
         ]
       }
@@ -111,22 +111,22 @@
             {
                 "lang": "Markdown",
                 "label": "Markdown",
-                "source": "![Bitbucket Pipelines]($url)"
+                "source": "![Dynamic]($url)"
             },
             {
                 "lang": "reStructuredText",
                 "label": "rSt",
-                "source": ".. image:: $url\n:   alt: Bitbucket Pipelines"
+                "source": ".. image:: $url\n:   alt: Dynamic"
             },
             {
                 "lang": "AsciiDoc",
                 "label": "AsciiDoc",
-                "source": "image:$url[Bitbucket Pipelines]"
+                "source": "image:$url[Dynamic]"
             },
             {
                 "lang": "HTML",
                 "label": "HTML",
-                "source": "<img alt=\"Bitbucket Pipelines\" src=\"$url\">"
+                "source": "<img alt=\"Dynamic\" src=\"$url\">"
             }
         ]
       }
@@ -157,22 +157,22 @@
             {
                 "lang": "Markdown",
                 "label": "Markdown",
-                "source": "![Bitbucket Pipelines]($url)"
+                "source": "![Endpoint]($url)"
             },
             {
                 "lang": "reStructuredText",
                 "label": "rSt",
-                "source": ".. image:: $url\n:   alt: Bitbucket Pipelines"
+                "source": ".. image:: $url\n:   alt: Endpoint"
             },
             {
                 "lang": "AsciiDoc",
                 "label": "AsciiDoc",
-                "source": "image:$url[Bitbucket Pipelines]"
+                "source": "image:$url[Endpoint]"
             },
             {
                 "lang": "HTML",
                 "label": "HTML",
-                "source": "<img alt=\"Bitbucket Pipelines\" src=\"$url\">"
+                "source": "<img alt=\"Endpoint\" src=\"$url\">"
             }
         ]
       }
