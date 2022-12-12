@@ -84,7 +84,73 @@
             }
         ]
       }
-    }
+    },
+    "/packagist/v/{user}/{repo}": {
+        "get": {
+          "summary": "Packagist Version",
+          "parameters": [
+            {
+              "name": "user",
+              "in": "path",
+              "required": true,
+              "description": "User",
+              "schema": {
+                "type": "string"
+              },
+              "example": "symfony"
+            },
+            {
+              "name": "repo",
+              "in": "path",
+              "required": true,
+              "description": "Repo",
+              "schema": {
+                "type": "string"
+              },
+              "example": "symfony"
+            },
+            {
+              "name": "include_prereleases",
+              "in": "query",
+              "required": false,
+              "description": "Include Prereleases",
+              "schema": {
+                "type": "boolean"
+              },
+              "allowEmptyValue": true
+            },
+            {"$ref": "#/components/parameters/logo"},
+            {"$ref": "#/components/parameters/logoColor"}
+          ],
+          "x-code-samples": [
+              {
+                  "lang": "URL",
+                  "label": "URL",
+                  "source": "$url"
+              },
+              {
+                  "lang": "Markdown",
+                  "label": "Markdown",
+                  "source": "![Packagist Version]($url)"
+              },
+              {
+                  "lang": "reStructuredText",
+                  "label": "rSt",
+                  "source": ".. image:: $url\n:   alt: Packagist Version"
+              },
+              {
+                  "lang": "AsciiDoc",
+                  "label": "AsciiDoc",
+                  "source": "image:$url[Packagist Version]"
+              },
+              {
+                  "lang": "HTML",
+                  "label": "HTML",
+                  "source": "<img alt=\"Packagist Version\" src=\"$url\">"
+              }
+          ]
+        }
+      }
 
   }
 }
