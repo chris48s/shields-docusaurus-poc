@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkshields_docusaurus_poc=self.webpackChunkshields_docusaurus_poc||[]).push([[52535],{245641:s=>{s.exports=JSON.parse('{"title":"Recent posts","items":[{"title":"Big announcement, huge!","permalink":"/shields-docusaurus-poc/blog/first-blog-post"}]}')}}]);
