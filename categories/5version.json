@@ -33,6 +33,21 @@
         "schema": {
           "type": "string"
         }
+      },
+      "link": {
+        "name": "link",
+        "in": "query",
+        "required": false,
+        "description": "Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.",
+        "style": "form",
+        "explode": true,
+        "schema": {
+          "type": "array",
+          "maxItems": 2,
+          "items": {
+            "type": "string"
+          }
+        }
       }
     }
   },
@@ -54,7 +69,8 @@
             "example": "got"
           },
           {"$ref": "#/components/parameters/logo"},
-          {"$ref": "#/components/parameters/logoColor"}
+          {"$ref": "#/components/parameters/logoColor"},
+          {"$ref": "#/components/parameters/link"}
         ],
         "x-code-samples": [
             {
