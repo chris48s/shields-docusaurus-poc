@@ -1,26 +1,17 @@
 import React, { useRef, useState, useEffect } from "react";
 
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import clsx from "clsx";
-// @ts-ignore
-import codegen from "postman-code-generators";
-import sdk from "postman-collection";
-import Highlight, { defaultProps } from "prism-react-renderer";
+import clsx from "clsx"; // @ts-ignore
 
+import codegen from "postman-code-generators";
+import Highlight, { defaultProps } from "prism-react-renderer";
 import { useTypedSelector } from "@theme/ApiDemoPanel/hooks";
 import buildPostmanRequest from "@theme/ApiDemoPanel/buildPostmanRequest";
 import FloatingButton from "@theme/ApiDemoPanel/FloatingButton";
 import styles from "docusaurus-theme-openapi/lib/theme/ApiDemoPanel/Curl/styles.module.css";
 
-interface Language {
-  tabName: string;
-  highlight: string;
-  language: string;
-  variant: string;
-  options: { [key: string]: boolean };
-}
 
-const languageSet: Language[] = [
+const languageSet = [
   {
     tabName: "cURL",
     highlight: "bash",
@@ -64,7 +55,6 @@ const languageSet: Language[] = [
     },
   },
 ];
-
 const languageTheme = {
   plain: {
     color: "var(--ifm-code-color)",
@@ -115,41 +105,26 @@ const languageTheme = {
   ],
 };
 
-interface Props {
-  postman: sdk.Request;
-  codeSamples: any; // TODO: Type this...
-}
-
-function Example({ postman, codeSamples }: Props) {
+function Curl({ postman, codeSamples }) {
   // TODO: match theme for vscode.
-
   const { siteConfig } = useDocusaurusContext();
-
   const [copyText, setCopyText] = useState("Copy");
-
   const contentType = useTypedSelector((state) => state.contentType.value);
   const accept = useTypedSelector((state) => state.accept.value);
   const server = useTypedSelector((state) => state.server.value);
   const body = useTypedSelector((state) => state.body);
-
   const pathParams = useTypedSelector((state) => state.params.path);
   const queryParams = useTypedSelector((state) => state.params.query);
   const cookieParams = useTypedSelector((state) => state.params.cookie);
   const headerParams = useTypedSelector((state) => state.params.header);
-
   const auth = useTypedSelector((state) => state.auth);
 
-  // TODO
   const langs = [
-    ...((siteConfig?.themeConfig?.languageTabs as Language[] | undefined) ??
-      languageSet),
+    ...(siteConfig?.themeConfig?.languageTabs ?? languageSet),
     ...codeSamples,
   ];
-
   const [language, setLanguage] = useState(langs[0]);
-
   const [codeText, setCodeText] = useState("");
-
   useEffect(() => {
     const postmanRequest = buildPostmanRequest(postman, {
       queryParams,
@@ -168,10 +143,11 @@ function Example({ postman, codeSamples }: Props) {
         language.variant,
         postmanRequest,
         language.options,
-        (error: any, snippet: string) => {
+        (error, snippet) => {
           if (error) {
             return;
           }
+
           setCodeText(snippet);
         }
       );
@@ -193,14 +169,14 @@ function Example({ postman, codeSamples }: Props) {
     server,
     auth,
   ]);
-
-  const ref = useRef<HTMLDivElement>(null);
+  const ref = useRef(null);
 
   const handleCurlCopy = () => {
     setCopyText("Copied");
     setTimeout(() => {
       setCopyText("Copy");
     }, 2000);
+
     if (ref.current?.innerText) {
       navigator.clipboard.writeText(ref.current.innerText);
     }
@@ -249,12 +225,25 @@ function Example({ postman, codeSamples }: Props) {
             >
               <code ref={ref}>
                 {tokens.map((line, i) => (
-                  <span {...getLineProps({ line, key: i })}>
+                  <span
+                    {...getLineProps({
+                      line,
+                      key: i,
+                    })}
+                  >
                     {line.map((token, key) => {
                       if (token.types.includes("arrow")) {
                         token.types = ["arrow"];
                       }
-                      return <span {...getTokenProps({ token, key })} />;
+
+                      return (
+                        <span
+                          {...getTokenProps({
+                            token,
+                            key,
+                          })}
+                        />
+                      );
                     })}
                     {"\n"}
                   </span>
@@ -268,4 +257,4 @@ function Example({ postman, codeSamples }: Props) {
   );
 }
 
-export default Example;
+export default Curl;

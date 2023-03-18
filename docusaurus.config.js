@@ -52,7 +52,6 @@ const config = {
         api: {
           path: 'categories',
           routeBasePath: 'badges',
-          apiItemComponent: require.resolve("./src/shields-theme/ApiItem.tsx"),
         },
       }),
     ],

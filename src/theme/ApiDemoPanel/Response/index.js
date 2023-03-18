@@ -2,20 +2,21 @@ import React from "react";
 
 import { useTypedDispatch, useTypedSelector } from "@theme/ApiDemoPanel/hooks";
 import FloatingButton from "@theme/ApiDemoPanel/FloatingButton";
-import { clearResponse } from "@theme/ApiDemoPanel/Response/slice";
+import { clearResponse } from "docusaurus-theme-openapi/lib/theme/ApiDemoPanel/Response/slice";
 
-// TODO: We probably shouldn't attempt to format XML...
-function formatXml(xml: string) {
+
+function formatXml(xml) {
   const tab = "  ";
   let formatted = "";
   let indent = "";
-
   xml.split(/>\s*</).forEach((node) => {
     if (node.match(/^\/\w/)) {
       // decrease indent by one 'tab'
       indent = indent.substring(tab.length);
     }
+
     formatted += indent + "<" + node + ">\r\n";
+
     if (node.match(/^<?\w[^>]*[^/]$/)) {
       // increase indent
       indent += tab;
@@ -32,7 +33,8 @@ function Response() {
     return null;
   }
 
-  let prettyResponse: string = response;
+  let prettyResponse = response;
+
   try {
     prettyResponse = JSON.stringify(JSON.parse(response), null, 2);
   } catch {
