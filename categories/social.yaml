@@ -1,0 +1,602 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Social'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /github/gist/stars/{gistId}:
+    get:
+      summary: 'Github Gist stars'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n\n<p>This badge shows the number of stargazers for a gist. Gist id is accepted as input and 'gist not found' is returned if the gist is not found for the given gist id.\n</p>"
+      parameters:
+        - {'name': 'gistId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '47a4d00457a92aa426dbd48a18776322'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Github Gist stars]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Github Gist stars"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Github Gist stars]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Github Gist stars" src="$url">'}
+  /github/followers/{user}:
+    get:
+      summary: 'GitHub followers'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'espadrine'}
+        - {'name': 'label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'Follow'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub followers]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub followers"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub followers]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub followers" src="$url">'}
+  /github/forks/{user}/{repo}:
+    get:
+      summary: 'GitHub forks'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'Fork'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub forks]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub forks"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub forks]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub forks" src="$url">'}
+  /github/stars/{user}/{repo}:
+    get:
+      summary: 'GitHub Repo stars'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'style', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'social'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub Repo stars]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub Repo stars"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub Repo stars]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub Repo stars" src="$url">'}
+  /github/stars/{user}:
+    get:
+      summary: 'GitHub User''s stars'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n\n<p>\n  <b>Note:</b><br />\n  1. This badge takes into account up to <code>200</code> of the most starred repositories of given user / org.<br />\n  2. <code>affiliations</code> query param accepts three values (must be UPPER case) <code>OWNER</code>, <code>COLLABORATOR</code>, <code>ORGANIZATION_MEMBER</code>.\n  One can pass comma separated combinations of these values (no spaces) e.g. <code>OWNER,COLLABORATOR</code> or <code>OWNER,COLLABORATOR,ORGANIZATION_MEMBER</code>.\n  Default value is <code>OWNER</code>. See the explanation of these values <a href=\"https://docs.github.com/en/graphql/reference/enums#repositoryaffiliation\">here</a>.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'chris48s'}
+        - {'name': 'affiliations', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'OWNER,COLLABORATOR'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub User''s stars]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub User's stars"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub User''s stars]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub User''s stars" src="$url">'}
+  /github/stars/{org}:
+    get:
+      summary: 'GitHub Org''s stars'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n\n<p>\n  <b>Note:</b> This badge takes into account up to <code>200</code> of the most starred repositories of given user / org.\n</p>"
+      parameters:
+        - {'name': 'org', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub Org''s stars]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub Org's stars"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub Org''s stars]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub Org''s stars" src="$url">'}
+  /github/watchers/{user}/{repo}:
+    get:
+      summary: 'GitHub watchers'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'Watch'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub watchers]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub watchers"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub watchers]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub watchers" src="$url">'}
+  /gitlab/forks/{project}:
+    get:
+      summary: 'GitLab forks'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. gitlab-org/gitlab ).\n  Note that only internet-accessible GitLab instances are supported, for example https://jihulab.com, https://gitlab.gnome.org, or https://gitlab.com/.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab forks]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab forks"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab forks]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab forks" src="$url">'}
+  /gitlab/stars/{project}:
+    get:
+      summary: 'GitLab stars'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. gitlab-org/gitlab ).\n  Note that only internet-accessible GitLab instances are supported, for example https://jihulab.com, https://gitlab.gnome.org, or https://gitlab.com/.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab stars]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab stars"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab stars]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab stars" src="$url">'}
+  /hackernews/user-karma/{id}:
+    get:
+      summary: 'HackerNews User Karma'
+      parameters:
+        - {'name': 'id', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'pg'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![HackerNews User Karma]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: HackerNews User Karma"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[HackerNews User Karma]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="HackerNews User Karma" src="$url">'}
+  /keybase/btc/{username}:
+    get:
+      summary: 'Keybase BTC'
+      parameters:
+        - {'name': 'username', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'skyplabs'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Keybase BTC]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Keybase BTC"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Keybase BTC]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Keybase BTC" src="$url">'}
+  /keybase/pgp/{username}:
+    get:
+      summary: 'Keybase PGP'
+      parameters:
+        - {'name': 'username', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'skyplabs'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Keybase PGP]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Keybase PGP"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Keybase PGP]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Keybase PGP" src="$url">'}
+  /keybase/xlm/{username}:
+    get:
+      summary: 'Keybase XLM'
+      parameters:
+        - {'name': 'username', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'skyplabs'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Keybase XLM]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Keybase XLM"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Keybase XLM]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Keybase XLM" src="$url">'}
+  /keybase/zec/{username}:
+    get:
+      summary: 'Keybase ZEC'
+      parameters:
+        - {'name': 'username', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'skyplabs'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Keybase ZEC]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Keybase ZEC"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Keybase ZEC]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Keybase ZEC" src="$url">'}
+  /mastodon/follow/{id}:
+    get:
+      summary: 'Mastodon Follow'
+      description: "\n<p>To find your user id, you can use <a link target=\"_blank\" href=\"https://prouser123.me/misc/mastodon-userid-lookup.html\">this tool</a>.</p><br />\n<p>Alternatively you can make a request to <code>https://your.mastodon.server/.well-known/webfinger?resource=acct:&#123;user&#125;@&#123;domain&#125;</code></p>\n<p>Failing that, you can also visit your profile page, where your user ID will be in the header in a tag like this: <code>&lt;link href='https://your.mastodon.server/api/salmon/&#123;your-user-id&#125;' rel='salmon'></code></p>\n"
+      parameters:
+        - {'name': 'id', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '26471'}
+        - {'name': 'domain', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://mastodon.social'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Mastodon Follow]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Mastodon Follow"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Mastodon Follow]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Mastodon Follow" src="$url">'}
+  /modrinth/followers/{projectId}:
+    get:
+      summary: 'Modrinth Followers'
+      description: '<p>You can use your project slug, or the project ID. The ID can be found in the ''Technical information'' section of your Modrinth page.</p>'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'AANobbMI'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Modrinth Followers]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Modrinth Followers"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Modrinth Followers]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Modrinth Followers" src="$url">'}
+  /reddit/subreddit-subscribers/{subreddit}:
+    get:
+      summary: 'Subreddit subscribers'
+      parameters:
+        - {'name': 'subreddit', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'drums'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Subreddit subscribers]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Subreddit subscribers"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Subreddit subscribers]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Subreddit subscribers" src="$url">'}
+  /reddit/user-karma/{variant}/{user}:
+    get:
+      summary: 'Reddit User Karma'
+      parameters:
+        - {'name': 'variant', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['link', 'comment', 'combined']}, 'example': 'combined'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'example'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Reddit User Karma]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Reddit User Karma"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Reddit User Karma]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Reddit User Karma" src="$url">'}
+  /twitch/status/{user}:
+    get:
+      summary: 'Twitch Status'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'andyonthewings'}
+        - {'name': 'style', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'social'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Twitch Status]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Twitch Status"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Twitch Status]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Twitch Status" src="$url">'}
+  /twitter/url:
+    get:
+      summary: 'Twitter URL'
+      parameters:
+        - {'name': 'url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://shields.io'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Twitter URL]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Twitter URL"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Twitter URL]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Twitter URL" src="$url">'}
+  /twitter/follow/{user}:
+    get:
+      summary: 'Twitter Follow'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields_io'}
+        - {'name': 'label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'Follow'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Twitter Follow]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Twitter Follow"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Twitter Follow]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Twitter Follow" src="$url">'}
+  /youtube/channel/views/{channelId}:
+    get:
+      summary: 'YouTube Channel Views'
+      description: "\n<p>By using the YouTube badges provided by Shields.io, you are agreeing to be bound by the YouTube Terms of Service. These can be found here:\n<a target=\"_blank\" href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a></p>"
+      parameters:
+        - {'name': 'channelId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'UC8butISFwT-Wl7EV0hUK0BQ'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![YouTube Channel Views]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: YouTube Channel Views"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[YouTube Channel Views]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="YouTube Channel Views" src="$url">'}
+  /youtube/comments/{videoId}:
+    get:
+      summary: 'YouTube Video Comments'
+      description: "\n<p>By using the YouTube badges provided by Shields.io, you are agreeing to be bound by the YouTube Terms of Service. These can be found here:\n<a target=\"_blank\" href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a></p>"
+      parameters:
+        - {'name': 'videoId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'wGJHwc5ksMA'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![YouTube Video Comments]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: YouTube Video Comments"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[YouTube Video Comments]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="YouTube Video Comments" src="$url">'}
+  /youtube/likes/{videoId}:
+    get:
+      summary: 'YouTube Video Likes'
+      description: "\n<p>By using the YouTube badges provided by Shields.io, you are agreeing to be bound by the YouTube Terms of Service. These can be found here:\n<a target=\"_blank\" href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a></p>"
+      parameters:
+        - {'name': 'videoId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'abBdk8bSPKU'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![YouTube Video Likes]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: YouTube Video Likes"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[YouTube Video Likes]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="YouTube Video Likes" src="$url">'}
+  /youtube/channel/subscribers/{channelId}:
+    get:
+      summary: 'YouTube Channel Subscribers'
+      description: "\n<p>By using the YouTube badges provided by Shields.io, you are agreeing to be bound by the YouTube Terms of Service. These can be found here:\n<a target=\"_blank\" href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a></p>"
+      parameters:
+        - {'name': 'channelId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'UC8butISFwT-Wl7EV0hUK0BQ'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![YouTube Channel Subscribers]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: YouTube Channel Subscribers"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[YouTube Channel Subscribers]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="YouTube Channel Subscribers" src="$url">'}
+  /youtube/views/{videoId}:
+    get:
+      summary: 'YouTube Video Views'
+      description: "\n<p>By using the YouTube badges provided by Shields.io, you are agreeing to be bound by the YouTube Terms of Service. These can be found here:\n<a target=\"_blank\" href=\"https://www.youtube.com/t/terms\">https://www.youtube.com/t/terms</a></p>"
+      parameters:
+        - {'name': 'videoId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'abBdk8bSPKU'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![YouTube Video Views]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: YouTube Video Views"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[YouTube Video Views]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="YouTube Video Views" src="$url">'}

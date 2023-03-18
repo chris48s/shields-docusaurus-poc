@@ -1,0 +1,346 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Test Results'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /appveyor/tests/{user}/{repo}:
+    get:
+      summary: 'AppVeyor tests with custom labels'
+      description: "\n<p>\n  You may change the \"passed\", \"failed\" and \"skipped\" text on this badge by supplying query parameters <code>&passed_label=</code>, <code>&failed_label=</code> and <code>&skipped_label=</code> respectively.\n</p>\n\n<p>\n  For example, if you want to use a different terminology:\n  <br />\n  <code>?passed_label=good&failed_label=bad&skipped_label=n%2Fa</code>\n</p>\n\n<p>\n  Or symbols:\n  <br />\n  <code>?compact_message&passed_label=💃&failed_label=🤦‍♀️&skipped_label=🤷</code>\n</p>\n\n<p>\n  There is also a <code>&compact_message</code> query parameter, which will default to displaying ✔, ✘ and ➟, separated by a horizontal bar |.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'NZSmartie'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'coap-net-iu0to'}
+        - {'name': 'passed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'good'}
+        - {'name': 'failed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'bad'}
+        - {'name': 'skipped_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'n/a'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![AppVeyor tests with custom labels]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: AppVeyor tests with custom labels"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[AppVeyor tests with custom labels]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="AppVeyor tests with custom labels" src="$url">'}
+  /appveyor/tests/{user}/{repo}/{branch}:
+    get:
+      summary: 'AppVeyor tests (branch)'
+      description: "\n<p>\n  You may change the \"passed\", \"failed\" and \"skipped\" text on this badge by supplying query parameters <code>&passed_label=</code>, <code>&failed_label=</code> and <code>&skipped_label=</code> respectively.\n</p>\n\n<p>\n  For example, if you want to use a different terminology:\n  <br />\n  <code>?passed_label=good&failed_label=bad&skipped_label=n%2Fa</code>\n</p>\n\n<p>\n  Or symbols:\n  <br />\n  <code>?compact_message&passed_label=💃&failed_label=🤦‍♀️&skipped_label=🤷</code>\n</p>\n\n<p>\n  There is also a <code>&compact_message</code> query parameter, which will default to displaying ✔, ✘ and ➟, separated by a horizontal bar |.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'NZSmartie'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'coap-net-iu0to'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![AppVeyor tests (branch)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: AppVeyor tests (branch)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[AppVeyor tests (branch)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="AppVeyor tests (branch)" src="$url">'}
+  /azure-devops/tests/{organization}/{project}/{definitionId}/{branch}:
+    get:
+      summary: 'Azure DevOps tests with custom labels'
+      description: "\n<p>\n  To obtain your own badge, you need to get 3 pieces of information:\n  <code>ORGANIZATION</code>, <code>PROJECT</code> and <code>DEFINITION_ID</code>.\n</p>\n<p>\n  First, you need to select your build definition and look at the url:\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/3749820/47259976-e2d9ec80-d4b2-11e8-92cc-7c81089a7a2c.png\"\n  alt=\"ORGANIZATION is after the dev.azure.com part, PROJECT is right after that, DEFINITION_ID is at the end after the id= part.\" />\n<p>\n  Your badge will then have the form:\n  <code>https://img.shields.io/azure-devops/tests/ORGANIZATION/PROJECT/DEFINITION_ID.svg</code>.\n</p>\n<p>\n  Optionally, you can specify a named branch:\n  <code>https://img.shields.io/azure-devops/tests/ORGANIZATION/PROJECT/DEFINITION_ID/NAMED_BRANCH.svg</code>.\n</p>\n\n<p>\n  You may change the \"passed\", \"failed\" and \"skipped\" text on this badge by supplying query parameters <code>&passed_label=</code>, <code>&failed_label=</code> and <code>&skipped_label=</code> respectively.\n</p>\n\n<p>\n  For example, if you want to use a different terminology:\n  <br />\n  <code>?passed_label=good&failed_label=bad&skipped_label=n%2Fa</code>\n</p>\n\n<p>\n  Or symbols:\n  <br />\n  <code>?compact_message&passed_label=💃&failed_label=🤦‍♀️&skipped_label=🤷</code>\n</p>\n\n<p>\n  There is also a <code>&compact_message</code> query parameter, which will default to displaying ✔, ✘ and ➟, separated by a horizontal bar |.\n</p>\n\n"
+      parameters:
+        - {'name': 'organization', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'azuredevops-powershell'}
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'azuredevops-powershell'}
+        - {'name': 'definitionId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '1'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'passed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'passed'}
+        - {'name': 'failed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'failed'}
+        - {'name': 'skipped_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'skipped'}
+        - {'name': 'compact_message', 'in': 'query', 'required': false, 'schema': {'type': 'boolean'}, 'allowEmptyValue': true, 'example': null}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Azure DevOps tests with custom labels]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Azure DevOps tests with custom labels"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Azure DevOps tests with custom labels]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Azure DevOps tests with custom labels" src="$url">'}
+  /azure-devops/tests/{organization}/{project}/{definitionId}:
+    get:
+      summary: 'Azure DevOps tests with custom labels'
+      description: "\n<p>\n  To obtain your own badge, you need to get 3 pieces of information:\n  <code>ORGANIZATION</code>, <code>PROJECT</code> and <code>DEFINITION_ID</code>.\n</p>\n<p>\n  First, you need to select your build definition and look at the url:\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/3749820/47259976-e2d9ec80-d4b2-11e8-92cc-7c81089a7a2c.png\"\n  alt=\"ORGANIZATION is after the dev.azure.com part, PROJECT is right after that, DEFINITION_ID is at the end after the id= part.\" />\n<p>\n  Your badge will then have the form:\n  <code>https://img.shields.io/azure-devops/tests/ORGANIZATION/PROJECT/DEFINITION_ID.svg</code>.\n</p>\n<p>\n  Optionally, you can specify a named branch:\n  <code>https://img.shields.io/azure-devops/tests/ORGANIZATION/PROJECT/DEFINITION_ID/NAMED_BRANCH.svg</code>.\n</p>\n\n<p>\n  You may change the \"passed\", \"failed\" and \"skipped\" text on this badge by supplying query parameters <code>&passed_label=</code>, <code>&failed_label=</code> and <code>&skipped_label=</code> respectively.\n</p>\n\n<p>\n  For example, if you want to use a different terminology:\n  <br />\n  <code>?passed_label=good&failed_label=bad&skipped_label=n%2Fa</code>\n</p>\n\n<p>\n  Or symbols:\n  <br />\n  <code>?compact_message&passed_label=💃&failed_label=🤦‍♀️&skipped_label=🤷</code>\n</p>\n\n<p>\n  There is also a <code>&compact_message</code> query parameter, which will default to displaying ✔, ✘ and ➟, separated by a horizontal bar |.\n</p>\n\n"
+      parameters:
+        - {'name': 'organization', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'azuredevops-powershell'}
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'azuredevops-powershell'}
+        - {'name': 'definitionId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '1'}
+        - {'name': 'passed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'passed'}
+        - {'name': 'failed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'failed'}
+        - {'name': 'skipped_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'skipped'}
+        - {'name': 'compact_message', 'in': 'query', 'required': false, 'schema': {'type': 'boolean'}, 'allowEmptyValue': true, 'example': null}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Azure DevOps tests with custom labels]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Azure DevOps tests with custom labels"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Azure DevOps tests with custom labels]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Azure DevOps tests with custom labels" src="$url">'}
+  /jenkins/tests:
+    get:
+      summary: 'Jenkins tests'
+      description: "\n<p>\n  You may change the \"passed\", \"failed\" and \"skipped\" text on this badge by supplying query parameters <code>&passed_label=</code>, <code>&failed_label=</code> and <code>&skipped_label=</code> respectively.\n</p>\n\n<p>\n  For example, if you want to use a different terminology:\n  <br />\n  <code>?passed_label=good&failed_label=bad&skipped_label=n%2Fa</code>\n</p>\n\n<p>\n  Or symbols:\n  <br />\n  <code>?compact_message&passed_label=💃&failed_label=🤦‍♀️&skipped_label=🤷</code>\n</p>\n\n<p>\n  There is also a <code>&compact_message</code> query parameter, which will default to displaying ✔, ✘ and ➟, separated by a horizontal bar |.\n</p>\n"
+      parameters:
+        - {'name': 'compact_message', 'in': 'query', 'required': false, 'schema': {'type': 'boolean'}, 'allowEmptyValue': true, 'example': null}
+        - {'name': 'passed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'passed'}
+        - {'name': 'failed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'failed'}
+        - {'name': 'skipped_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'skipped'}
+        - {'name': 'jobUrl', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://jenkins.sqlalchemy.org/job/alembic_gerrit'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Jenkins tests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Jenkins tests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Jenkins tests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Jenkins tests" src="$url">'}
+  /sonar/tests/{component}/{branch}:
+    get:
+      summary: 'Sonar Tests'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n\n        \n<p>\n  You may change the \"passed\", \"failed\" and \"skipped\" text on this badge by supplying query parameters <code>&passed_label=</code>, <code>&failed_label=</code> and <code>&skipped_label=</code> respectively.\n</p>\n\n<p>\n  For example, if you want to use a different terminology:\n  <br />\n  <code>?passed_label=good&failed_label=bad&skipped_label=n%2Fa</code>\n</p>\n\n<p>\n  Or symbols:\n  <br />\n  <code>?compact_message&passed_label=💃&failed_label=🤦‍♀️&skipped_label=🤷</code>\n</p>\n\n<p>\n  There is also a <code>&compact_message</code> query parameter, which will default to displaying ✔, ✘ and ➟, separated by a horizontal bar |.\n</p>\n\n      "
+      parameters:
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org.ow2.petals:petals-se-ase'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'http://sonar.petalslink.com'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'name': 'compact_message', 'in': 'query', 'required': false, 'schema': {'type': 'boolean'}, 'allowEmptyValue': true, 'example': null}
+        - {'name': 'passed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'passed'}
+        - {'name': 'failed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'failed'}
+        - {'name': 'skipped_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'skipped'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Tests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Tests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Tests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Tests" src="$url">'}
+  /sonar/tests/{component}:
+    get:
+      summary: 'Sonar Tests'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n\n        \n<p>\n  You may change the \"passed\", \"failed\" and \"skipped\" text on this badge by supplying query parameters <code>&passed_label=</code>, <code>&failed_label=</code> and <code>&skipped_label=</code> respectively.\n</p>\n\n<p>\n  For example, if you want to use a different terminology:\n  <br />\n  <code>?passed_label=good&failed_label=bad&skipped_label=n%2Fa</code>\n</p>\n\n<p>\n  Or symbols:\n  <br />\n  <code>?compact_message&passed_label=💃&failed_label=🤦‍♀️&skipped_label=🤷</code>\n</p>\n\n<p>\n  There is also a <code>&compact_message</code> query parameter, which will default to displaying ✔, ✘ and ➟, separated by a horizontal bar |.\n</p>\n\n      "
+      parameters:
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org.ow2.petals:petals-se-ase'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'http://sonar.petalslink.com'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'name': 'compact_message', 'in': 'query', 'required': false, 'schema': {'type': 'boolean'}, 'allowEmptyValue': true, 'example': null}
+        - {'name': 'passed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'passed'}
+        - {'name': 'failed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'failed'}
+        - {'name': 'skipped_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'skipped'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Tests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Tests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Tests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Tests" src="$url">'}
+  /tas/tests/{provider}/{org}/{repo}:
+    get:
+      summary: 'TAS Tests'
+      parameters:
+        - {'name': 'provider', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'github'}
+        - {'name': 'org', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'tasdemo'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'axios'}
+        - {'name': 'passed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'passed'}
+        - {'name': 'failed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'failed'}
+        - {'name': 'skipped_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'skipped'}
+        - {'name': 'compact_message', 'in': 'query', 'required': false, 'schema': {'type': 'boolean'}, 'allowEmptyValue': true, 'example': null}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![TAS Tests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: TAS Tests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[TAS Tests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="TAS Tests" src="$url">'}
+  /testspace/{metric}/{org}/{project}/{space}:
+    get:
+      summary: 'Testspace tests'
+      parameters:
+        - {'name': 'metric', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['total', 'passed', 'failed', 'skipped', 'errored', 'untested']}, 'example': 'passed'}
+        - {'name': 'org', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'swellaby'}
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'swellaby:testspace-sample'}
+        - {'name': 'space', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'main'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Testspace tests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Testspace tests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Testspace tests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Testspace tests" src="$url">'}
+  /testspace/pass-ratio/{org}/{project}/{space}:
+    get:
+      summary: 'Testspace pass ratio'
+      parameters:
+        - {'name': 'org', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'swellaby'}
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'swellaby:testspace-sample'}
+        - {'name': 'space', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'main'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Testspace pass ratio]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Testspace pass ratio"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Testspace pass ratio]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Testspace pass ratio" src="$url">'}
+  /testspace/tests/{org}/{project}/{space}:
+    get:
+      summary: 'Testspace tests with custom labels'
+      parameters:
+        - {'name': 'org', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'swellaby'}
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'swellaby:testspace-sample'}
+        - {'name': 'space', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'main'}
+        - {'name': 'passed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'good'}
+        - {'name': 'failed_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'bad'}
+        - {'name': 'skipped_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'n/a'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Testspace tests with custom labels]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Testspace tests with custom labels"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Testspace tests with custom labels]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Testspace tests with custom labels" src="$url">'}

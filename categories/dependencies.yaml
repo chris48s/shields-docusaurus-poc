@@ -1,0 +1,313 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Dependencies'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /depfu/dependencies/{vcsType}/{project}:
+    get:
+      summary: 'Depfu'
+      parameters:
+        - {'name': 'vcsType', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['github', 'gitlab']}, 'example': 'github'}
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'depfu/example-ruby'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Depfu]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Depfu"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Depfu]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Depfu" src="$url">'}
+  /github/pipenv/locked/dependency-version/{user}/{repo}/{kind}/{packageName}:
+    get:
+      summary: 'GitHub Pipenv locked dependency version'
+      description: "\n<p>\n  <a href=\"https://github.com/pypa/pipenv\">Pipenv</a> is a dependency\n  manager for Python which manages a\n  <a href=\"https://virtualenv.pypa.io/en/latest/\">virtualenv</a> for\n  projects. It adds/removes packages from your <code>Pipfile</code> as\n  you install/uninstall packages and generates the ever-important\n  <code>Pipfile.lock</code>, which can be checked in to source control\n  in order to produce deterministic builds.\n</p>\n\n<p>\n  The GitHub Pipenv badges are intended for applications using Pipenv\n  which are hosted on GitHub.\n</p>\n\n<p>\n  When <code>Pipfile.lock</code> is checked in, the <strong>GitHub Pipenv\n  locked dependency version</strong> badge displays the locked version of\n  a dependency listed in <code>[packages]</code> or\n  <code>[dev-packages]</code> (or any of their transitive dependencies).\n</p>\n\n<p>\n  Usually a Python version is specified in the <code>Pipfile</code>, which\n  <code>pipenv lock</code> then places in <code>Pipfile.lock</code>. The\n  <strong>GitHub Pipenv Python version</strong> badge displays that version.\n</p>\n\n\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'metabolize'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rq-dashboard-on-heroku'}
+        - {'name': 'kind', 'in': 'path', 'required': true, 'schema': {'type': 'string'}}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'flask'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub Pipenv locked dependency version]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub Pipenv locked dependency version"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub Pipenv locked dependency version]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub Pipenv locked dependency version" src="$url">'}
+  /github/pipenv/locked/dependency-version/{user}/{repo}/{packageName}:
+    get:
+      summary: 'GitHub Pipenv locked dependency version'
+      description: "\n<p>\n  <a href=\"https://github.com/pypa/pipenv\">Pipenv</a> is a dependency\n  manager for Python which manages a\n  <a href=\"https://virtualenv.pypa.io/en/latest/\">virtualenv</a> for\n  projects. It adds/removes packages from your <code>Pipfile</code> as\n  you install/uninstall packages and generates the ever-important\n  <code>Pipfile.lock</code>, which can be checked in to source control\n  in order to produce deterministic builds.\n</p>\n\n<p>\n  The GitHub Pipenv badges are intended for applications using Pipenv\n  which are hosted on GitHub.\n</p>\n\n<p>\n  When <code>Pipfile.lock</code> is checked in, the <strong>GitHub Pipenv\n  locked dependency version</strong> badge displays the locked version of\n  a dependency listed in <code>[packages]</code> or\n  <code>[dev-packages]</code> (or any of their transitive dependencies).\n</p>\n\n<p>\n  Usually a Python version is specified in the <code>Pipfile</code>, which\n  <code>pipenv lock</code> then places in <code>Pipfile.lock</code>. The\n  <strong>GitHub Pipenv Python version</strong> badge displays that version.\n</p>\n\n\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'metabolize'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rq-dashboard-on-heroku'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'flask'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub Pipenv locked dependency version]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub Pipenv locked dependency version"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub Pipenv locked dependency version]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub Pipenv locked dependency version" src="$url">'}
+  /github/pipenv/locked/dependency-version/{user}/{repo}/{kind}/{packageName}/{branch}:
+    get:
+      summary: 'GitHub Pipenv locked dependency version (branch)'
+      description: "\n<p>\n  <a href=\"https://github.com/pypa/pipenv\">Pipenv</a> is a dependency\n  manager for Python which manages a\n  <a href=\"https://virtualenv.pypa.io/en/latest/\">virtualenv</a> for\n  projects. It adds/removes packages from your <code>Pipfile</code> as\n  you install/uninstall packages and generates the ever-important\n  <code>Pipfile.lock</code>, which can be checked in to source control\n  in order to produce deterministic builds.\n</p>\n\n<p>\n  The GitHub Pipenv badges are intended for applications using Pipenv\n  which are hosted on GitHub.\n</p>\n\n<p>\n  When <code>Pipfile.lock</code> is checked in, the <strong>GitHub Pipenv\n  locked dependency version</strong> badge displays the locked version of\n  a dependency listed in <code>[packages]</code> or\n  <code>[dev-packages]</code> (or any of their transitive dependencies).\n</p>\n\n<p>\n  Usually a Python version is specified in the <code>Pipfile</code>, which\n  <code>pipenv lock</code> then places in <code>Pipfile.lock</code>. The\n  <strong>GitHub Pipenv Python version</strong> badge displays that version.\n</p>\n\n\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'metabolize'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rq-dashboard-on-heroku'}
+        - {'name': 'kind', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'dev'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'black'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'main'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub Pipenv locked dependency version (branch)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub Pipenv locked dependency version (branch)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub Pipenv locked dependency version (branch)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub Pipenv locked dependency version (branch)" src="$url">'}
+  /github/pipenv/locked/dependency-version/{user}/{repo}/{packageName}/{branch}:
+    get:
+      summary: 'GitHub Pipenv locked dependency version (branch)'
+      description: "\n<p>\n  <a href=\"https://github.com/pypa/pipenv\">Pipenv</a> is a dependency\n  manager for Python which manages a\n  <a href=\"https://virtualenv.pypa.io/en/latest/\">virtualenv</a> for\n  projects. It adds/removes packages from your <code>Pipfile</code> as\n  you install/uninstall packages and generates the ever-important\n  <code>Pipfile.lock</code>, which can be checked in to source control\n  in order to produce deterministic builds.\n</p>\n\n<p>\n  The GitHub Pipenv badges are intended for applications using Pipenv\n  which are hosted on GitHub.\n</p>\n\n<p>\n  When <code>Pipfile.lock</code> is checked in, the <strong>GitHub Pipenv\n  locked dependency version</strong> badge displays the locked version of\n  a dependency listed in <code>[packages]</code> or\n  <code>[dev-packages]</code> (or any of their transitive dependencies).\n</p>\n\n<p>\n  Usually a Python version is specified in the <code>Pipfile</code>, which\n  <code>pipenv lock</code> then places in <code>Pipfile.lock</code>. The\n  <strong>GitHub Pipenv Python version</strong> badge displays that version.\n</p>\n\n\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'metabolize'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rq-dashboard-on-heroku'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'black'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'main'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub Pipenv locked dependency version (branch)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub Pipenv locked dependency version (branch)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub Pipenv locked dependency version (branch)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub Pipenv locked dependency version (branch)" src="$url">'}
+  /hackage-deps/v/{packageName}:
+    get:
+      summary: 'Hackage-Deps'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'lens'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Hackage-Deps]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Hackage-Deps"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Hackage-Deps]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Hackage-Deps" src="$url">'}
+  /librariesio/release/{platform}/{packageName}:
+    get:
+      summary: 'Libraries.io dependency status for latest release'
+      parameters:
+        - {'name': 'platform', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'hex'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'phoenix'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Libraries.io dependency status for latest release]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Libraries.io dependency status for latest release"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Libraries.io dependency status for latest release]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Libraries.io dependency status for latest release" src="$url">'}
+  /librariesio/release/{platform}/{packageName}/{version}:
+    get:
+      summary: 'Libraries.io dependency status for specific release'
+      parameters:
+        - {'name': 'platform', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'hex'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'phoenix'}
+        - {'name': 'version', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '1.0.3'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Libraries.io dependency status for specific release]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Libraries.io dependency status for specific release"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Libraries.io dependency status for specific release]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Libraries.io dependency status for specific release" src="$url">'}
+  /librariesio/release/{platform}/{scope}/{packageName}:
+    get:
+      summary: 'Libraries.io dependency status for latest release, scoped npm package'
+      parameters:
+        - {'name': 'platform', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'npm'}
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@babel'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'core'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Libraries.io dependency status for latest release, scoped npm package]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Libraries.io dependency status for latest release, scoped npm package"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Libraries.io dependency status for latest release, scoped npm package]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Libraries.io dependency status for latest release, scoped npm package" src="$url">'}
+  /librariesio/release/{platform}/{scope}/{packageName}/{version}:
+    get:
+      summary: 'Libraries.io dependency status for specific release, scoped npm package'
+      parameters:
+        - {'name': 'platform', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'npm'}
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@babel'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'core'}
+        - {'name': 'version', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '7.0.0'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Libraries.io dependency status for specific release, scoped npm package]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Libraries.io dependency status for specific release, scoped npm package"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Libraries.io dependency status for specific release, scoped npm package]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Libraries.io dependency status for specific release, scoped npm package" src="$url">'}
+  /librariesio/github/{user}/{repo}:
+    get:
+      summary: 'Libraries.io dependency status for GitHub repo'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'phoenixframework'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'phoenix'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Libraries.io dependency status for GitHub repo]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Libraries.io dependency status for GitHub repo"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Libraries.io dependency status for GitHub repo]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Libraries.io dependency status for GitHub repo" src="$url">'}

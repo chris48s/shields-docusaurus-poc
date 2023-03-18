@@ -1,0 +1,304 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Monitoring'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /hsts/preload/{domain}:
+    get:
+      summary: 'Chromium HSTS preload'
+      description: "\n<p>\n  <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security\">\n  <code>Strict-Transport-Security</code> is an HTTP response header</a> that signals that browsers should\n  only access the site using HTTPS.\n</p>\n<p>\n  For a higher level of security, it's possible for a domain owner to\n  <a href=\"https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Strict-Transport-Security#Preloading_Strict_Transport_Security\">preload\n  this behavior into participating web browsers</a>. Chromium maintains the <a href=\"https://www.chromium.org/hsts\">HSTS preload list</a>, which\n  is the de facto standard that has been adopted by several browsers. This service checks a domain's status in that list.\n</p>\n"
+      parameters:
+        - {'name': 'domain', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'github.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Chromium HSTS preload]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Chromium HSTS preload"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Chromium HSTS preload]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Chromium HSTS preload" src="$url">'}
+  /mozilla-observatory/{format}/{host}:
+    get:
+      summary: 'Mozilla HTTP Observatory Grade'
+      description: "\n<p>\n  The <a href=\"https://observatory.mozilla.org\">Mozilla HTTP Observatory</a>\n  is a set of tools to analyze your website\n  and inform you if you are utilizing the many available methods to secure it.\n</p>\n<p>\n  By default the scan result is hidden from the public result list.\n  You can activate the publication of the scan result\n  by setting the <code>publish</code> parameter.\n</p>\n<p>\n  The badge returns a cached site result if the site has been scanned anytime in the previous 24 hours.\n  If you need to force invalidating the cache,\n  you can to do it manually through the <a href=\"https://observatory.mozilla.org\">Mozilla Observatory Website</a>\n</p>\n"
+      parameters:
+        - {'name': 'format', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['grade', 'grade-score']}, 'example': 'grade'}
+        - {'name': 'host', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'github.com'}
+        - {'name': 'publish', 'in': 'query', 'required': false, 'schema': {'type': 'boolean'}, 'allowEmptyValue': true, 'example': null}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Mozilla HTTP Observatory Grade]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Mozilla HTTP Observatory Grade"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Mozilla HTTP Observatory Grade]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Mozilla HTTP Observatory Grade" src="$url">'}
+  /nodeping/status/{checkUuid}:
+    get:
+      summary: 'NodePing status'
+      parameters:
+        - {'name': 'checkUuid', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'jkiwn052-ntpp-4lbb-8d45-ihew6d9ucoei'}
+        - {'name': 'up_message', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'online'}
+        - {'name': 'up_color', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'blue'}
+        - {'name': 'down_message', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'offline'}
+        - {'name': 'down_color', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'lightgrey'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![NodePing status]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: NodePing status"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[NodePing status]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="NodePing status" src="$url">'}
+  /nodeping/uptime/{checkUuid}:
+    get:
+      summary: 'NodePing uptime'
+      parameters:
+        - {'name': 'checkUuid', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'jkiwn052-ntpp-4lbb-8d45-ihew6d9ucoei'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![NodePing uptime]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: NodePing uptime"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[NodePing uptime]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="NodePing uptime" src="$url">'}
+  /pingpong/status/{apiKey}:
+    get:
+      summary: 'PingPong status'
+      description: "\n<p>\n  To see more details about this badge and obtain your api key, visit\n  <a href=\"https://my.pingpong.one/integrations/badge-status/\" target=\"_blank\">https://my.pingpong.one/integrations/badge-status/</a>\n</p>\n"
+      parameters:
+        - {'name': 'apiKey', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'sp_2e80bc00b6054faeb2b87e2464be337e'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![PingPong status]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: PingPong status"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[PingPong status]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="PingPong status" src="$url">'}
+  /pingpong/uptime/{apiKey}:
+    get:
+      summary: 'PingPong uptime (last 30 days)'
+      description: "\n<p>\n  To see more details about this badge and obtain your api key, visit\n  <a href=\"https://my.pingpong.one/integrations/badge-uptime/\" target=\"_blank\">https://my.pingpong.one/integrations/badge-uptime/</a>\n</p>\n"
+      parameters:
+        - {'name': 'apiKey', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'sp_2e80bc00b6054faeb2b87e2464be337e'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![PingPong uptime (last 30 days)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: PingPong uptime (last 30 days)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[PingPong uptime (last 30 days)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="PingPong uptime (last 30 days)" src="$url">'}
+  /security-headers:
+    get:
+      summary: 'Security Headers (Don''t follow redirects)'
+      description: "\n<p>\n  The <a href=\"https://securityheaders.com/\">Security Headers</a>\n  provide an easy mechanism to analyze HTTP response headers and\n  give information on how to deploy missing headers.\n</p>\n<p>\n  The scan result will be hidden from the public result list and follow redirects will be on too.\n</p>\n"
+      parameters:
+        - {'name': 'url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://www.shields.io'}
+        - {'name': 'ignoreRedirects', 'in': 'query', 'required': false, 'schema': {'type': 'boolean'}, 'allowEmptyValue': true, 'example': null}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Security Headers (Don''t follow redirects)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Security Headers (Don't follow redirects)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Security Headers (Don''t follow redirects)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Security Headers (Don''t follow redirects)" src="$url">'}
+  /uptimerobot/ratio/{monitorSpecificKey}:
+    get:
+      summary: 'Uptime Robot ratio (30 days)'
+      parameters:
+        - {'name': 'monitorSpecificKey', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'm778918918-3e92c097147760ee39d02d36'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Uptime Robot ratio (30 days)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Uptime Robot ratio (30 days)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Uptime Robot ratio (30 days)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Uptime Robot ratio (30 days)" src="$url">'}
+  /uptimerobot/ratio/7/{monitorSpecificKey}:
+    get:
+      summary: 'Uptime Robot ratio (7 days)'
+      parameters:
+        - {'name': 'monitorSpecificKey', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'm778918918-3e92c097147760ee39d02d36'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Uptime Robot ratio (7 days)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Uptime Robot ratio (7 days)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Uptime Robot ratio (7 days)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Uptime Robot ratio (7 days)" src="$url">'}
+  /uptimerobot/status/{monitorSpecificKey}:
+    get:
+      summary: 'Uptime Robot status'
+      parameters:
+        - {'name': 'monitorSpecificKey', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'm778918918-3e92c097147760ee39d02d36'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Uptime Robot status]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Uptime Robot status"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Uptime Robot status]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Uptime Robot status" src="$url">'}
+  /website:
+    get:
+      summary: 'Website'
+      description: "\n<p>\n  The badge is of the form\n  <code>https://img.shields.io/website/PROTOCOL/URLREST.svg</code>.\n</p>\n<p>\n  The whole URL is obtained by concatenating the <code>PROTOCOL</code>\n  (<code>http</code> or <code>https</code>, for example) with the\n  <code>URLREST</code> (separating them with <code>://</code>).\n</p>\n<p>\n  The existence of a specific path on the server can be checked by appending\n  a path after the domain name, e.g.\n  <code>https://img.shields.io/website/http/www.website.com/path/to/page.html.svg</code>.\n</p>\n<p>\n  The messages and colors for the up and down states can also be customized.\n</p>\n"
+      parameters:
+        - {'name': 'up_message', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'online'}
+        - {'name': 'up_color', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'blue'}
+        - {'name': 'down_message', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'offline'}
+        - {'name': 'down_color', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'lightgrey'}
+        - {'name': 'url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://shields.io'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Website]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Website"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Website]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Website" src="$url">'}

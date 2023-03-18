@@ -1,0 +1,807 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Rating'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /amo/rating/{addonId}:
+    get:
+      summary: 'Mozilla Add-on'
+      parameters:
+        - {'name': 'addonId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'dustman'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Mozilla Add-on]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Mozilla Add-on"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Mozilla Add-on]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Mozilla Add-on" src="$url">'}
+  /amo/stars/{addonId}:
+    get:
+      summary: 'Mozilla Add-on'
+      parameters:
+        - {'name': 'addonId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'dustman'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Mozilla Add-on]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Mozilla Add-on"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Mozilla Add-on]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Mozilla Add-on" src="$url">'}
+  /aur/votes/{packageName}:
+    get:
+      summary: 'AUR votes'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'dropbox'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![AUR votes]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: AUR votes"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[AUR votes]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="AUR votes" src="$url">'}
+  /chrome-web-store/rating/{storeId}:
+    get:
+      summary: 'Chrome Web Store'
+      parameters:
+        - {'name': 'storeId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ogffaloegjglncjfehdfplabnoondfjo'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Chrome Web Store]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Chrome Web Store"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Chrome Web Store]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Chrome Web Store" src="$url">'}
+  /chrome-web-store/rating-count/{storeId}:
+    get:
+      summary: 'Chrome Web Store'
+      parameters:
+        - {'name': 'storeId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ogffaloegjglncjfehdfplabnoondfjo'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Chrome Web Store]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Chrome Web Store"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Chrome Web Store]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Chrome Web Store" src="$url">'}
+  /chrome-web-store/stars/{storeId}:
+    get:
+      summary: 'Chrome Web Store'
+      parameters:
+        - {'name': 'storeId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ogffaloegjglncjfehdfplabnoondfjo'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Chrome Web Store]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Chrome Web Store"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Chrome Web Store]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Chrome Web Store" src="$url">'}
+  /docker/stars/{user}/{repo}:
+    get:
+      summary: 'Docker Stars'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '_'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ubuntu'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Docker Stars]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Docker Stars"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Docker Stars]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Docker Stars" src="$url">'}
+  /greasyfork/rating-count/{scriptId}:
+    get:
+      summary: 'Greasy Fork'
+      parameters:
+        - {'name': 'scriptId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '407466'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Greasy Fork]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Greasy Fork"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Greasy Fork]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Greasy Fork" src="$url">'}
+  /jetbrains/plugin/r/rating/{pluginId}:
+    get:
+      summary: 'JetBrains Plugins'
+      parameters:
+        - {'name': 'pluginId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '11941'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![JetBrains Plugins]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: JetBrains Plugins"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[JetBrains Plugins]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="JetBrains Plugins" src="$url">'}
+  /jetbrains/plugin/r/stars/{pluginId}:
+    get:
+      summary: 'JetBrains Plugins'
+      parameters:
+        - {'name': 'pluginId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '11941'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![JetBrains Plugins]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: JetBrains Plugins"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[JetBrains Plugins]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="JetBrains Plugins" src="$url">'}
+  /librariesio/sourcerank/{platform}/{packageName}:
+    get:
+      summary: 'Libraries.io SourceRank'
+      parameters:
+        - {'name': 'platform', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'npm'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'got'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Libraries.io SourceRank]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Libraries.io SourceRank"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Libraries.io SourceRank]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Libraries.io SourceRank" src="$url">'}
+  /librariesio/sourcerank/{platform}/{scope}/{packageName}:
+    get:
+      summary: 'Libraries.io SourceRank, scoped npm package'
+      parameters:
+        - {'name': 'platform', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'npm'}
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@babel'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'core'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Libraries.io SourceRank, scoped npm package]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Libraries.io SourceRank, scoped npm package"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Libraries.io SourceRank, scoped npm package]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Libraries.io SourceRank, scoped npm package" src="$url">'}
+  /open-vsx/rating/{namespace}/{extension}:
+    get:
+      summary: 'Open VSX Rating'
+      parameters:
+        - {'name': 'namespace', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'redhat'}
+        - {'name': 'extension', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'java'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Open VSX Rating]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Open VSX Rating"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Open VSX Rating]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Open VSX Rating" src="$url">'}
+  /open-vsx/stars/{namespace}/{extension}:
+    get:
+      summary: 'Open VSX Rating (Stars)'
+      parameters:
+        - {'name': 'namespace', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'redhat'}
+        - {'name': 'extension', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'java'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Open VSX Rating (Stars)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Open VSX Rating (Stars)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Open VSX Rating (Stars)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Open VSX Rating (Stars)" src="$url">'}
+  /ore/stars/{pluginId}:
+    get:
+      summary: 'Ore Stars'
+      description: "\n<p>Your Plugin ID is the name of your plugin in lowercase, without any spaces or dashes.</p>\n<p>Example: <code>https://ore.spongepowered.org/Erigitic/Total-Economy</code> - Here the Plugin ID is <code>totaleconomy</code>.</p>"
+      parameters:
+        - {'name': 'pluginId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'nucleus'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Ore Stars]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Ore Stars"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Ore Stars]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Ore Stars" src="$url">'}
+  /packagist/stars/{user}/{repo}:
+    get:
+      summary: 'Packagist Stars (custom server)'
+      description: "<p>\n        Note that only network-accessible packagist.org and other self-hosted Packagist instances are supported.\n    </p>\n    <p>\n      Displayed data may be slightly outdated.\n      Due to performance reasons, data fetched from packagist JSON API is cached for twelve hours on packagist infrastructure.\n      For more information please refer to <a target=\"_blank\" href=\"https://packagist.org/apidoc#get-package-data\">official packagist documentation</a>.\n  </p>\n  "
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'guzzlehttp'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'guzzle'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://packagist.org'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Packagist Stars (custom server)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Packagist Stars (custom server)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Packagist Stars (custom server)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Packagist Stars (custom server)" src="$url">'}
+  /polymart/stars/{resourceId}:
+    get:
+      summary: 'Polymart Stars'
+      description: "\n<p>You can find your resource ID in the url for your resource page.</p>\n<p>Example: <code>https://polymart.org/resource/polymart-plugin.323</code> - Here the Resource ID is 323.</p>"
+      parameters:
+        - {'name': 'resourceId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '323'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Polymart Stars]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Polymart Stars"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Polymart Stars]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Polymart Stars" src="$url">'}
+  /polymart/rating/{resourceId}:
+    get:
+      summary: 'Polymart Rating'
+      description: "\n<p>You can find your resource ID in the url for your resource page.</p>\n<p>Example: <code>https://polymart.org/resource/polymart-plugin.323</code> - Here the Resource ID is 323.</p>"
+      parameters:
+        - {'name': 'resourceId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '323'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Polymart Rating]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Polymart Rating"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Polymart Rating]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Polymart Rating" src="$url">'}
+  /pub/likes/{packageName}:
+    get:
+      summary: 'Pub Likes'
+      description: '<p>A measure of how many developers have liked a package. This provides a raw measure of the overall sentiment of a package from peer developers.</p>'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'analysis_options'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Pub Likes]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Pub Likes"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Pub Likes]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Pub Likes" src="$url">'}
+  /pub/points/{packageName}:
+    get:
+      summary: 'Pub Points'
+      description: '<p>A measure of quality. This includes several dimensions of quality such as code style, platform support, and maintainability.</p>'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'analysis_options'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Pub Points]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Pub Points"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Pub Points]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Pub Points" src="$url">'}
+  /pub/popularity/{packageName}:
+    get:
+      summary: 'Pub Popularity'
+      description: '<p>A measure of how many developers use a package, providing insight into what other developers are using.</p>'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'analysis_options'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Pub Popularity]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Pub Popularity"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Pub Popularity]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Pub Popularity" src="$url">'}
+  /puppetforge/e/{user}/{moduleName}:
+    get:
+      summary: 'Puppet Forge endorsement'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'camptocamp'}
+        - {'name': 'moduleName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'openssl'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Puppet Forge endorsement]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Puppet Forge endorsement"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Puppet Forge endorsement]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Puppet Forge endorsement" src="$url">'}
+  /puppetforge/f/{user}/{moduleName}:
+    get:
+      summary: 'Puppet Forge feedback score'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'camptocamp'}
+        - {'name': 'moduleName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'openssl'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Puppet Forge feedback score]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Puppet Forge feedback score"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Puppet Forge feedback score]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Puppet Forge feedback score" src="$url">'}
+  /redmine/plugin/rating/{plugin}:
+    get:
+      summary: 'Plugin on redmine.org'
+      parameters:
+        - {'name': 'plugin', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'redmine_xlsx_format_issue_exporter'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Plugin on redmine.org]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Plugin on redmine.org"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Plugin on redmine.org]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Plugin on redmine.org" src="$url">'}
+  /redmine/plugin/stars/{plugin}:
+    get:
+      summary: 'Plugin on redmine.org'
+      parameters:
+        - {'name': 'plugin', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'redmine_xlsx_format_issue_exporter'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Plugin on redmine.org]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Plugin on redmine.org"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Plugin on redmine.org]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Plugin on redmine.org" src="$url">'}
+  /spiget/stars/{resourceId}:
+    get:
+      summary: 'Spiget Stars'
+      description: "\n<p>You can find your resource ID in the url for your resource page.</p>\n<p>Example: <code>https://www.spigotmc.org/resources/essentialsx.9089/</code> - Here the Resource ID is 9089.</p>"
+      parameters:
+        - {'name': 'resourceId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '9089'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Spiget Stars]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Spiget Stars"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Spiget Stars]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Spiget Stars" src="$url">'}
+  /spiget/rating/{resourceId}:
+    get:
+      summary: 'Spiget Rating'
+      description: "\n<p>You can find your resource ID in the url for your resource page.</p>\n<p>Example: <code>https://www.spigotmc.org/resources/essentialsx.9089/</code> - Here the Resource ID is 9089.</p>"
+      parameters:
+        - {'name': 'resourceId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '9089'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Spiget Rating]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Spiget Rating"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Spiget Rating]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Spiget Rating" src="$url">'}
+  /steam/favorites/{fileId}:
+    get:
+      summary: 'Steam Favorites'
+      description: "\n<p>\n  Using a web browser, you can find the ID in the url here:\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/6497721/46358801-1bcb3200-c668-11e8-9963-931397853945.PNG\"\n  alt=\"The ID is the number found right after ?id= in the URI\" />\n<p>\n  In the steam client you can simply just Right-Click and 'Copy Page URL' and follow the above step\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/7288322/46567027-27c83400-c987-11e8-9850-ab67d987202f.png\"\n  alt=\"Right-Click and 'Copy Page URL'\" />\n"
+      parameters:
+        - {'name': 'fileId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '100'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Steam Favorites]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Steam Favorites"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Steam Favorites]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Steam Favorites" src="$url">'}
+  /steam/subscriptions/{fileId}:
+    get:
+      summary: 'Steam Subscriptions'
+      description: "\n<p>\n  Using a web browser, you can find the ID in the url here:\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/6497721/46358801-1bcb3200-c668-11e8-9963-931397853945.PNG\"\n  alt=\"The ID is the number found right after ?id= in the URI\" />\n<p>\n  In the steam client you can simply just Right-Click and 'Copy Page URL' and follow the above step\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/7288322/46567027-27c83400-c987-11e8-9850-ab67d987202f.png\"\n  alt=\"Right-Click and 'Copy Page URL'\" />\n"
+      parameters:
+        - {'name': 'fileId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '100'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Steam Subscriptions]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Steam Subscriptions"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Steam Subscriptions]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Steam Subscriptions" src="$url">'}
+  /vaadin-directory/rating-count/{packageName}:
+    get:
+      summary: 'Vaadin Directory'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'vaadinvaadin-grid'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Vaadin Directory]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Vaadin Directory"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Vaadin Directory]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Vaadin Directory" src="$url">'}
+  /vaadin-directory/{format}/{packageName}:
+    get:
+      summary: 'Vaadin Directory'
+      parameters:
+        - {'name': 'format', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['stars', 'rating']}, 'example': 'rating'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'vaadinvaadin-grid'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Vaadin Directory]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Vaadin Directory"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Vaadin Directory]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Vaadin Directory" src="$url">'}
+  /visual-studio-marketplace/r/{extensionId}:
+    get:
+      summary: 'Visual Studio Marketplace Rating'
+      parameters:
+        - {'name': 'extensionId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ritwickdey.LiveServer'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Visual Studio Marketplace Rating]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Visual Studio Marketplace Rating"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Visual Studio Marketplace Rating]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Visual Studio Marketplace Rating" src="$url">'}
+  /visual-studio-marketplace/stars/{extensionId}:
+    get:
+      summary: 'Visual Studio Marketplace Rating (Stars)'
+      parameters:
+        - {'name': 'extensionId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ritwickdey.LiveServer'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Visual Studio Marketplace Rating (Stars)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Visual Studio Marketplace Rating (Stars)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Visual Studio Marketplace Rating (Stars)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Visual Studio Marketplace Rating (Stars)" src="$url">'}
+  /wordpress/plugin/rating/{slug}:
+    get:
+      summary: 'WordPress Plugin Rating'
+      description: "\n<p>\n  These badges rely on an API that is no longer supported by Wordpress. You are\n  still free to use them, simply bear in mind that Shields.io cannot guarantee\n  that they'll keep on working in the future. Please also double-check the\n  provided slug, as an incorrect value may lead to unexpected results.\n</p>\n"
+      parameters:
+        - {'name': 'slug', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'bbpress'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![WordPress Plugin Rating]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: WordPress Plugin Rating"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[WordPress Plugin Rating]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="WordPress Plugin Rating" src="$url">'}
+  /wordpress/theme/rating/{slug}:
+    get:
+      summary: 'WordPress Theme Rating'
+      description: "\n<p>\n  These badges rely on an API that is no longer supported by Wordpress. You are\n  still free to use them, simply bear in mind that Shields.io cannot guarantee\n  that they'll keep on working in the future. Please also double-check the\n  provided slug, as an incorrect value may lead to unexpected results.\n</p>\n"
+      parameters:
+        - {'name': 'slug', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'twentyseventeen'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![WordPress Theme Rating]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: WordPress Theme Rating"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[WordPress Theme Rating]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="WordPress Theme Rating" src="$url">'}
+  /wordpress/plugin/stars/{slug}:
+    get:
+      summary: 'WordPress Plugin Rating'
+      description: "\n<p>\n  These badges rely on an API that is no longer supported by Wordpress. You are\n  still free to use them, simply bear in mind that Shields.io cannot guarantee\n  that they'll keep on working in the future. Please also double-check the\n  provided slug, as an incorrect value may lead to unexpected results.\n</p>\n"
+      parameters:
+        - {'name': 'slug', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'bbpress'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![WordPress Plugin Rating]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: WordPress Plugin Rating"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[WordPress Plugin Rating]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="WordPress Plugin Rating" src="$url">'}
+  /wordpress/theme/stars/{slug}:
+    get:
+      summary: 'WordPress Theme Rating'
+      description: "\n<p>\n  These badges rely on an API that is no longer supported by Wordpress. You are\n  still free to use them, simply bear in mind that Shields.io cannot guarantee\n  that they'll keep on working in the future. Please also double-check the\n  provided slug, as an incorrect value may lead to unexpected results.\n</p>\n"
+      parameters:
+        - {'name': 'slug', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'twentyseventeen'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![WordPress Theme Rating]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: WordPress Theme Rating"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[WordPress Theme Rating]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="WordPress Theme Rating" src="$url">'}

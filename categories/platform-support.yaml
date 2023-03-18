@@ -1,0 +1,1073 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Platform & Version Support'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /cocoapods/p/{spec}:
+    get:
+      summary: 'Cocoapods platforms'
+      parameters:
+        - {'name': 'spec', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'AFNetworking'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Cocoapods platforms]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Cocoapods platforms"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Cocoapods platforms]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Cocoapods platforms" src="$url">'}
+  /conda/pn/{channel}/{package}:
+    get:
+      summary: 'Conda'
+      parameters:
+        - {'name': 'channel', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'conda-forge'}
+        - {'name': 'package', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'python'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Conda]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Conda"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Conda]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Conda" src="$url">'}
+  /factorio-mod-portal/factorio-version/{modName}:
+    get:
+      summary: 'Factorio Mod Portal factorio versions'
+      parameters:
+        - {'name': 'modName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rso-mod'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Factorio Mod Portal factorio versions]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Factorio Mod Portal factorio versions"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Factorio Mod Portal factorio versions]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Factorio Mod Portal factorio versions" src="$url">'}
+  /github/package-json/dependency-version/{user}/{repo}/{packageName}:
+    get:
+      summary: 'GitHub package.json dependency version (subfolder of monorepo)'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'metabolize'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'anafanafo'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'puppeteer'}
+        - {'name': 'filename', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'packages/char-width-table-builder/package.json'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub package.json dependency version (subfolder of monorepo)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub package.json dependency version (subfolder of monorepo)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub package.json dependency version (subfolder of monorepo)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub package.json dependency version (subfolder of monorepo)" src="$url">'}
+  /github/package-json/dependency-version/{user}/{repo}/dev/{scope}/{packageName}/{branch}:
+    get:
+      summary: 'GitHub package.json dependency version (dev dep on branch)'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'zeit'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'next.js'}
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@babel'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'preset-react'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'canary'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub package.json dependency version (dev dep on branch)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub package.json dependency version (dev dep on branch)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub package.json dependency version (dev dep on branch)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub package.json dependency version (dev dep on branch)" src="$url">'}
+  /github/package-json/dependency-version/{user}/{repo}/dev/{packageName}/{branch}:
+    get:
+      summary: 'GitHub package.json dependency version (dev dep on branch)'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'zeit'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'next.js'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'preset-react'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'canary'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub package.json dependency version (dev dep on branch)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub package.json dependency version (dev dep on branch)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub package.json dependency version (dev dep on branch)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub package.json dependency version (dev dep on branch)" src="$url">'}
+  /github/package-json/dependency-version/{user}/{repo}/dev/{scope}/{packageName}:
+    get:
+      summary: 'GitHub package.json dependency version (dev dep on branch)'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'zeit'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'next.js'}
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@babel'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'preset-react'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub package.json dependency version (dev dep on branch)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub package.json dependency version (dev dep on branch)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub package.json dependency version (dev dep on branch)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub package.json dependency version (dev dep on branch)" src="$url">'}
+  /github/package-json/dependency-version/{user}/{repo}/dev/{packageName}:
+    get:
+      summary: 'GitHub package.json dependency version (dev dep on branch)'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'zeit'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'next.js'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'preset-react'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub package.json dependency version (dev dep on branch)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub package.json dependency version (dev dep on branch)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub package.json dependency version (dev dep on branch)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub package.json dependency version (dev dep on branch)" src="$url">'}
+  /github/pipenv/locked/python-version/{user}/{repo}:
+    get:
+      summary: 'GitHub Pipenv locked Python version'
+      description: "\n<p>\n  <a href=\"https://github.com/pypa/pipenv\">Pipenv</a> is a dependency\n  manager for Python which manages a\n  <a href=\"https://virtualenv.pypa.io/en/latest/\">virtualenv</a> for\n  projects. It adds/removes packages from your <code>Pipfile</code> as\n  you install/uninstall packages and generates the ever-important\n  <code>Pipfile.lock</code>, which can be checked in to source control\n  in order to produce deterministic builds.\n</p>\n\n<p>\n  The GitHub Pipenv badges are intended for applications using Pipenv\n  which are hosted on GitHub.\n</p>\n\n<p>\n  When <code>Pipfile.lock</code> is checked in, the <strong>GitHub Pipenv\n  locked dependency version</strong> badge displays the locked version of\n  a dependency listed in <code>[packages]</code> or\n  <code>[dev-packages]</code> (or any of their transitive dependencies).\n</p>\n\n<p>\n  Usually a Python version is specified in the <code>Pipfile</code>, which\n  <code>pipenv lock</code> then places in <code>Pipfile.lock</code>. The\n  <strong>GitHub Pipenv Python version</strong> badge displays that version.\n</p>\n\n\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'metabolize'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rq-dashboard-on-heroku'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub Pipenv locked Python version]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub Pipenv locked Python version"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub Pipenv locked Python version]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub Pipenv locked Python version" src="$url">'}
+  /github/pipenv/locked/python-version/{user}/{repo}/{branch}:
+    get:
+      summary: 'GitHub Pipenv locked Python version (branch)'
+      description: "\n<p>\n  <a href=\"https://github.com/pypa/pipenv\">Pipenv</a> is a dependency\n  manager for Python which manages a\n  <a href=\"https://virtualenv.pypa.io/en/latest/\">virtualenv</a> for\n  projects. It adds/removes packages from your <code>Pipfile</code> as\n  you install/uninstall packages and generates the ever-important\n  <code>Pipfile.lock</code>, which can be checked in to source control\n  in order to produce deterministic builds.\n</p>\n\n<p>\n  The GitHub Pipenv badges are intended for applications using Pipenv\n  which are hosted on GitHub.\n</p>\n\n<p>\n  When <code>Pipfile.lock</code> is checked in, the <strong>GitHub Pipenv\n  locked dependency version</strong> badge displays the locked version of\n  a dependency listed in <code>[packages]</code> or\n  <code>[dev-packages]</code> (or any of their transitive dependencies).\n</p>\n\n<p>\n  Usually a Python version is specified in the <code>Pipfile</code>, which\n  <code>pipenv lock</code> then places in <code>Pipfile.lock</code>. The\n  <strong>GitHub Pipenv Python version</strong> badge displays that version.\n</p>\n\n\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'metabolize'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rq-dashboard-on-heroku'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'main'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub Pipenv locked Python version (branch)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub Pipenv locked Python version (branch)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub Pipenv locked Python version (branch)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub Pipenv locked Python version (branch)" src="$url">'}
+  /modrinth/game-versions/{projectId}:
+    get:
+      summary: 'Modrinth Game Versions'
+      description: '<p>You can use your project slug, or the project ID. The ID can be found in the ''Technical information'' section of your Modrinth page.</p>'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'AANobbMI'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Modrinth Game Versions]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Modrinth Game Versions"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Modrinth Game Versions]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Modrinth Game Versions" src="$url">'}
+  /node/v/{packageName}:
+    get:
+      summary: 'node-current'
+      description: "\n  <p>\n    This badge indicates whether the package supports the <b>latest</b> release of node\n    The node version support is retrieved from the <code>engines.node</code> section in package.json.\n  </p>\n"
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'passport'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![node-current]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: node-current"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[node-current]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="node-current" src="$url">'}
+  /node/v/{scope}/{packageName}:
+    get:
+      summary: 'node-current (scoped)'
+      description: "\n  <p>\n    This badge indicates whether the package supports the <b>latest</b> release of node\n    The node version support is retrieved from the <code>engines.node</code> section in package.json.\n  </p>\n"
+      parameters:
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@stdlib'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'stdlib'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![node-current (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: node-current (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[node-current (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="node-current (scoped)" src="$url">'}
+  /node/v/{packageName}/{tag}:
+    get:
+      summary: 'node-current (tag)'
+      description: "\n  <p>\n    This badge indicates whether the package supports the <b>latest</b> release of node\n    The node version support is retrieved from the <code>engines.node</code> section in package.json.\n  </p>\n"
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'passport'}
+        - {'name': 'tag', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'latest'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![node-current (tag)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: node-current (tag)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[node-current (tag)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="node-current (tag)" src="$url">'}
+  /node/v/{scope}/{packageName}/{tag}:
+    get:
+      summary: 'node-current (scoped with tag, custom registry)'
+      description: "\n  <p>\n    This badge indicates whether the package supports the <b>latest</b> release of node\n    The node version support is retrieved from the <code>engines.node</code> section in package.json.\n  </p>\n"
+      parameters:
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@stdlib'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'stdlib'}
+        - {'name': 'tag', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'latest'}
+        - {'name': 'registry_uri', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://registry.npmjs.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![node-current (scoped with tag, custom registry)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: node-current (scoped with tag, custom registry)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[node-current (scoped with tag, custom registry)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="node-current (scoped with tag, custom registry)" src="$url">'}
+  /node/v-lts/{packageName}:
+    get:
+      summary: 'node-lts'
+      description: "\n  <p>\n    This badge indicates whether the package supports <b>all</b> LTS node versions\n    The node version support is retrieved from the <code>engines.node</code> section in package.json.\n  </p>\n"
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'passport'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![node-lts]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: node-lts"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[node-lts]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="node-lts" src="$url">'}
+  /node/v-lts/{scope}/{packageName}:
+    get:
+      summary: 'node-lts (scoped)'
+      description: "\n  <p>\n    This badge indicates whether the package supports <b>all</b> LTS node versions\n    The node version support is retrieved from the <code>engines.node</code> section in package.json.\n  </p>\n"
+      parameters:
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@stdlib'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'stdlib'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![node-lts (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: node-lts (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[node-lts (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="node-lts (scoped)" src="$url">'}
+  /node/v-lts/{packageName}/{tag}:
+    get:
+      summary: 'node-lts (tag)'
+      description: "\n  <p>\n    This badge indicates whether the package supports <b>all</b> LTS node versions\n    The node version support is retrieved from the <code>engines.node</code> section in package.json.\n  </p>\n"
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'passport'}
+        - {'name': 'tag', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'latest'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![node-lts (tag)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: node-lts (tag)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[node-lts (tag)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="node-lts (tag)" src="$url">'}
+  /node/v-lts/{scope}/{packageName}/{tag}:
+    get:
+      summary: 'node-lts (scoped with tag, custom registry)'
+      description: "\n  <p>\n    This badge indicates whether the package supports <b>all</b> LTS node versions\n    The node version support is retrieved from the <code>engines.node</code> section in package.json.\n  </p>\n"
+      parameters:
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@stdlib'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'stdlib'}
+        - {'name': 'tag', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'latest'}
+        - {'name': 'registry_uri', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://registry.npmjs.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![node-lts (scoped with tag, custom registry)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: node-lts (scoped with tag, custom registry)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[node-lts (scoped with tag, custom registry)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="node-lts (scoped with tag, custom registry)" src="$url">'}
+  /npm/dependency-version/{packageName}/peer/{dependency}:
+    get:
+      summary: 'npm peer dependency version (scoped)'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'eslint-config'}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'eslint'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm peer dependency version (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm peer dependency version (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm peer dependency version (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm peer dependency version (scoped)" src="$url">'}
+  /npm/dependency-version/{scope}/{packageName}/peer/{dependencyScope}/{dependency}:
+    get:
+      summary: 'npm peer dependency version (scoped)'
+      parameters:
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@swellaby'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'eslint-config'}
+        - {'name': 'dependencyScope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'eslint'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm peer dependency version (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm peer dependency version (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm peer dependency version (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm peer dependency version (scoped)" src="$url">'}
+  /npm/dependency-version/{packageName}/peer/{dependencyScope}/{dependency}:
+    get:
+      summary: 'npm peer dependency version (scoped)'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'eslint-config'}
+        - {'name': 'dependencyScope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'eslint'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm peer dependency version (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm peer dependency version (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm peer dependency version (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm peer dependency version (scoped)" src="$url">'}
+  /npm/dependency-version/{scope}/{packageName}/peer/{dependency}:
+    get:
+      summary: 'npm peer dependency version (scoped)'
+      parameters:
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@swellaby'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'eslint-config'}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'eslint'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm peer dependency version (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm peer dependency version (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm peer dependency version (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm peer dependency version (scoped)" src="$url">'}
+  /npm/dependency-version/{packageName}/dev/{dependency}:
+    get:
+      summary: 'npm dev dependency version (scoped)'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'mocha'}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'contributors'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm dev dependency version (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm dev dependency version (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm dev dependency version (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm dev dependency version (scoped)" src="$url">'}
+  /npm/dependency-version/{scope}/{packageName}/dev/{dependencyScope}/{dependency}:
+    get:
+      summary: 'npm dev dependency version (scoped)'
+      parameters:
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'mocha'}
+        - {'name': 'dependencyScope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@mocha'}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'contributors'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm dev dependency version (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm dev dependency version (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm dev dependency version (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm dev dependency version (scoped)" src="$url">'}
+  /npm/dependency-version/{packageName}/dev/{dependencyScope}/{dependency}:
+    get:
+      summary: 'npm dev dependency version (scoped)'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'mocha'}
+        - {'name': 'dependencyScope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@mocha'}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'contributors'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm dev dependency version (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm dev dependency version (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm dev dependency version (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm dev dependency version (scoped)" src="$url">'}
+  /npm/dependency-version/{scope}/{packageName}/dev/{dependency}:
+    get:
+      summary: 'npm dev dependency version (scoped)'
+      parameters:
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'mocha'}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'contributors'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm dev dependency version (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm dev dependency version (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm dev dependency version (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm dev dependency version (scoped)" src="$url">'}
+  /npm/dependency-version/{packageName}/{dependency}:
+    get:
+      summary: 'npm (prod) dependency version (scoped)'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'got'}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'is'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm (prod) dependency version (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm (prod) dependency version (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm (prod) dependency version (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm (prod) dependency version (scoped)" src="$url">'}
+  /npm/dependency-version/{scope}/{packageName}/{dependencyScope}/{dependency}:
+    get:
+      summary: 'npm (prod) dependency version (scoped)'
+      parameters:
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'got'}
+        - {'name': 'dependencyScope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@sindresorhus'}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'is'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm (prod) dependency version (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm (prod) dependency version (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm (prod) dependency version (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm (prod) dependency version (scoped)" src="$url">'}
+  /npm/dependency-version/{packageName}/{dependencyScope}/{dependency}:
+    get:
+      summary: 'npm (prod) dependency version (scoped)'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'got'}
+        - {'name': 'dependencyScope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@sindresorhus'}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'is'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm (prod) dependency version (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm (prod) dependency version (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm (prod) dependency version (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm (prod) dependency version (scoped)" src="$url">'}
+  /npm/dependency-version/{scope}/{packageName}/{dependency}:
+    get:
+      summary: 'npm (prod) dependency version (scoped)'
+      parameters:
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'got'}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'is'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm (prod) dependency version (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm (prod) dependency version (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm (prod) dependency version (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm (prod) dependency version (scoped)" src="$url">'}
+  /npm/types/{packageName}:
+    get:
+      summary: 'npm type definitions'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'chalk'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm type definitions]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm type definitions"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm type definitions]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm type definitions" src="$url">'}
+  /ore/sponge-versions/{pluginId}:
+    get:
+      summary: 'Compatible versions (plugins on Ore)'
+      description: "\n<p>Your Plugin ID is the name of your plugin in lowercase, without any spaces or dashes.</p>\n<p>Example: <code>https://ore.spongepowered.org/Erigitic/Total-Economy</code> - Here the Plugin ID is <code>totaleconomy</code>.</p>"
+      parameters:
+        - {'name': 'pluginId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'nucleus'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Compatible versions (plugins on Ore)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Compatible versions (plugins on Ore)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Compatible versions (plugins on Ore)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Compatible versions (plugins on Ore)" src="$url">'}
+  /packagist/dependency-v/{user}/{repo}/{dependency}:
+    get:
+      summary: 'Packagist PHP Version'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'symfony'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'symfony'}
+        - {'name': 'dependency', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'php'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Packagist PHP Version]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Packagist PHP Version"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Packagist PHP Version]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Packagist PHP Version" src="$url">'}
+  /powershellgallery/p/{packageName}:
+    get:
+      summary: 'PowerShell Gallery'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'PackageManagement'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![PowerShell Gallery]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: PowerShell Gallery"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[PowerShell Gallery]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="PowerShell Gallery" src="$url">'}
+  /puppetforge/pdk-version/{user}/{moduleName}:
+    get:
+      summary: 'Puppet Forge – PDK version'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'tragiccode'}
+        - {'name': 'moduleName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'azure_key_vault'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Puppet Forge – PDK version]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Puppet Forge – PDK version"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Puppet Forge – PDK version]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Puppet Forge – PDK version" src="$url">'}
+  /pypi/frameworkversions/{frameworkName}/{packageName}:
+    get:
+      summary: 'PyPI - Versions from Framework Classifiers'
+      description: "\n<p>\n  This service currently support the following Frameworks: <br/>\n  <strong>AWS CDK</strong>,<strong>Django</strong>,<strong>Django CMS</strong>,<strong>JupyterLab</strong>,<strong>Odoo</strong>,<strong>Plone</strong>,<strong>Wagtail</strong>,<strong>Zope</strong>\n</p>\n"
+      parameters:
+        - {'name': 'frameworkName', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['aws-cdk', 'django', 'django-cms', 'jupyterlab', 'odoo', 'plone', 'wagtail', 'zope']}, 'example': 'Plone'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'plone.volto'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![PyPI - Versions from Framework Classifiers]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: PyPI - Versions from Framework Classifiers"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[PyPI - Versions from Framework Classifiers]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="PyPI - Versions from Framework Classifiers" src="$url">'}
+  /pypi/implementation/{packageName}:
+    get:
+      summary: 'PyPI - Implementation'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'Django'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![PyPI - Implementation]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: PyPI - Implementation"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[PyPI - Implementation]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="PyPI - Implementation" src="$url">'}
+  /pypi/pyversions/{packageName}:
+    get:
+      summary: 'PyPI - Python Version'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'Django'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![PyPI - Python Version]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: PyPI - Python Version"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[PyPI - Python Version]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="PyPI - Python Version" src="$url">'}
+  /pypi/wheel/{packageName}:
+    get:
+      summary: 'PyPI - Wheel'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'Django'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![PyPI - Wheel]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: PyPI - Wheel"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[PyPI - Wheel]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="PyPI - Wheel" src="$url">'}
+  /repology/repositories/{projectName}:
+    get:
+      summary: 'Repology - Repositories'
+      parameters:
+        - {'name': 'projectName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'starship'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Repology - Repositories]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Repology - Repositories"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Repology - Repositories]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Repology - Repositories" src="$url">'}
+  /spiget/tested-versions/{resourceId}:
+    get:
+      summary: 'Spiget tested server versions'
+      description: "\n<p>You can find your resource ID in the url for your resource page.</p>\n<p>Example: <code>https://www.spigotmc.org/resources/essentialsx.9089/</code> - Here the Resource ID is 9089.</p>"
+      parameters:
+        - {'name': 'resourceId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '9089'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Spiget tested server versions]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Spiget tested server versions"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Spiget tested server versions]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Spiget tested server versions" src="$url">'}
+  /travis/php-v/{user}/{repo}/{branch}:
+    get:
+      summary: 'PHP version from Travis config'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'yiisoft'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'yii'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![PHP version from Travis config]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: PHP version from Travis config"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[PHP version from Travis config]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="PHP version from Travis config" src="$url">'}
+  /wordpress/plugin/required-php/{slug}:
+    get:
+      summary: 'WordPress Plugin Required PHP Version'
+      description: "\n<p>\n  These badges rely on an API that is no longer supported by Wordpress. You are\n  still free to use them, simply bear in mind that Shields.io cannot guarantee\n  that they'll keep on working in the future. Please also double-check the\n  provided slug, as an incorrect value may lead to unexpected results.\n</p>\n"
+      parameters:
+        - {'name': 'slug', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'bbpress'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![WordPress Plugin Required PHP Version]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: WordPress Plugin Required PHP Version"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[WordPress Plugin Required PHP Version]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="WordPress Plugin Required PHP Version" src="$url">'}
+  /wordpress/theme/required-php/{slug}:
+    get:
+      summary: 'WordPress Theme Required PHP Version'
+      description: "\n<p>\n  These badges rely on an API that is no longer supported by Wordpress. You are\n  still free to use them, simply bear in mind that Shields.io cannot guarantee\n  that they'll keep on working in the future. Please also double-check the\n  provided slug, as an incorrect value may lead to unexpected results.\n</p>\n"
+      parameters:
+        - {'name': 'slug', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'twentytwenty'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![WordPress Theme Required PHP Version]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: WordPress Theme Required PHP Version"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[WordPress Theme Required PHP Version]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="WordPress Theme Required PHP Version" src="$url">'}
+  /wordpress/plugin/wp-version/{slug}:
+    get:
+      summary: 'WordPress Plugin: Required WP Version'
+      description: "\n<p>\n  These badges rely on an API that is no longer supported by Wordpress. You are\n  still free to use them, simply bear in mind that Shields.io cannot guarantee\n  that they'll keep on working in the future. Please also double-check the\n  provided slug, as an incorrect value may lead to unexpected results.\n</p>\n"
+      parameters:
+        - {'name': 'slug', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'bbpress'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![WordPress Plugin: Required WP Version]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: WordPress Plugin: Required WP Version"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[WordPress Plugin: Required WP Version]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="WordPress Plugin: Required WP Version" src="$url">'}
+  /wordpress/theme/wp-version/{slug}:
+    get:
+      summary: 'WordPress Theme: Required WP Version'
+      description: "\n<p>\n  These badges rely on an API that is no longer supported by Wordpress. You are\n  still free to use them, simply bear in mind that Shields.io cannot guarantee\n  that they'll keep on working in the future. Please also double-check the\n  provided slug, as an incorrect value may lead to unexpected results.\n</p>\n"
+      parameters:
+        - {'name': 'slug', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'twentytwenty'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![WordPress Theme: Required WP Version]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: WordPress Theme: Required WP Version"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[WordPress Theme: Required WP Version]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="WordPress Theme: Required WP Version" src="$url">'}
+  /wordpress/plugin/tested/{slug}:
+    get:
+      summary: 'WordPress Plugin: Tested WP Version'
+      description: "\n<p>\n  These badges rely on an API that is no longer supported by Wordpress. You are\n  still free to use them, simply bear in mind that Shields.io cannot guarantee\n  that they'll keep on working in the future. Please also double-check the\n  provided slug, as an incorrect value may lead to unexpected results.\n</p>\n"
+      parameters:
+        - {'name': 'slug', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'bbpress'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![WordPress Plugin: Tested WP Version]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: WordPress Plugin: Tested WP Version"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[WordPress Plugin: Tested WP Version]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="WordPress Plugin: Tested WP Version" src="$url">'}

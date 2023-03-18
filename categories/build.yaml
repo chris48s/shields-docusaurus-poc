@@ -1,0 +1,1169 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Build'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /appveyor/build/{user}/{repo}:
+    get:
+      summary: 'AppVeyor'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gruntjs'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'grunt'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![AppVeyor]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: AppVeyor"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[AppVeyor]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="AppVeyor" src="$url">'}
+  /appveyor/build/{user}/{repo}/{branch}:
+    get:
+      summary: 'AppVeyor branch'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gruntjs'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'grunt'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![AppVeyor branch]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: AppVeyor branch"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[AppVeyor branch]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="AppVeyor branch" src="$url">'}
+  /appveyor/job/build/{user}/{repo}/{job}:
+    get:
+      summary: 'AppVeyor Job'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'wpmgprostotema'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'voicetranscoder'}
+        - {'name': 'job', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'Linux'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![AppVeyor Job]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: AppVeyor Job"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[AppVeyor Job]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="AppVeyor Job" src="$url">'}
+  /appveyor/job/build/{user}/{repo}/{job}/{branch}:
+    get:
+      summary: 'AppVeyor Job branch'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'wpmgprostotema'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'voicetranscoder'}
+        - {'name': 'job', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'Windows'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![AppVeyor Job branch]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: AppVeyor Job branch"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[AppVeyor Job branch]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="AppVeyor Job branch" src="$url">'}
+  /azure-devops/build/{organization}/{projectId}/{definitionId}:
+    get:
+      summary: 'Azure DevOps builds (job)'
+      description: "\n<p>\n  A badge requires three pieces of information: <code>ORGANIZATION</code>,\n  <code>PROJECT_ID</code> and <code>DEFINITION_ID</code>.\n</p>\n<p>\n  To start, edit your build definition and look at the url:\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/3749820/47259976-e2d9ec80-d4b2-11e8-92cc-7c81089a7a2c.png\"\n  alt=\"ORGANIZATION is after the dev.azure.com part, PROJECT_NAME is right after that, DEFINITION_ID is at the end after the id= part.\" />\n<p>\n  Then use the Azure DevOps REST API to translate the\n  <code>PROJECT_NAME</code> to a <code>PROJECT_ID</code>.\n</p>\n<p>\n  Navigate to <code>https://dev.azure.com/ORGANIZATION/_apis/projects/PROJECT_NAME</code>\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/3749820/47266325-1d846900-d535-11e8-9211-2ee72fb91877.png\"\n  alt=\"PROJECT_ID is in the id property of the API response.\" />\n"
+      parameters:
+        - {'name': 'organization', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'totodem'}
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '8cf3ec0e-d0c2-4fcd-8206-ad204f254a96'}
+        - {'name': 'definitionId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '5'}
+        - {'name': 'stage', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'Successful Stage'}
+        - {'name': 'job', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'Successful Job'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Azure DevOps builds (job)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Azure DevOps builds (job)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Azure DevOps builds (job)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Azure DevOps builds (job)" src="$url">'}
+  /azure-devops/build/{organization}/{projectId}/{definitionId}/{branch}:
+    get:
+      summary: 'Azure DevOps builds (job)'
+      description: "\n<p>\n  A badge requires three pieces of information: <code>ORGANIZATION</code>,\n  <code>PROJECT_ID</code> and <code>DEFINITION_ID</code>.\n</p>\n<p>\n  To start, edit your build definition and look at the url:\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/3749820/47259976-e2d9ec80-d4b2-11e8-92cc-7c81089a7a2c.png\"\n  alt=\"ORGANIZATION is after the dev.azure.com part, PROJECT_NAME is right after that, DEFINITION_ID is at the end after the id= part.\" />\n<p>\n  Then use the Azure DevOps REST API to translate the\n  <code>PROJECT_NAME</code> to a <code>PROJECT_ID</code>.\n</p>\n<p>\n  Navigate to <code>https://dev.azure.com/ORGANIZATION/_apis/projects/PROJECT_NAME</code>\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/3749820/47266325-1d846900-d535-11e8-9211-2ee72fb91877.png\"\n  alt=\"PROJECT_ID is in the id property of the API response.\" />\n"
+      parameters:
+        - {'name': 'organization', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'totodem'}
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '8cf3ec0e-d0c2-4fcd-8206-ad204f254a96'}
+        - {'name': 'definitionId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '5'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}}
+        - {'name': 'stage', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'Successful Stage'}
+        - {'name': 'job', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'Successful Job'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Azure DevOps builds (job)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Azure DevOps builds (job)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Azure DevOps builds (job)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Azure DevOps builds (job)" src="$url">'}
+  /azure-devops/release/{organization}/{projectId}/{definitionId}/{environmentId}:
+    get:
+      summary: 'Azure DevOps releases'
+      description: "\n<p>\n  To obtain your own badge, you need to get 4 pieces of information:\n  <code>ORGANIZATION</code>, <code>PROJECT_ID</code>, <code>DEFINITION_ID</code> and <code>ENVIRONMENT_ID</code>.\n</p>\n<p>\n  First, you need to enable badges for each required environments in the options of your release definition.\n  Once you have save the change, look at badge url:\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/3749820/47266694-7f939d00-d53a-11e8-9224-c2371dd2d0c9.png\"\n  alt=\"ORGANIZATION is after the dev.azure.com part, PROJECT_ID is after the badge part, DEFINITION_ID and ENVIRONMENT_ID are right after that.\" />\n<p>\n  Your badge will then have the form:\n  <code>https://img.shields.io/vso/release/ORGANIZATION/PROJECT_ID/DEFINITION_ID/ENVIRONMENT_ID.svg</code>.\n</p>\n"
+      parameters:
+        - {'name': 'organization', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'totodem'}
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '8cf3ec0e-d0c2-4fcd-8206-ad204f254a96'}
+        - {'name': 'definitionId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '1'}
+        - {'name': 'environmentId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '1'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Azure DevOps releases]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Azure DevOps releases"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Azure DevOps releases]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Azure DevOps releases" src="$url">'}
+  /bitbucket/pipelines/{user}/{repo}/{branch}:
+    get:
+      summary: 'Bitbucket Pipelines'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'atlassian'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'adf-builder-javascript'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'task/SECO-2168'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Bitbucket Pipelines]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Bitbucket Pipelines"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Bitbucket Pipelines]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Bitbucket Pipelines" src="$url">'}
+  /bitrise/{appId}/{branch}:
+    get:
+      summary: 'Bitrise'
+      parameters:
+        - {'name': 'appId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '3ff11fe8457bd304'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'token', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'lESRN9rEFFfDq92JtXs_jw'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Bitrise]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Bitrise"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Bitrise]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Bitrise" src="$url">'}
+  /bitrise/{appId}:
+    get:
+      summary: 'Bitrise'
+      parameters:
+        - {'name': 'appId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '3ff11fe8457bd304'}
+        - {'name': 'token', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'lESRN9rEFFfDq92JtXs_jw'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Bitrise]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Bitrise"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Bitrise]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Bitrise" src="$url">'}
+  /buildkite/{identifier}:
+    get:
+      summary: 'Buildkite'
+      parameters:
+        - {'name': 'identifier', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '3826789cf8890b426057e6fe1c4e683bdf04fa24d498885489'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Buildkite]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Buildkite"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Buildkite]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Buildkite" src="$url">'}
+  /buildkite/{identifier}/{branch}:
+    get:
+      summary: 'Buildkite (branch)'
+      parameters:
+        - {'name': 'identifier', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '3826789cf8890b426057e6fe1c4e683bdf04fa24d498885489'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Buildkite (branch)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Buildkite (branch)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Buildkite (branch)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Buildkite (branch)" src="$url">'}
+  /circleci/build/{vcsType}/{user}/{repo}/{branch}:
+    get:
+      summary: 'CircleCI'
+      description: "\n  <p>\n    You may specify an optional token to get the status for a private repository.\n    <br />\n    If you need to use a token, please use a <b>Project Token</b> and only assign your token the 'Status' permission. Never use a <b>Personal Token</b> as they grant full read write permissions to your projects.\n    <br />\n    For more information about managing Circle CI tokens, please read this <a target=\"_blank\" href=\"https://circleci.com/docs/2.0/managing-api-tokens\">article</a>.\n  </p>\n  "
+      parameters:
+        - {'name': 'vcsType', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['github', 'gh', 'bitbucket', 'bb']}, 'example': 'github'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'RedSparr0w'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'node-csgo-parser'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'token', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'abc123def456'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![CircleCI]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: CircleCI"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[CircleCI]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="CircleCI" src="$url">'}
+  /circleci/build/{vcsType}/{user}/{repo}:
+    get:
+      summary: 'CircleCI'
+      description: "\n  <p>\n    You may specify an optional token to get the status for a private repository.\n    <br />\n    If you need to use a token, please use a <b>Project Token</b> and only assign your token the 'Status' permission. Never use a <b>Personal Token</b> as they grant full read write permissions to your projects.\n    <br />\n    For more information about managing Circle CI tokens, please read this <a target=\"_blank\" href=\"https://circleci.com/docs/2.0/managing-api-tokens\">article</a>.\n  </p>\n  "
+      parameters:
+        - {'name': 'vcsType', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['github', 'gh', 'bitbucket', 'bb']}, 'example': 'github'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'RedSparr0w'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'node-csgo-parser'}
+        - {'name': 'token', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'abc123def456'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![CircleCI]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: CircleCI"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[CircleCI]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="CircleCI" src="$url">'}
+  /cirrus/github/{user}/{repo}:
+    get:
+      summary: 'Cirrus CI - Task and Script Build Status'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'flutter'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'cocoon'}
+        - {'name': 'task', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'build_docker'}
+        - {'name': 'script', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'test'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Cirrus CI - Task and Script Build Status]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Cirrus CI - Task and Script Build Status"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Cirrus CI - Task and Script Build Status]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Cirrus CI - Task and Script Build Status" src="$url">'}
+  /cirrus/github/{user}/{repo}/{branch}:
+    get:
+      summary: 'Cirrus CI - Specific Branch Build Status'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'flutter'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'flutter'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Cirrus CI - Specific Branch Build Status]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Cirrus CI - Specific Branch Build Status"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Cirrus CI - Specific Branch Build Status]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Cirrus CI - Specific Branch Build Status" src="$url">'}
+  /codeship/{projectId}:
+    get:
+      summary: 'Codeship'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'd6c1ddd0-16a3-0132-5f85-2e35c05e22b1'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Codeship]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Codeship"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Codeship]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Codeship" src="$url">'}
+  /codeship/{projectId}/{branch}:
+    get:
+      summary: 'Codeship (branch)'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '0bdb0440-3af5-0133-00ea-0ebda3a33bf6'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Codeship (branch)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Codeship (branch)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Codeship (branch)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Codeship (branch)" src="$url">'}
+  /docker/automated/{user}/{repo}:
+    get:
+      summary: 'Docker Automated build'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'jrottenberg'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ffmpeg'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Docker Automated build]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Docker Automated build"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Docker Automated build]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Docker Automated build" src="$url">'}
+  /docker/cloud/automated/{user}/{repo}:
+    get:
+      summary: 'Docker Cloud Automated build'
+      description: '<p>For the new Docker Hub (https://cloud.docker.com)</p>'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'jrottenberg'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ffmpeg'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Docker Cloud Automated build]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Docker Cloud Automated build"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Docker Cloud Automated build]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Docker Cloud Automated build" src="$url">'}
+  /docker/cloud/build/{user}/{repo}:
+    get:
+      summary: 'Docker Cloud Build Status'
+      description: '<p>For the new Docker Hub (https://cloud.docker.com)</p>'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'jrottenberg'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ffmpeg'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Docker Cloud Build Status]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Docker Cloud Build Status"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Docker Cloud Build Status]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Docker Cloud Build Status" src="$url">'}
+  /docsrs/{crate}/{version}:
+    get:
+      summary: 'docs.rs'
+      parameters:
+        - {'name': 'crate', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'regex'}
+        - {'name': 'version', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'latest'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![docs.rs]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: docs.rs"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[docs.rs]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="docs.rs" src="$url">'}
+  /docsrs/{crate}:
+    get:
+      summary: 'docs.rs'
+      parameters:
+        - {'name': 'crate', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'regex'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![docs.rs]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: docs.rs"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[docs.rs]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="docs.rs" src="$url">'}
+  /drone/build/{user}/{repo}:
+    get:
+      summary: 'Drone (self-hosted)'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://drone.shields.io'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Drone (self-hosted)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Drone (self-hosted)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Drone (self-hosted)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Drone (self-hosted)" src="$url">'}
+  /drone/build/{user}/{repo}/{branch}:
+    get:
+      summary: 'Drone (self-hosted) with branch'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'feat/awesome-thing'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://drone.shields.io'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Drone (self-hosted) with branch]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Drone (self-hosted) with branch"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Drone (self-hosted) with branch]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Drone (self-hosted) with branch" src="$url">'}
+  /github/actions/workflow/status/{user}/{repo}/{workflow}:
+    get:
+      summary: 'GitHub Workflow Status (with event)'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'actions'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'toolkit'}
+        - {'name': 'workflow', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'unit-tests.yml'}
+        - {'name': 'event', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'push'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub Workflow Status (with event)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub Workflow Status (with event)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub Workflow Status (with event)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub Workflow Status (with event)" src="$url">'}
+  /github/checks-status/{user}/{repo}/{ref}:
+    get:
+      summary: 'GitHub tag checks state'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'ref', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '3.3.0'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub tag checks state]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub tag checks state"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub tag checks state]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub tag checks state" src="$url">'}
+  /github/status/s/pulls/{user}/{repo}/{number}:
+    get:
+      summary: 'GitHub pull request check state'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'number', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '1110'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub pull request check state]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub pull request check state"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub pull request check state]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub pull request check state" src="$url">'}
+  /github/status/contexts/pulls/{user}/{repo}/{number}:
+    get:
+      summary: 'GitHub pull request check contexts'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'number', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '1110'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub pull request check contexts]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub pull request check contexts"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub pull request check contexts]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub pull request check contexts" src="$url">'}
+  /gitlab/pipeline-status/{project}:
+    get:
+      summary: 'Gitlab pipeline status (self-managed)'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  Important: You must use the Project Path, not the Project Id. Additionally, if your project is publicly visible, but the badge is like this:\n  <img src=\"https://img.shields.io/badge/build-not&nbsp;found-red\" alt=\"build not found\"/>\n</p>\n<p>\n  Check if your pipelines are publicly visible as well.<br />\n  Navigate to your project settings on GitLab and choose General Pipelines under CI/CD.<br />\n  Then tick the setting Public pipelines.\n</p>\n<p>\n  Now your settings should look like this:\n</p>\n<img src=\"https://user-images.githubusercontent.com/12065866/67156911-e225a180-f324-11e9-93ad-10aafbb3e69e.png\" alt=\"Setting Public pipelines set\"/>\n<p>\n  Your badge should be working fine now.\n</p>\n<p>\n  NB - The badge will display 'inaccessible' if the specified repo was not found on the target Gitlab instance.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'GNOME/pango'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.gnome.org'}
+        - {'name': 'branch', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Gitlab pipeline status (self-managed)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Gitlab pipeline status (self-managed)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Gitlab pipeline status (self-managed)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Gitlab pipeline status (self-managed)" src="$url">'}
+  /jenkins/build:
+    get:
+      summary: 'Jenkins'
+      parameters:
+        - {'name': 'jobUrl', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://wso2.org/jenkins/view/All%20Builds/job/archetypes'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Jenkins]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Jenkins"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Jenkins]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Jenkins" src="$url">'}
+  /netlify/{projectId}:
+    get:
+      summary: 'Netlify'
+      description: 'To locate your project id, visit your project settings, scroll to "Status badges" under "General", and copy the ID between "/api/v1/badges/" and "/deploy-status" in the code sample'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'e6d5a4e0-dee1-4261-833e-2f47f509c68f'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Netlify]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Netlify"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Netlify]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Netlify" src="$url">'}
+  /obs/{project}/{packageName}/{repository}/{arch}:
+    get:
+      summary: 'OBS package build status'
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'openSUSE:Tools'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'osc'}
+        - {'name': 'repository', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'Debian_11'}
+        - {'name': 'arch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'x86_64'}
+        - {'name': 'instance', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://api.opensuse.org'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![OBS package build status]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: OBS package build status"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[OBS package build status]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="OBS package build status" src="$url">'}
+  /readthedocs/{packageName}:
+    get:
+      summary: 'Read the Docs'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'pip'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Read the Docs]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Read the Docs"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Read the Docs]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Read the Docs" src="$url">'}
+  /readthedocs/{packageName}/{version}:
+    get:
+      summary: 'Read the Docs (version)'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'pip'}
+        - {'name': 'version', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'stable'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Read the Docs (version)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Read the Docs (version)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Read the Docs (version)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Read the Docs (version)" src="$url">'}
+  /scrutinizer/build/{vcs}/{user}/{repo}/{branch}:
+    get:
+      summary: 'Scrutinizer build (GitHub/Bitbucket)'
+      parameters:
+        - {'name': 'vcs', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['g', 'b']}, 'example': 'g'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'filp'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'whoops'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Scrutinizer build (GitHub/Bitbucket)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Scrutinizer build (GitHub/Bitbucket)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Scrutinizer build (GitHub/Bitbucket)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Scrutinizer build (GitHub/Bitbucket)" src="$url">'}
+  /scrutinizer/build/{vcs}/{user}/{repo}:
+    get:
+      summary: 'Scrutinizer build (GitHub/Bitbucket)'
+      parameters:
+        - {'name': 'vcs', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['g', 'b']}, 'example': 'g'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'filp'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'whoops'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Scrutinizer build (GitHub/Bitbucket)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Scrutinizer build (GitHub/Bitbucket)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Scrutinizer build (GitHub/Bitbucket)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Scrutinizer build (GitHub/Bitbucket)" src="$url">'}
+  /scrutinizer/build/gl/{instance}/{user}/{repo}/{branch}:
+    get:
+      summary: 'Scrutinizer build (GitLab)'
+      parameters:
+        - {'name': 'instance', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'propertywindow'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'propertywindow'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'client'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Scrutinizer build (GitLab)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Scrutinizer build (GitLab)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Scrutinizer build (GitLab)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Scrutinizer build (GitLab)" src="$url">'}
+  /scrutinizer/build/gl/{instance}/{user}/{repo}:
+    get:
+      summary: 'Scrutinizer build (GitLab)'
+      parameters:
+        - {'name': 'instance', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'propertywindow'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'propertywindow'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'client'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Scrutinizer build (GitLab)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Scrutinizer build (GitLab)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Scrutinizer build (GitLab)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Scrutinizer build (GitLab)" src="$url">'}
+  /sonar/{metric}/{component}/{branch}:
+    get:
+      summary: 'Sonar Test Count'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n"
+      parameters:
+        - {'name': 'metric', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['total_tests', 'skipped_tests', 'test_failures', 'test_errors']}, 'example': 'total_tests'}
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org.ow2.petals:petals-log'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'http://sonar.petalslink.com'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Test Count]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Test Count"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Test Count]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Test Count" src="$url">'}
+  /sonar/{metric}/{component}:
+    get:
+      summary: 'Sonar Test Count'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n"
+      parameters:
+        - {'name': 'metric', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['total_tests', 'skipped_tests', 'test_failures', 'test_errors']}, 'example': 'total_tests'}
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org.ow2.petals:petals-log'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'http://sonar.petalslink.com'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Test Count]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Test Count"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Test Count]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Test Count" src="$url">'}
+  /sonar/test_execution_time/{component}/{branch}:
+    get:
+      summary: 'Sonar Test Execution Time'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n"
+      parameters:
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'swellaby:azure-pipelines-templates'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://sonarcloud.io'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Test Execution Time]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Test Execution Time"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Test Execution Time]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Test Execution Time" src="$url">'}
+  /sonar/test_execution_time/{component}:
+    get:
+      summary: 'Sonar Test Execution Time'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n"
+      parameters:
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'swellaby:azure-pipelines-templates'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://sonarcloud.io'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Test Execution Time]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Test Execution Time"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Test Execution Time]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Test Execution Time" src="$url">'}
+  /sonar/test_success_density/{component}/{branch}:
+    get:
+      summary: 'Sonar Test Success Rate'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n"
+      parameters:
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'swellaby:azure-pipelines-templates'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://sonarcloud.io'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Test Success Rate]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Test Success Rate"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Test Success Rate]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Test Success Rate" src="$url">'}
+  /sonar/test_success_density/{component}:
+    get:
+      summary: 'Sonar Test Success Rate'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n"
+      parameters:
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'swellaby:azure-pipelines-templates'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://sonarcloud.io'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Test Success Rate]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Test Success Rate"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Test Success Rate]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Test Success Rate" src="$url">'}
+  /teamcity/build/{verbosity}/{buildId}:
+    get:
+      summary: 'TeamCity Full Build Status'
+      parameters:
+        - {'name': 'verbosity', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['s', 'e']}, 'example': 'e'}
+        - {'name': 'buildId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'bt345'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://teamcity.jetbrains.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![TeamCity Full Build Status]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: TeamCity Full Build Status"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[TeamCity Full Build Status]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="TeamCity Full Build Status" src="$url">'}
+  /travis/{user}/{repo}:
+    get:
+      summary: 'Travis (.org)'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rust-lang'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rust'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Travis (.org)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Travis (.org)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Travis (.org)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Travis (.org)" src="$url">'}
+  /travis/{user}/{repo}/{branch}:
+    get:
+      summary: 'Travis (.org) branch'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rust-lang'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rust'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Travis (.org) branch]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Travis (.org) branch"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Travis (.org) branch]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Travis (.org) branch" src="$url">'}
+  /travis/com/{user}/{repo}:
+    get:
+      summary: 'Travis (.com)'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ivandelabeldad'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rackian-gateway'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Travis (.com)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Travis (.com)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Travis (.com)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Travis (.com)" src="$url">'}
+  /travis/com/{user}/{repo}/{branch}:
+    get:
+      summary: 'Travis (.com) branch'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ivandelabeldad'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rackian-gateway'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Travis (.com) branch]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Travis (.com) branch"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Travis (.com) branch]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Travis (.com) branch" src="$url">'}
+  /visual-studio-app-center/builds/{owner}/{app}/{branch}/{token}:
+    get:
+      summary: 'Visual Studio App Center Builds'
+      description: 'You will need to create a <b>read-only</b> API token <a target=''_blank'' href=''https://appcenter.ms/settings/apitokens''>here</a>.'
+      parameters:
+        - {'name': 'owner', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'jct'}
+        - {'name': 'app', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'my-amazing-app'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'token', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ac70cv...'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Visual Studio App Center Builds]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Visual Studio App Center Builds"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Visual Studio App Center Builds]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Visual Studio App Center Builds" src="$url">'}

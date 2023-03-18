@@ -1,0 +1,294 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Chat'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /discord/{serverId}:
+    get:
+      summary: 'Discord'
+      description: "\n<p>\n  The Discord badge requires the <code>SERVER ID</code> in order access the Discord JSON API.\n</p>\n<p>\n  The <code>SERVER ID</code> can be located in the url of the channel that the badge is accessing.\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/6025893/39329897-b08f8290-4997-11e8-8f8f-7b85ff61882f.png\"\n  alt=\"SERVER ID is after the channel part at the end of the url\" />\n<p>\n  To use the Discord badge a Discord server admin must enable the widget setting on the server.\n</p>\n<iframe src=\"https://player.vimeo.com/video/364220040\" width=\"640\" height=\"210\" frameborder=\"0\" allow=\"autoplay; fullscreen\" allowfullscreen></iframe>\n"
+      parameters:
+        - {'name': 'serverId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '102860784329052160'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Discord]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Discord"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Discord]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Discord" src="$url">'}
+  /discourse/topics:
+    get:
+      summary: 'Discourse topics'
+      parameters:
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://meta.discourse.org'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Discourse topics]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Discourse topics"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Discourse topics]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Discourse topics" src="$url">'}
+  /discourse/users:
+    get:
+      summary: 'Discourse users'
+      parameters:
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://meta.discourse.org'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Discourse users]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Discourse users"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Discourse users]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Discourse users" src="$url">'}
+  /discourse/posts:
+    get:
+      summary: 'Discourse posts'
+      parameters:
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://meta.discourse.org'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Discourse posts]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Discourse posts"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Discourse posts]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Discourse posts" src="$url">'}
+  /discourse/likes:
+    get:
+      summary: 'Discourse likes'
+      parameters:
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://meta.discourse.org'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Discourse likes]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Discourse likes"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Discourse likes]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Discourse likes" src="$url">'}
+  /discourse/status:
+    get:
+      summary: 'Discourse status'
+      parameters:
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://meta.discourse.org'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Discourse status]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Discourse status"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Discourse status]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Discourse status" src="$url">'}
+  /gitter/room/{user}/{repo}:
+    get:
+      summary: 'Gitter'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'nwjs'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'nw.js'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Gitter]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Gitter"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Gitter]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Gitter" src="$url">'}
+  /matrix/{roomAlias}:
+    get:
+      summary: 'Matrix'
+      description: "\n  <p>\n    In order for this badge to work, the host of your room must allow guest accounts or dummy accounts to register, and the room must be world readable (chat history visible to anyone).\n    <br />\n    The following steps will show you how to setup the badge URL using the Element Matrix client.\n    <br />\n    <ul>\n      <li>Select the desired room inside the Element client</li>\n      <li>Click on the room settings button (gear icon) located near the top right of the client</li>\n      <li>Scroll to the very bottom of the settings page and look under the <code>Addresses</code> section</li>\n      <li>You should see one or more <code>room addresses (or aliases)</code>, which can be easily identified with their starting hash (<code>#</code>) character (ex: <code>#twim:matrix.org</code>)</li>\n      <li>If there is no address for this room, add one under <code>Local addresses for this room</code></li>\n      <li>Remove the starting hash character (<code>#</code>)</li>\n      <li>The final badge URL should look something like this <code>/matrix/twim:matrix.org.svg</code></li>\n    </ul>\n    <br />\n    Some Matrix homeservers don't hold a server name matching where they live (e.g. if the homeserver <code>example.com</code> that created the room alias <code>#mysuperroom:example.com</code> lives at <code>matrix.example.com</code>).\n    <br />\n    If that is the case of the homeserver that created the room alias used for generating the badge, you will need to add the server's FQDN (fully qualified domain name) as a query parameter.\n    <br />\n    The final badge URL should then look something like this <code>/matrix/mysuperroom:example.com.svg?server_fqdn=matrix.example.com</code>.\n  </p>\n  "
+      parameters:
+        - {'name': 'roomAlias', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'twim:matrix.org'}
+        - {'name': 'server_fqdn', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'matrix.org'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Matrix]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Matrix"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Matrix]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Matrix" src="$url">'}
+  /stackexchange/{stackexchangesite}/qm/{query}:
+    get:
+      summary: 'Stack Exchange monthly questions'
+      parameters:
+        - {'name': 'stackexchangesite', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'stackoverflow'}
+        - {'name': 'query', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'dayjs'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Stack Exchange monthly questions]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Stack Exchange monthly questions"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Stack Exchange monthly questions]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Stack Exchange monthly questions" src="$url">'}
+  /stackexchange/{stackexchangesite}/r/{query}:
+    get:
+      summary: 'Stack Exchange reputation'
+      parameters:
+        - {'name': 'stackexchangesite', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'stackoverflow'}
+        - {'name': 'query', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '123'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Stack Exchange reputation]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Stack Exchange reputation"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Stack Exchange reputation]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Stack Exchange reputation" src="$url">'}
+  /stackexchange/{stackexchangesite}/t/{query}:
+    get:
+      summary: 'Stack Exchange questions'
+      parameters:
+        - {'name': 'stackexchangesite', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'stackoverflow'}
+        - {'name': 'query', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gson'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Stack Exchange questions]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Stack Exchange questions"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Stack Exchange questions]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Stack Exchange questions" src="$url">'}

@@ -1,0 +1,472 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Code Coverage'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /azure-devops/coverage/{organization}/{project}/{definitionId}:
+    get:
+      summary: 'Azure DevOps coverage'
+      description: "\n<p>\n  To obtain your own badge, you need to get 3 pieces of information:\n  <code>ORGANIZATION</code>, <code>PROJECT</code> and <code>DEFINITION_ID</code>.\n</p>\n<p>\n  First, you need to select your build definition and look at the url:\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/3749820/47259976-e2d9ec80-d4b2-11e8-92cc-7c81089a7a2c.png\"\n  alt=\"ORGANIZATION is after the dev.azure.com part, PROJECT is right after that, DEFINITION_ID is at the end after the id= part.\" />\n<p>\n  Your badge will then have the form:\n  <code>https://img.shields.io/azure-devops/coverage/ORGANIZATION/PROJECT/DEFINITION_ID.svg</code>.\n</p>\n<p>\n  Optionally, you can specify a named branch:\n  <code>https://img.shields.io/azure-devops/coverage/ORGANIZATION/PROJECT/DEFINITION_ID/NAMED_BRANCH.svg</code>.\n</p>\n"
+      parameters:
+        - {'name': 'organization', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'swellaby'}
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'opensource'}
+        - {'name': 'definitionId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '25'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Azure DevOps coverage]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Azure DevOps coverage"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Azure DevOps coverage]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Azure DevOps coverage" src="$url">'}
+  /azure-devops/coverage/{organization}/{project}/{definitionId}/{branch}:
+    get:
+      summary: 'Azure DevOps coverage (branch)'
+      description: "\n<p>\n  To obtain your own badge, you need to get 3 pieces of information:\n  <code>ORGANIZATION</code>, <code>PROJECT</code> and <code>DEFINITION_ID</code>.\n</p>\n<p>\n  First, you need to select your build definition and look at the url:\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/3749820/47259976-e2d9ec80-d4b2-11e8-92cc-7c81089a7a2c.png\"\n  alt=\"ORGANIZATION is after the dev.azure.com part, PROJECT is right after that, DEFINITION_ID is at the end after the id= part.\" />\n<p>\n  Your badge will then have the form:\n  <code>https://img.shields.io/azure-devops/coverage/ORGANIZATION/PROJECT/DEFINITION_ID.svg</code>.\n</p>\n<p>\n  Optionally, you can specify a named branch:\n  <code>https://img.shields.io/azure-devops/coverage/ORGANIZATION/PROJECT/DEFINITION_ID/NAMED_BRANCH.svg</code>.\n</p>\n"
+      parameters:
+        - {'name': 'organization', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'swellaby'}
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'opensource'}
+        - {'name': 'definitionId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '25'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Azure DevOps coverage (branch)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Azure DevOps coverage (branch)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Azure DevOps coverage (branch)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Azure DevOps coverage (branch)" src="$url">'}
+  /codacy/coverage/{projectId}:
+    get:
+      summary: 'Codacy coverage'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'd5402a91aa7b4234bd1c19b5e86a63be'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Codacy coverage]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Codacy coverage"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Codacy coverage]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Codacy coverage" src="$url">'}
+  /codacy/coverage/{projectId}/{branch}:
+    get:
+      summary: 'Codacy branch coverage'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'd5402a91aa7b4234bd1c19b5e86a63be'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Codacy branch coverage]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Codacy branch coverage"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Codacy branch coverage]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Codacy branch coverage" src="$url">'}
+  /codeclimate/{format}/{user}/{repo}:
+    get:
+      summary: 'Code Climate coverage'
+      parameters:
+        - {'name': 'format', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['coverage', 'coverage-letter']}, 'example': 'coverage'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'codeclimate'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'codeclimate'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Code Climate coverage]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Code Climate coverage"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Code Climate coverage]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Code Climate coverage" src="$url">'}
+  /codecov/c/{vcsName}/{user}/{repo}:
+    get:
+      summary: 'Codecov'
+      description: "\n  <p>\n    You may specify a Codecov badge token to get coverage for a private repository.\n  </p>\n  <p>\n  You can find the token under the badge section of your project settings page, in this url: <code>https://codecov.io/&#123;vcsName&#125;/&#123;user&#125;/&#123;repo&#125;/settings/badge</code>.\n  </p>\n"
+      parameters:
+        - {'name': 'vcsName', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['github', 'gh', 'bitbucket', 'bb', 'gl', 'gitlab']}, 'example': 'github'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'codecov'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'example-node'}
+        - {'name': 'token', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'a1b2c3d4e5'}
+        - {'name': 'flag', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'flag_name'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Codecov]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Codecov"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Codecov]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Codecov" src="$url">'}
+  /codecov/c/{vcsName}/{user}/{repo}/{branch}:
+    get:
+      summary: 'Codecov branch'
+      description: "\n  <p>\n    You may specify a Codecov badge token to get coverage for a private repository.\n  </p>\n  <p>\n  You can find the token under the badge section of your project settings page, in this url: <code>https://codecov.io/&#123;vcsName&#125;/&#123;user&#125;/&#123;repo&#125;/settings/badge</code>.\n  </p>\n"
+      parameters:
+        - {'name': 'vcsName', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['github', 'gh', 'bitbucket', 'bb', 'gl', 'gitlab']}, 'example': 'github'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'codecov'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'example-node'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'token', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'a1b2c3d4e5'}
+        - {'name': 'flag', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'flag_name'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Codecov branch]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Codecov branch"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Codecov branch]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Codecov branch" src="$url">'}
+  /coverallsCoverage/{vcsType}/{user}/{repo}:
+    get:
+      summary: 'Coveralls branch'
+      parameters:
+        - {'name': 'vcsType', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['github', 'bitbucket', 'gitlab']}, 'example': 'bitbucket'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'pyKLIP'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'pyklip'}
+        - {'name': 'branch', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Coveralls branch]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Coveralls branch"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Coveralls branch]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Coveralls branch" src="$url">'}
+  /gitlab/pipeline-coverage/{project}:
+    get:
+      summary: 'Gitlab code coverage (self-managed, specific job)'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  Important: If your project is publicly visible, but the badge is like this:\n  <img src=\"https://img.shields.io/badge/coverage-not&nbsp;set&nbsp;up-red\" alt=\"coverage not set up\"/>\n</p>\n<p>\n  Check if your pipelines are publicly visible as well.<br />\n  Navigate to your project settings on GitLab and choose General Pipelines under CI/CD.<br />\n  Then tick the setting Public pipelines.\n</p>\n<p>\n  Now your settings should look like this:\n</p>\n<img src=\"https://user-images.githubusercontent.com/12065866/67156911-e225a180-f324-11e9-93ad-10aafbb3e69e.png\" alt=\"Setting Public pipelines set\"/>\n<p>\nAlso make sure you have set up code covrage parsing as described <a href=\"https://docs.gitlab.com/ee/ci/pipelines/settings.html#test-coverage-parsing\">here</a>\n</p>\n<p>\n  Your badge should be working fine now.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'GNOME/libhandy'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.gnome.org'}
+        - {'name': 'job_name', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'unit-test'}
+        - {'name': 'branch', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Gitlab code coverage (self-managed, specific job)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Gitlab code coverage (self-managed, specific job)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Gitlab code coverage (self-managed, specific job)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Gitlab code coverage (self-managed, specific job)" src="$url">'}
+  /jenkins/coverage/{format}:
+    get:
+      summary: 'Jenkins Coverage'
+      description: "\n<p>\n  We support coverage metrics from a variety of Jenkins plugins:\n  <ul>\n    <li><a href=\"https://plugins.jenkins.io/jacoco\">JaCoCo</a></li>\n    <li><a href=\"https://plugins.jenkins.io/cobertura\">Cobertura</a></li>\n    <li>Any plugin which integrates with the <a href=\"https://plugins.jenkins.io/code-coverage-api\">Code Coverage API</a> (e.g. llvm-cov, Cobertura 1.13+, etc.)</li>\n  </ul>\n</p>\n"
+      parameters:
+        - {'name': 'format', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['jacoco', 'cobertura', 'api']}, 'example': 'cobertura'}
+        - {'name': 'jobUrl', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://jenkins.sqlalchemy.org/job/alembic_coverage'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Jenkins Coverage]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Jenkins Coverage"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Jenkins Coverage]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Jenkins Coverage" src="$url">'}
+  /nycrc/{user}/{repo}:
+    get:
+      summary: 'nycrc config on GitHub'
+      description: "<p>\n  Create a code coverage badge, based on thresholds stored in a\n  <a href=\"https://github.com/istanbuljs/nyc#common-configuration-options\">.nycrc config file</a>\n  on GitHub.\n</p>"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'yargs'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'yargs'}
+        - {'name': 'config', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '.nycrc'}
+        - {'name': 'preferredThreshold', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'lines'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![nycrc config on GitHub]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: nycrc config on GitHub"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[nycrc config on GitHub]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="nycrc config on GitHub" src="$url">'}
+  /scrutinizer/coverage/{vcs}/{user}/{repo}/{branch}:
+    get:
+      summary: 'Scrutinizer coverage (GitHub/BitBucket)'
+      parameters:
+        - {'name': 'vcs', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['g', 'b']}, 'example': 'g'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'filp'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'whoops'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Scrutinizer coverage (GitHub/BitBucket)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Scrutinizer coverage (GitHub/BitBucket)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Scrutinizer coverage (GitHub/BitBucket)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Scrutinizer coverage (GitHub/BitBucket)" src="$url">'}
+  /scrutinizer/coverage/{vcs}/{user}/{repo}:
+    get:
+      summary: 'Scrutinizer coverage (GitHub/BitBucket)'
+      parameters:
+        - {'name': 'vcs', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['g', 'b']}, 'example': 'g'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'filp'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'whoops'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Scrutinizer coverage (GitHub/BitBucket)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Scrutinizer coverage (GitHub/BitBucket)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Scrutinizer coverage (GitHub/BitBucket)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Scrutinizer coverage (GitHub/BitBucket)" src="$url">'}
+  /scrutinizer/coverage/gl/{instance}/{user}/{repo}/{branch}:
+    get:
+      summary: 'Scrutinizer coverage (GitLab)'
+      parameters:
+        - {'name': 'instance', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'propertywindow'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'propertywindow'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'client'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Scrutinizer coverage (GitLab)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Scrutinizer coverage (GitLab)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Scrutinizer coverage (GitLab)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Scrutinizer coverage (GitLab)" src="$url">'}
+  /scrutinizer/coverage/gl/{instance}/{user}/{repo}:
+    get:
+      summary: 'Scrutinizer coverage (GitLab)'
+      parameters:
+        - {'name': 'instance', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'propertywindow'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'propertywindow'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'client'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Scrutinizer coverage (GitLab)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Scrutinizer coverage (GitLab)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Scrutinizer coverage (GitLab)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Scrutinizer coverage (GitLab)" src="$url">'}
+  /sonar/coverage/{component}/{branch}:
+    get:
+      summary: 'Sonar Coverage'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n"
+      parameters:
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org.ow2.petals:petals-se-ase'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'http://sonar.petalslink.com'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Coverage]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Coverage"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Coverage]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Coverage" src="$url">'}
+  /sonar/coverage/{component}:
+    get:
+      summary: 'Sonar Coverage'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n"
+      parameters:
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org.ow2.petals:petals-se-ase'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'http://sonar.petalslink.com'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Coverage]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Coverage"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Coverage]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Coverage" src="$url">'}
+  /teamcity/coverage/{buildId}:
+    get:
+      summary: 'TeamCity Coverage'
+      parameters:
+        - {'name': 'buildId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ReactJSNet_PullRequests'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://teamcity.jetbrains.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![TeamCity Coverage]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: TeamCity Coverage"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[TeamCity Coverage]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="TeamCity Coverage" src="$url">'}

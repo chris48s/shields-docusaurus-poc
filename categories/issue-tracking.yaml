@@ -1,0 +1,1070 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Issue Tracking'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /bitbucket/issues/{user}/{repo}:
+    get:
+      summary: 'Bitbucket open issues'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'atlassian'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'python-bitbucket'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Bitbucket open issues]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Bitbucket open issues"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Bitbucket open issues]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Bitbucket open issues" src="$url">'}
+  /bitbucket/issues-raw/{user}/{repo}:
+    get:
+      summary: 'Bitbucket open issues'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'atlassian'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'python-bitbucket'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Bitbucket open issues]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Bitbucket open issues"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Bitbucket open issues]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Bitbucket open issues" src="$url">'}
+  /bitbucket/pr/{user}/{repo}:
+    get:
+      summary: 'Bitbucket Server open pull requests'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'foo'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'bar'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://bitbucket.mydomain.net'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Bitbucket Server open pull requests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Bitbucket Server open pull requests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Bitbucket Server open pull requests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Bitbucket Server open pull requests" src="$url">'}
+  /bitbucket/pr-raw/{user}/{repo}:
+    get:
+      summary: 'Bitbucket Server open pull requests'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'foo'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'bar'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://bitbucket.mydomain.net'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Bitbucket Server open pull requests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Bitbucket Server open pull requests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Bitbucket Server open pull requests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Bitbucket Server open pull requests" src="$url">'}
+  /bugzilla/{bugNumber}:
+    get:
+      summary: 'Bugzilla bug status (non-Mozilla)'
+      description: "\n<p>\n  If your Bugzilla badge errors, it might be because you are trying to load a private bug.\n</p>\n"
+      parameters:
+        - {'name': 'bugNumber', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '545424'}
+        - {'name': 'baseUrl', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://bugs.eclipse.org/bugs'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Bugzilla bug status (non-Mozilla)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Bugzilla bug status (non-Mozilla)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Bugzilla bug status (non-Mozilla)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Bugzilla bug status (non-Mozilla)" src="$url">'}
+  /gerrit/{changeId}:
+    get:
+      summary: 'Gerrit change status'
+      parameters:
+        - {'name': 'changeId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '1011478'}
+        - {'name': 'baseUrl', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://android-review.googlesource.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Gerrit change status]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Gerrit change status"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Gerrit change status]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Gerrit change status" src="$url">'}
+  /github/commit-status/{user}/{repo}/{branch}/{commit}:
+    get:
+      summary: 'GitHub commit merge status'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'commit', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '5d4ab86b1b5ddfb3c4a70a70bd19932c52603b8c'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub commit merge status]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub commit merge status"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub commit merge status]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub commit merge status" src="$url">'}
+  /github/hacktoberfest/{year}/{user}/{repo}:
+    get:
+      summary: 'GitHub Hacktoberfest combined status (suggestion label override)'
+      description: "\n  <p>\n    This badge is designed for projects hosted on GitHub which are\n    participating in\n    <a href=\"https://hacktoberfest.digitalocean.com\">Hacktoberfest</a>,\n    an initiative to encourage participating in open-source projects. The\n    badge can be added to the project readme to encourage potential\n    contributors to review the suggested issues and to celebrate the\n    contributions that have already been made.\n    The badge displays three pieces of information:\n    <ul>\n      <li>\n        The number of suggested issues. By default this will count open\n        issues with the <strong>hacktoberfest</strong> label, however you\n        can pick a different label (e.g.\n        <code>?suggestion_label=good%20first%20issue</code>).\n      </li>\n      <li>\n        The number of pull requests opened in October. This excludes any\n        PR with the <strong>invalid</strong> label.\n      </li>\n      <li>The number of days left of October.</li>\n    </ul>\n  </p>\n\n  \n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n\n"
+      parameters:
+        - {'name': 'year', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['2019', '2020', '2021', '2022']}, 'example': '2022'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'tmrowco'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'tmrowapp-contrib'}
+        - {'name': 'suggestion_label', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'help wanted'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub Hacktoberfest combined status (suggestion label override)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub Hacktoberfest combined status (suggestion label override)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub Hacktoberfest combined status (suggestion label override)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub Hacktoberfest combined status (suggestion label override)" src="$url">'}
+  /github/{issueKind}/detail/{property}/{user}/{repo}/{number}:
+    get:
+      summary: 'GitHub issue/pull request detail'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'issueKind', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['issues', 'pulls']}, 'example': 'issues'}
+        - {'name': 'property', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['state', 'title', 'author', 'label', 'comments', 'age', 'last-update', 'milestone']}, 'example': 'state'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'number', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '979'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub issue/pull request detail]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub issue/pull request detail"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub issue/pull request detail]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub issue/pull request detail" src="$url">'}
+  /github/issues-search:
+    get:
+      summary: 'GitHub issue custom search'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'query', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'repo:badges/shields is:closed label:bug author:app/sentry-io'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub issue custom search]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub issue custom search"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub issue custom search]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub issue custom search" src="$url">'}
+  /github/issues-search/{user}/{repo}:
+    get:
+      summary: 'GitHub issue custom search in repo'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'query', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'is:closed label:bug author:app/sentry-io'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub issue custom search in repo]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub issue custom search in repo"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub issue custom search in repo]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub issue custom search in repo" src="$url">'}
+  /github/issues/{user}/{repo}:
+    get:
+      summary: 'GitHub issues'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub issues]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub issues"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub issues]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub issues" src="$url">'}
+  /github/issues-raw/{user}/{repo}:
+    get:
+      summary: 'GitHub issues'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub issues]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub issues"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub issues]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub issues" src="$url">'}
+  /github/issues/{user}/{repo}/{label}:
+    get:
+      summary: 'GitHub issues by-label'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'label', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'service-badge'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub issues by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub issues by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub issues by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub issues by-label" src="$url">'}
+  /github/issues-raw/{user}/{repo}/{label}:
+    get:
+      summary: 'GitHub issues by-label'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'label', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'service-badge'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub issues by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub issues by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub issues by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub issues by-label" src="$url">'}
+  /github/issues-closed/{user}/{repo}:
+    get:
+      summary: 'GitHub closed issues'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub closed issues]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub closed issues"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub closed issues]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub closed issues" src="$url">'}
+  /github/issues-closed-raw/{user}/{repo}:
+    get:
+      summary: 'GitHub closed issues'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub closed issues]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub closed issues"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub closed issues]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub closed issues" src="$url">'}
+  /github/issues-closed/{user}/{repo}/{label}:
+    get:
+      summary: 'GitHub closed issues by-label'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'label', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'service-badge'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub closed issues by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub closed issues by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub closed issues by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub closed issues by-label" src="$url">'}
+  /github/issues-closed-raw/{user}/{repo}/{label}:
+    get:
+      summary: 'GitHub closed issues by-label'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'label', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'service-badge'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub closed issues by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub closed issues by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub closed issues by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub closed issues by-label" src="$url">'}
+  /github/issues-pr/{user}/{repo}:
+    get:
+      summary: 'GitHub pull requests'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'cdnjs'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'cdnjs'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub pull requests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub pull requests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub pull requests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub pull requests" src="$url">'}
+  /github/issues-pr-raw/{user}/{repo}:
+    get:
+      summary: 'GitHub pull requests'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'cdnjs'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'cdnjs'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub pull requests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub pull requests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub pull requests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub pull requests" src="$url">'}
+  /github/issues-pr-closed/{user}/{repo}:
+    get:
+      summary: 'GitHub closed pull requests'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'cdnjs'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'cdnjs'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub closed pull requests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub closed pull requests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub closed pull requests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub closed pull requests" src="$url">'}
+  /github/issues-pr-closed-raw/{user}/{repo}:
+    get:
+      summary: 'GitHub closed pull requests'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'cdnjs'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'cdnjs'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub closed pull requests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub closed pull requests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub closed pull requests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub closed pull requests" src="$url">'}
+  /github/issues-pr/{user}/{repo}/{label}:
+    get:
+      summary: 'GitHub pull requests by-label'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'label', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'service-badge'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub pull requests by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub pull requests by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub pull requests by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub pull requests by-label" src="$url">'}
+  /github/issues-pr-raw/{user}/{repo}/{label}:
+    get:
+      summary: 'GitHub pull requests by-label'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'label', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'service-badge'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub pull requests by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub pull requests by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub pull requests by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub pull requests by-label" src="$url">'}
+  /github/issues-pr-closed/{user}/{repo}/{label}:
+    get:
+      summary: 'GitHub closed pull requests by-label'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'label', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'service-badge'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub closed pull requests by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub closed pull requests by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub closed pull requests by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub closed pull requests by-label" src="$url">'}
+  /github/issues-pr-closed-raw/{user}/{repo}/{label}:
+    get:
+      summary: 'GitHub closed pull requests by-label'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'label', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'service-badge'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub closed pull requests by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub closed pull requests by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub closed pull requests by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub closed pull requests by-label" src="$url">'}
+  /github/labels/{user}/{repo}/{name}:
+    get:
+      summary: 'GitHub labels'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'atom'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'atom'}
+        - {'name': 'name', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'help-wanted'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub labels]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub labels"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub labels]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub labels" src="$url">'}
+  /github/milestones/{variant}/{user}/{repo}/{number}:
+    get:
+      summary: 'GitHub milestone'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'variant', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['issues-closed', 'issues-open', 'issues-total', 'progress', 'progress-percent']}, 'example': 'issues-open'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'number', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '1'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub milestone]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub milestone"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub milestone]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub milestone" src="$url">'}
+  /github/milestones/{variant}/{user}/{repo}:
+    get:
+      summary: 'GitHub milestones'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'variant', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['open', 'closed', 'all']}, 'example': 'open'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub milestones]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub milestones"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub milestones]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub milestones" src="$url">'}
+  /gitlab/issues/open/{project}:
+    get:
+      summary: 'GitLab issues by-label'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  If you want to use multiple labels then please use commas (<code>,</code>) to separate them, e.g. <code>foo,bar</code>.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'labels', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'test,failure::new'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab issues by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab issues by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab issues by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab issues by-label" src="$url">'}
+  /gitlab/issues/open-raw/{project}:
+    get:
+      summary: 'GitLab issues by-label'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  If you want to use multiple labels then please use commas (<code>,</code>) to separate them, e.g. <code>foo,bar</code>.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'labels', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'test,failure::new'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab issues by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab issues by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab issues by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab issues by-label" src="$url">'}
+  /gitlab/issues/closed/{project}:
+    get:
+      summary: 'GitLab closed issues by-label'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  If you want to use multiple labels then please use commas (<code>,</code>) to separate them, e.g. <code>foo,bar</code>.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'labels', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'test,failure::new'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab closed issues by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab closed issues by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab closed issues by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab closed issues by-label" src="$url">'}
+  /gitlab/issues/closed-raw/{project}:
+    get:
+      summary: 'GitLab closed issues by-label'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  If you want to use multiple labels then please use commas (<code>,</code>) to separate them, e.g. <code>foo,bar</code>.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'labels', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'test,failure::new'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab closed issues by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab closed issues by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab closed issues by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab closed issues by-label" src="$url">'}
+  /gitlab/issues/all/{project}:
+    get:
+      summary: 'GitLab all issues'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab all issues]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab all issues"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab all issues]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab all issues" src="$url">'}
+  /gitlab/issues/all-raw/{project}:
+    get:
+      summary: 'GitLab all issues by-label'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  If you want to use multiple labels then please use commas (<code>,</code>) to separate them, e.g. <code>foo,bar</code>.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'labels', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'test,failure::new'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab all issues by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab all issues by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab all issues by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab all issues by-label" src="$url">'}
+  /gitlab/merge-requests/open/{project}:
+    get:
+      summary: 'GitLab merge requests by-label'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  If you want to use multiple labels then please use commas (<code>,</code>) to separate them, e.g. <code>foo,bar</code>.\n</p>\n\n<p>\n  <a href=\"https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers\">GitLab's API </a> only reports up to 10k Merge Requests, so badges for projects that have more than 10k will not have an exact count.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'labels', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'test,type::feature'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab merge requests by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab merge requests by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab merge requests by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab merge requests by-label" src="$url">'}
+  /gitlab/merge-requests/open-raw/{project}:
+    get:
+      summary: 'GitLab merge requests by-label'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  If you want to use multiple labels then please use commas (<code>,</code>) to separate them, e.g. <code>foo,bar</code>.\n</p>\n\n<p>\n  <a href=\"https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers\">GitLab's API </a> only reports up to 10k Merge Requests, so badges for projects that have more than 10k will not have an exact count.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'labels', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab merge requests by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab merge requests by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab merge requests by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab merge requests by-label" src="$url">'}
+  /gitlab/merge-requests/closed/{project}:
+    get:
+      summary: 'GitLab locked merge requests by-label'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  If you want to use multiple labels then please use commas (<code>,</code>) to separate them, e.g. <code>foo,bar</code>.\n</p>\n\n<p>\n  <a href=\"https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers\">GitLab's API </a> only reports up to 10k Merge Requests, so badges for projects that have more than 10k will not have an exact count.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'labels', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'test,type::feature'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab locked merge requests by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab locked merge requests by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab locked merge requests by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab locked merge requests by-label" src="$url">'}
+  /gitlab/merge-requests/closed-raw/{project}:
+    get:
+      summary: 'GitLab closed merge requests by-label'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  If you want to use multiple labels then please use commas (<code>,</code>) to separate them, e.g. <code>foo,bar</code>.\n</p>\n\n<p>\n  <a href=\"https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers\">GitLab's API </a> only reports up to 10k Merge Requests, so badges for projects that have more than 10k will not have an exact count.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'labels', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'test,type::feature'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab closed merge requests by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab closed merge requests by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab closed merge requests by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab closed merge requests by-label" src="$url">'}
+  /gitlab/merge-requests/all/{project}:
+    get:
+      summary: 'GitLab all merge requests'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  <a href=\"https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers\">GitLab's API </a> only reports up to 10k Merge Requests, so badges for projects that have more than 10k will not have an exact count.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab all merge requests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab all merge requests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab all merge requests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab all merge requests" src="$url">'}
+  /gitlab/merge-requests/all-raw/{project}:
+    get:
+      summary: 'GitLab all merge requests by-label'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  If you want to use multiple labels then please use commas (<code>,</code>) to separate them, e.g. <code>foo,bar</code>.\n</p>\n\n<p>\n  <a href=\"https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers\">GitLab's API </a> only reports up to 10k Merge Requests, so badges for projects that have more than 10k will not have an exact count.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'labels', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'test,failure::new'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab all merge requests by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab all merge requests by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab all merge requests by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab all merge requests by-label" src="$url">'}
+  /gitlab/merge-requests/locked/{project}:
+    get:
+      summary: 'GitLab locked merge requests'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  <a href=\"https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers\">GitLab's API </a> only reports up to 10k Merge Requests, so badges for projects that have more than 10k will not have an exact count.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab locked merge requests]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab locked merge requests"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab locked merge requests]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab locked merge requests" src="$url">'}
+  /gitlab/merge-requests/merged/{project}:
+    get:
+      summary: 'GitLab merged merge requests by-label'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n\n<p>\n  If you want to use multiple labels then please use commas (<code>,</code>) to separate them, e.g. <code>foo,bar</code>.\n</p>\n\n<p>\n  <a href=\"https://docs.gitlab.com/ee/user/gitlab_com/index.html#pagination-response-headers\">GitLab's API </a> only reports up to 10k Merge Requests, so badges for projects that have more than 10k will not have an exact count.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'labels', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'test,type::feature'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab merged merge requests by-label]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab merged merge requests by-label"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab merged merge requests by-label]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab merged merge requests by-label" src="$url">'}
+  /jira/issue/{issueKey}:
+    get:
+      summary: 'JIRA issue'
+      parameters:
+        - {'name': 'issueKey', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'KAFKA-2896'}
+        - {'name': 'baseUrl', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://issues.apache.org/jira'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![JIRA issue]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: JIRA issue"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[JIRA issue]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="JIRA issue" src="$url">'}
+  /jira/sprint/{sprintId}:
+    get:
+      summary: 'JIRA sprint completion'
+      description: "\n<p>\n  To get the <code>Sprint ID</code>, go to your Backlog view in your project,\n  right click on your sprint name and get the value of\n  <code>data-sprint-id</code>.\n</p>\n"
+      parameters:
+        - {'name': 'sprintId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '94'}
+        - {'name': 'baseUrl', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://jira.spring.io'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![JIRA sprint completion]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: JIRA sprint completion"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[JIRA sprint completion]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="JIRA sprint completion" src="$url">'}

@@ -1,0 +1,869 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Analysis'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /ansible/quality/{projectId}:
+    get:
+      summary: 'Ansible Quality Score'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '432'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Ansible Quality Score]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Ansible Quality Score"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Ansible Quality Score]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Ansible Quality Score" src="$url">'}
+  /cii/level/{projectId}:
+    get:
+      summary: 'CII Best Practices Level'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '1'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![CII Best Practices Level]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: CII Best Practices Level"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[CII Best Practices Level]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="CII Best Practices Level" src="$url">'}
+  /cii/percentage/{projectId}:
+    get:
+      summary: 'CII Best Practices Tiered Percentage'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '29'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![CII Best Practices Tiered Percentage]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: CII Best Practices Tiered Percentage"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[CII Best Practices Tiered Percentage]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="CII Best Practices Tiered Percentage" src="$url">'}
+  /cii/summary/{projectId}:
+    get:
+      summary: 'CII Best Practices Summary'
+      description: 'This badge uses the same message and color scale as the native CII one, but with all the configuration and goodness that Shields provides!'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '33'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![CII Best Practices Summary]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: CII Best Practices Summary"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[CII Best Practices Summary]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="CII Best Practices Summary" src="$url">'}
+  /clearlydefined/score/{type}/{provider}/{namespace}/{name}/{revision}:
+    get:
+      summary: 'ClearlyDefined Score'
+      parameters:
+        - {'name': 'type', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'npm'}
+        - {'name': 'provider', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'npmjs'}
+        - {'name': 'namespace', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '-'}
+        - {'name': 'name', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'jquery'}
+        - {'name': 'revision', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '3.4.1'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![ClearlyDefined Score]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: ClearlyDefined Score"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[ClearlyDefined Score]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="ClearlyDefined Score" src="$url">'}
+  /cocoapods/metrics/doc-percent/{spec}:
+    get:
+      summary: 'Cocoapods doc percentage'
+      parameters:
+        - {'name': 'spec', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'AFNetworking'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Cocoapods doc percentage]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Cocoapods doc percentage"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Cocoapods doc percentage]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Cocoapods doc percentage" src="$url">'}
+  /codacy/grade/{projectId}:
+    get:
+      summary: 'Codacy grade'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '0cb32ce695b743d68257021455330c66'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Codacy grade]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Codacy grade"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Codacy grade]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Codacy grade" src="$url">'}
+  /codacy/grade/{projectId}/{branch}:
+    get:
+      summary: 'Codacy branch grade'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '0cb32ce695b743d68257021455330c66'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Codacy branch grade]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Codacy branch grade"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Codacy branch grade]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Codacy branch grade" src="$url">'}
+  /codeclimate/{format}/{user}/{repo}:
+    get:
+      summary: 'Code Climate maintainability'
+      parameters:
+        - {'name': 'format', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['maintainability', 'maintainability-percentage']}, 'example': 'maintainability'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'angular'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'angular'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Code Climate maintainability]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Code Climate maintainability"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Code Climate maintainability]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Code Climate maintainability" src="$url">'}
+  /codeclimate/issues/{user}/{repo}:
+    get:
+      summary: 'Code Climate issues'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'twbs'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'bootstrap'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Code Climate issues]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Code Climate issues"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Code Climate issues]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Code Climate issues" src="$url">'}
+  /codeclimate/tech-debt/{user}/{repo}:
+    get:
+      summary: 'Code Climate technical debt'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'angular'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'angular'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Code Climate technical debt]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Code Climate technical debt"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Code Climate technical debt]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Code Climate technical debt" src="$url">'}
+  /codefactor/grade/{vcsType}/{user}/{repo}/{branch}:
+    get:
+      summary: 'CodeFactor Grade'
+      parameters:
+        - {'name': 'vcsType', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['github', 'bitbucket']}, 'example': 'github'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'microsoft'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'powertoys'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'main'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![CodeFactor Grade]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: CodeFactor Grade"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[CodeFactor Grade]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="CodeFactor Grade" src="$url">'}
+  /codefactor/grade/{vcsType}/{user}/{repo}:
+    get:
+      summary: 'CodeFactor Grade'
+      parameters:
+        - {'name': 'vcsType', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['github', 'bitbucket']}, 'example': 'github'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'microsoft'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'powertoys'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![CodeFactor Grade]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: CodeFactor Grade"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[CodeFactor Grade]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="CodeFactor Grade" src="$url">'}
+  /coverity/scan/{projectId}:
+    get:
+      summary: 'Coverity Scan'
+      parameters:
+        - {'name': 'projectId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '3997'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Coverity Scan]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Coverity Scan"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Coverity Scan]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Coverity Scan" src="$url">'}
+  /github/languages/count/{user}/{repo}:
+    get:
+      summary: 'GitHub language count'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub language count]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub language count"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub language count]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub language count" src="$url">'}
+  /github/search/{user}/{repo}/{query}:
+    get:
+      summary: 'GitHub search hit counter'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'torvalds'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'linux'}
+        - {'name': 'query', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'goto'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub search hit counter]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub search hit counter"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub search hit counter]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub search hit counter" src="$url">'}
+  /github/languages/top/{user}/{repo}:
+    get:
+      summary: 'GitHub top language'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub top language]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub top language"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub top language]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub top language" src="$url">'}
+  /gitlab/languages/count/{project}:
+    get:
+      summary: 'GitLab language count'
+      description: "\n<p>\n  You may use your GitLab Project Id (e.g. 278964) or your Project Path (e.g. \n  <a href=\"https://gitlab.com/gitlab-org/gitlab\" target=\"_blank\" >gitlab-org/gitlab</a> ).\n  Note that only internet-accessible GitLab instances are supported, for example \n  <a href=\"https://jihulab.com\" target=\"_blank\" >https://jihulab.com</a>, \n  <a href=\"https://gitlab.gnome.org\" target=\"_blank\" >https://gitlab.gnome.org</a>, or \n  <a href=\"https://gitlab.com\" target=\"_blank\" >https://gitlab.com</a>.\n</p>\n"
+      parameters:
+        - {'name': 'project', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'gitlab-org/gitlab'}
+        - {'name': 'gitlab_url', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://gitlab.com'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitLab language count]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitLab language count"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitLab language count]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitLab language count" src="$url">'}
+  /npms-io/{type}/{scope}/{packageName}:
+    get:
+      summary: 'npms.io (maintenance)'
+      parameters:
+        - {'name': 'type', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['final-score', 'maintenance-score', 'popularity-score', 'quality-score']}, 'example': 'maintenance-score'}
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'command'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npms.io (maintenance)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npms.io (maintenance)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npms.io (maintenance)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npms.io (maintenance)" src="$url">'}
+  /npms-io/{type}/{packageName}:
+    get:
+      summary: 'npms.io (maintenance)'
+      parameters:
+        - {'name': 'type', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['final-score', 'maintenance-score', 'popularity-score', 'quality-score']}, 'example': 'maintenance-score'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'command'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npms.io (maintenance)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npms.io (maintenance)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npms.io (maintenance)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npms.io (maintenance)" src="$url">'}
+  /ossf-scorecard/{host}/{orgName}/{repoName}:
+    get:
+      summary: 'OSSF-Scorecard Score'
+      parameters:
+        - {'name': 'host', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'github.com'}
+        - {'name': 'orgName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'rohankh532'}
+        - {'name': 'repoName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org-workflow-add'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![OSSF-Scorecard Score]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: OSSF-Scorecard Score"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[OSSF-Scorecard Score]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="OSSF-Scorecard Score" src="$url">'}
+  /scrutinizer/quality/{vcs}/{user}/{repo}/{branch}:
+    get:
+      summary: 'Scrutinizer code quality (GitHub/Bitbucket)'
+      parameters:
+        - {'name': 'vcs', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['g', 'b']}, 'example': 'g'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'filp'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'whoops'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Scrutinizer code quality (GitHub/Bitbucket)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Scrutinizer code quality (GitHub/Bitbucket)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Scrutinizer code quality (GitHub/Bitbucket)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Scrutinizer code quality (GitHub/Bitbucket)" src="$url">'}
+  /scrutinizer/quality/{vcs}/{user}/{repo}:
+    get:
+      summary: 'Scrutinizer code quality (GitHub/Bitbucket)'
+      parameters:
+        - {'name': 'vcs', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['g', 'b']}, 'example': 'g'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'filp'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'whoops'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Scrutinizer code quality (GitHub/Bitbucket)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Scrutinizer code quality (GitHub/Bitbucket)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Scrutinizer code quality (GitHub/Bitbucket)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Scrutinizer code quality (GitHub/Bitbucket)" src="$url">'}
+  /scrutinizer/quality/gl/{instance}/{user}/{repo}/{branch}:
+    get:
+      summary: 'Scrutinizer coverage (GitLab)'
+      parameters:
+        - {'name': 'instance', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'propertywindow'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'propertywindow'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'client'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Scrutinizer coverage (GitLab)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Scrutinizer coverage (GitLab)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Scrutinizer coverage (GitLab)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Scrutinizer coverage (GitLab)" src="$url">'}
+  /scrutinizer/quality/gl/{instance}/{user}/{repo}:
+    get:
+      summary: 'Scrutinizer coverage (GitLab)'
+      parameters:
+        - {'name': 'instance', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'propertywindow'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'propertywindow'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'client'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Scrutinizer coverage (GitLab)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Scrutinizer coverage (GitLab)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Scrutinizer coverage (GitLab)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Scrutinizer coverage (GitLab)" src="$url">'}
+  /snyk/vulnerabilities/github/{user}/{repo}:
+    get:
+      summary: 'Snyk Vulnerabilities for GitHub Repo'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Snyk Vulnerabilities for GitHub Repo]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Snyk Vulnerabilities for GitHub Repo"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Snyk Vulnerabilities for GitHub Repo]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Snyk Vulnerabilities for GitHub Repo" src="$url">'}
+  /snyk/vulnerabilities/github/{user}/{repo}/{manifestFilePath}:
+    get:
+      summary: 'Snyk Vulnerabilities for GitHub Repo (Specific Manifest)'
+      description: "<p>\n          Provide the path to your target manifest file relative to the base of your repository.\n          Snyk does not support using a specific branch for this, so do not include \"blob\" nor a branch name.\n        </p>\n        "
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'manifestFilePath', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badge-maker/package.json'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Snyk Vulnerabilities for GitHub Repo (Specific Manifest)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Snyk Vulnerabilities for GitHub Repo (Specific Manifest)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Snyk Vulnerabilities for GitHub Repo (Specific Manifest)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Snyk Vulnerabilities for GitHub Repo (Specific Manifest)" src="$url">'}
+  /snyk/vulnerabilities/npm/{packageName}:
+    get:
+      summary: 'Snyk Vulnerabilities for npm scoped package'
+      parameters:
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@babel/core'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Snyk Vulnerabilities for npm scoped package]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Snyk Vulnerabilities for npm scoped package"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Snyk Vulnerabilities for npm scoped package]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Snyk Vulnerabilities for npm scoped package" src="$url">'}
+  /sonar/public_documented_api_density/{component}/{branch}:
+    get:
+      summary: 'Sonar Documented API Density'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n"
+      parameters:
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org.ow2.petals:petals-se-ase'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'http://sonar.petalslink.com'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Documented API Density]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Documented API Density"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Documented API Density]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Documented API Density" src="$url">'}
+  /sonar/public_documented_api_density/{component}:
+    get:
+      summary: 'Sonar Documented API Density'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n"
+      parameters:
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org.ow2.petals:petals-se-ase'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'http://sonar.petalslink.com'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Documented API Density]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Documented API Density"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Documented API Density]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Documented API Density" src="$url">'}
+  /sonar/fortify-security-rating/{component}/{branch}:
+    get:
+      summary: 'Sonar Fortify Security Rating'
+      description: "<p>\n        Note that the Fortify Security Rating badge will only work on Sonar instances that have the <a href='https://marketplace.microfocus.com/fortify/content/fortify-sonarqube-plugin'>Fortify SonarQube Plugin</a> installed.\n        The badge is not available for projects analyzed on SonarCloud.io\n      </p>\n      <p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n\n    "
+      parameters:
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org.ow2.petals:petals-se-ase'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'http://sonar.petalslink.com'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Fortify Security Rating]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Fortify Security Rating"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Fortify Security Rating]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Fortify Security Rating" src="$url">'}
+  /sonar/fortify-security-rating/{component}:
+    get:
+      summary: 'Sonar Fortify Security Rating'
+      description: "<p>\n        Note that the Fortify Security Rating badge will only work on Sonar instances that have the <a href='https://marketplace.microfocus.com/fortify/content/fortify-sonarqube-plugin'>Fortify SonarQube Plugin</a> installed.\n        The badge is not available for projects analyzed on SonarCloud.io\n      </p>\n      <p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n\n    "
+      parameters:
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org.ow2.petals:petals-se-ase'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'http://sonar.petalslink.com'}
+        - {'name': 'sonarVersion', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '4.2'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Fortify Security Rating]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Fortify Security Rating"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Fortify Security Rating]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Fortify Security Rating" src="$url">'}
+  /sonar/{metric}/{component}/{branch}:
+    get:
+      summary: 'Sonar Violations (long format)'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n"
+      parameters:
+        - {'name': 'metric', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['violations', 'blocker_violations', 'critical_violations', 'major_violations', 'minor_violations', 'info_violations']}, 'example': 'violations'}
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org.ow2.petals:petals-se-ase'}
+        - {'name': 'branch', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'http://sonar.petalslink.com'}
+        - {'name': 'format', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'long'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Violations (long format)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Violations (long format)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Violations (long format)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Violations (long format)" src="$url">'}
+  /sonar/{metric}/{component}:
+    get:
+      summary: 'Sonar Violations (long format)'
+      description: "<p>\n    The Sonar badges will work with both SonarCloud.io and self-hosted SonarQube instances.\n    Just enter the correct protocol and path for your target Sonar deployment.\n  </p>\n  <p>\n    If you are targeting a legacy SonarQube instance that is version 5.3 or earlier, then be sure\n    to include the version query parameter with the value of your SonarQube version.\n  </p>\n"
+      parameters:
+        - {'name': 'metric', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['violations', 'blocker_violations', 'critical_violations', 'major_violations', 'minor_violations', 'info_violations']}, 'example': 'violations'}
+        - {'name': 'component', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'org.ow2.petals:petals-se-ase'}
+        - {'name': 'server', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'http://sonar.petalslink.com'}
+        - {'name': 'format', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'long'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Sonar Violations (long format)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Sonar Violations (long format)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Sonar Violations (long format)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Sonar Violations (long format)" src="$url">'}
+  /symfony/i/grade/{projectUuid}:
+    get:
+      summary: 'SymfonyInsight Grade'
+      parameters:
+        - {'name': 'projectUuid', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '825be328-29f8-44f7-a750-f82818ae9111'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![SymfonyInsight Grade]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: SymfonyInsight Grade"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[SymfonyInsight Grade]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="SymfonyInsight Grade" src="$url">'}
+  /symfony/i/stars/{projectUuid}:
+    get:
+      summary: 'SymfonyInsight Stars'
+      parameters:
+        - {'name': 'projectUuid', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '825be328-29f8-44f7-a750-f82818ae9111'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![SymfonyInsight Stars]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: SymfonyInsight Stars"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[SymfonyInsight Stars]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="SymfonyInsight Stars" src="$url">'}
+  /symfony/i/violations/{projectUuid}:
+    get:
+      summary: 'SymfonyInsight Violations'
+      parameters:
+        - {'name': 'projectUuid', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '825be328-29f8-44f7-a750-f82818ae9111'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![SymfonyInsight Violations]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: SymfonyInsight Violations"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[SymfonyInsight Violations]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="SymfonyInsight Violations" src="$url">'}
+  /w3c-validation/{parser}:
+    get:
+      summary: 'W3C Validation'
+      description: "\n  \n  <p>\n    The W3C validation badge performs validation of the HTML, SVG, MathML, ITS, RDFa Lite, XHTML documents.\n    The badge uses the type property of each message found in the messages from the validation results to determine to be an error or warning.\n    The rules are as follows:\n    <ul class=\"note\">\n      <li>info:  These messages are counted as warnings</li>\n      <li>error:  These messages are counted as errors</li>\n      <li>non-document-error: These messages are counted as errors</li>\n    </ul>\n  </p>\n  <p>\n    This badge relies on the <a target=\"_blank\" href=\"https://validator.nu/\">https://validator.nu/</a> service to perform the validation.\n    Please refer to <a target=\"_blank\" href=\"https://about.validator.nu/\">https://about.validator.nu/</a> for the full documentation and Terms of service.\n    The following are required from the consumer for the badge to function.\n    <ul class=\"note\">\n      <li>\n        Path:\n        <ul>\n          <li>\n            parser: The parser that is used for validation. This is a passthru value to the service\n            <ul>\n              <li>default <i>(This will not pass a parser to the API and make the API choose the parser based on the validated content)</i></li>\n              <li>html <i>(HTML)</i></li>\n              <li>xml <i>(XML; don’t load external entities)</i></li>\n              <li>xmldtd <i>(XML; load external entities)</i></li>\n            </ul>\n          </li>\n        </ul>\n      </li>\n      <li>\n        Query string:\n        <ul>\n          <li>\n            targetUrl (Required): This is the path for the document to be validated\n          </li>\n          <li>\n            preset (Optional can be left as blank): This is used to determine the schema for the document to be valdiated against.\n            The following are the allowed values\n            <ul>\n              <li>HTML, SVG 1.1, MathML 3.0</li>\n              <li>HTML, SVG 1.1, MathML 3.0, ITS 2.0</li>\n              <li>HTML, SVG 1.1, MathML 3.0, RDFa Lite 1.1</li>\n              <li>HTML 4.01 Strict, URL / XHTML 1.0 Strict, URL</li>\n              <li>HTML 4.01 Transitional, URL / XHTML 1.0 Transitional, URL</li>\n              <li>HTML 4.01 Frameset, URL / XHTML 1.0 Frameset, URL</li>\n              <li>XHTML, SVG 1.1, MathML 3.0</li>\n              <li>XHTML, SVG 1.1, MathML 3.0, RDFa Lite 1.1</li>\n              <li>XHTML 1.0 Strict, URL, Ruby, SVG 1.1, MathML 3.0</li>\n              <li>SVG 1.1, URL, XHTML, MathML 3.0</li>        \n            </ul>\n          </li>\n        </ul>\n      </li>\n    </ul>\n  </p>\n"
+      parameters:
+        - {'name': 'parser', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['default', 'html', 'xml', 'xmldtd']}, 'example': 'html'}
+        - {'name': 'targetUrl', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'https://validator.nu/'}
+        - {'name': 'preset', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'HTML, SVG 1.1, MathML 3.0'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![W3C Validation]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: W3C Validation"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[W3C Validation]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="W3C Validation" src="$url">'}

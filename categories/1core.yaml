@@ -1,0 +1,187 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Core'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /badge/{badgeContent}:
+    get:
+      summary: 'Static Badge'
+      description: "<p>\n  The static badge accepts a single required path parameter which encodes either:\n</p>\n<ul>\n  <li>\n    Label, message and color seperated by a dash <code>-</code>. For example:<br />\n    <img alt=\"any text: you like\" src=\"https://img.shields.io/badge/any_text-you_like-blue\" /> -\n    <a href=\"https://img.shields.io/badge/any_text-you_like-blue\">https://img.shields.io/badge/any_text-you_like-blue</a>\n  </li>\n  <li>\n    Message and color only, seperated by a dash <code>-</code>. For example:<br />\n    <img alt=\"just the message\" src=\"https://img.shields.io/badge/just%20the%20message-8A2BE2\" /> -\n    <a href=\"https://img.shields.io/badge/just%20the%20message-8A2BE2\">https://img.shields.io/badge/just%20the%20message-8A2BE2</a>\n  </li>\n</ul>\n<table>\n  <tbody>\n    <tr>\n      <th>URL input</th>\n      <th>Badge output</th>\n    </tr>\n    <tr>\n      <td>Underscore <code>_</code> or <code>%20</code></td>\n      <td>Space <code>&nbsp;</code></td>\n    </tr>\n    <tr>\n      <td>Double underscore <code>__</code></td>\n      <td>Underscore <code>_</code></td>\n    </tr>\n    <tr>\n      <td>Double dash <code>--</code></td>\n      <td>Dash <code>-</code></td>\n    </tr>\n  </tbody>\n</table>\n<p>\n  Hex, rgb, rgba, hsl, hsla and css named colors may be used.\n</p>"
+      parameters:
+        - {'name': 'badgeContent', 'description': 'Label, (optional) message, and color. Seperated by dashes', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'build-passing-brightgreen'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Static Badge]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Static Badge"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Static Badge]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Static Badge" src="$url">'}
+  /badge/dynamic/json:
+    get:
+      summary: 'Dynamic JSON Badge'
+      description: "<p>\n          The Dynamic JSON Badge allows you to extract an arbitrary value from any\n          JSON Document using a JSONPath selector and show it on a badge.\n        </p>"
+      parameters:
+        - {'name': 'url', 'description': 'The URL to a JSON document', 'in': 'query', 'required': true, 'schema': {'type': 'string'}, 'example': 'https://github.com/badges/shields/raw/master/package.json'}
+        - {'name': 'query', 'description': 'A <a href="https://jsonpath.com/">JSONPath</a> expression that will be used to query the document', 'in': 'query', 'required': true, 'schema': {'type': 'string'}, 'example': '$.name'}
+        - {'name': 'prefix', 'description': 'Optional prefix to append to the value', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '['}
+        - {'name': 'suffix', 'description': 'Optional suffix to append to the value', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': ']'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Dynamic JSON Badge]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Dynamic JSON Badge"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Dynamic JSON Badge]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Dynamic JSON Badge" src="$url">'}
+  /badge/dynamic/xml:
+    get:
+      summary: 'Dynamic XML Badge'
+      description: "<p>\n          The Dynamic XML Badge allows you to extract an arbitrary value from any\n          XML Document using an XPath selector and show it on a badge.\n        </p>"
+      parameters:
+        - {'name': 'url', 'description': 'The URL to a XML document', 'in': 'query', 'required': true, 'schema': {'type': 'string'}, 'example': 'https://httpbin.org/xml'}
+        - {'name': 'query', 'description': 'A <a href="http://xpather.com/">XPath</a> expression that will be used to query the document', 'in': 'query', 'required': true, 'schema': {'type': 'string'}, 'example': '//slideshow/slide[1]/title'}
+        - {'name': 'prefix', 'description': 'Optional prefix to append to the value', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '['}
+        - {'name': 'suffix', 'description': 'Optional suffix to append to the value', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': ']'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Dynamic XML Badge]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Dynamic XML Badge"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Dynamic XML Badge]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Dynamic XML Badge" src="$url">'}
+  /badge/dynamic/yaml:
+    get:
+      summary: 'Dynamic YAML Badge'
+      description: "<p>\n          The Dynamic YAML Badge allows you to extract an arbitrary value from any\n          YAML Document using a JSONPath selector and show it on a badge.\n        </p>"
+      parameters:
+        - {'name': 'url', 'description': 'The URL to a YAML document', 'in': 'query', 'required': true, 'schema': {'type': 'string'}, 'example': 'https://raw.githubusercontent.com/badges/shields/master/.github/dependabot.yml'}
+        - {'name': 'query', 'description': 'A <a href="https://jsonpath.com/">JSONPath</a> expression that will be used to query the document', 'in': 'query', 'required': true, 'schema': {'type': 'string'}, 'example': '$.version'}
+        - {'name': 'prefix', 'description': 'Optional prefix to append to the value', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': '['}
+        - {'name': 'suffix', 'description': 'Optional suffix to append to the value', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': ']'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Dynamic YAML Badge]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Dynamic YAML Badge"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Dynamic YAML Badge]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Dynamic YAML Badge" src="$url">'}
+  /endpoint:
+    get:
+      summary: 'Endpoint Badge'
+      description: "<p>\n  Using the endpoint badge, you can provide content for a badge through\n  a JSON endpoint. The content can be prerendered, or generated on the\n  fly. To strike a balance between responsiveness and bandwidth\n  utilization on one hand, and freshness on the other, cache behavior is\n  configurable, subject to the Shields minimum. The endpoint URL is\n  provided to Shields through the query string. Shields fetches it and\n  formats the badge.\n</p>\n<p>\n  The endpoint badge takes a single required query param: <code>url</code>, which is the URL to your JSON endpoint\n</p>\n<div>\n  <h2>Example JSON Endpoint Response</h2>\n  <code>&#123; \"schemaVersion\": 1, \"label\": \"hello\", \"message\": \"sweet world\", \"color\": \"orange\" &#125;</code>\n  <h2>Example Shields Response</h2>\n  <img src=\"https://img.shields.io/badge/hello-sweet_world-orange\" />\n</div>\n<div>\n  <h2>Schema</h2>\n  <table>\n    <tbody>\n      <tr>\n        <th>Property</th>\n        <th>Description</th>\n      </tr>\n      <tr>\n        <td><code>schemaVersion</code></td>\n        <td>Required. Always the number <code>1</code>.</td>\n      </tr>\n      <tr>\n        <td><code>label</code></td>\n        <td>\n          Required. The left text, or the empty string to omit the left side of\n          the badge. This can be overridden by the query string.\n        </td>\n      </tr>\n      <tr>\n        <td><code>message</code></td>\n        <td>Required. Can't be empty. The right text.</td>\n      </tr>\n      <tr>\n        <td><code>color</code></td>\n        <td>\n          Default: <code>lightgrey</code>. The right color. Supports the eight\n          named colors above, as well as hex, rgb, rgba, hsl, hsla and css named\n          colors. This can be overridden by the query string.\n        </td>\n      </tr>\n      <tr>\n        <td><code>labelColor</code></td>\n        <td>\n          Default: <code>grey</code>. The left color. This can be overridden by\n          the query string.\n        </td>\n      </tr>\n      <tr>\n        <td><code>isError</code></td>\n        <td>\n          Default: <code>false</code>. <code>true</code> to treat this as an\n          error badge. This prevents the user from overriding the color. In the\n          future, it may affect cache behavior.\n        </td>\n      </tr>\n      <tr>\n        <td><code>namedLogo</code></td>\n        <td>\n          Default: none. One of the named logos supported by Shields or\n          <a href=\"https://simpleicons.org/\">simple-icons</a>. Can be overridden\n          by the query string.\n        </td>\n      </tr>\n      <tr>\n        <td><code>logoSvg</code></td>\n        <td>Default: none. An SVG string containing a custom logo.</td>\n      </tr>\n      <tr>\n        <td><code>logoColor</code></td>\n        <td>\n          Default: none. Same meaning as the query string. Can be overridden by\n          the query string. Only works for named logos and Shields logos. If you\n          override the color of a multicolor Shield logo, the corresponding\n          named logo will be used and colored.\n        </td>\n      </tr>\n      <tr>\n        <td><code>logoWidth</code></td>\n        <td>\n          Default: none. Same meaning as the query string. Can be overridden by\n          the query string.\n        </td>\n      </tr>\n      <tr>\n        <td><code>logoPosition</code></td>\n        <td>\n          Default: none. Same meaning as the query string. Can be overridden by\n          the query string.\n        </td>\n      </tr>\n      <tr>\n        <td><code>style</code></td>\n        <td>\n          Default: <code>flat</code>. The default template to use. Can be\n          overridden by the query string.\n        </td>\n      </tr>\n    </tbody>\n  </table>\n</div>"
+      parameters:
+        - {'name': 'url', 'description': 'The URL to your JSON endpoint', 'in': 'query', 'required': true, 'schema': {'type': 'string'}, 'example': 'https://shields.redsparr0w.com/2473/monday'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Endpoint Badge]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Endpoint Badge"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Endpoint Badge]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Endpoint Badge" src="$url">'}

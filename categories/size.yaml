@@ -1,0 +1,400 @@
+openapi: '3.0.0'
+info:
+  version: '1.0.0'
+  title: 'Size'
+  license:
+    name: 'CC0'
+servers:
+  - url: 'https://img.shields.io'
+components:
+  parameters:
+    style:
+      name: 'style'
+      in: 'query'
+      required: false
+      description: 'One of: flat (default), flat-square, plastic, for-the-badge, social'
+      schema:
+        type: 'string'
+      example: 'flat'
+    logo:
+      name: 'logo'
+      in: 'query'
+      required: false
+      description: 'One of the named logos (bitcoin, dependabot, gitlab, npm, paypal, serverfault, stackexchange, superuser, telegram, travis) or <a href="https://simpleicons.org/" rel="noopener noreferrer" target="_blank">simple-icons</a>. Simple-icons are referenced using icon slugs which can be found on the simple-icons site or in the <a href="https://github.com/simple-icons/simple-icons/blob/develop/slugs.md" rel="noopener noreferrer" target="_blank">slugs.md</a> file in the simple-icons repository.'
+      schema:
+        type: 'string'
+      example: 'appveyor'
+    logoColor:
+      name: 'logoColor'
+      in: 'query'
+      required: false
+      description: 'The color of the logo (hex, rgb, rgba, hsl, hsla and css named colors supported). Supported for named logos and Shields logos but not for custom logos. For multicolor Shields logos, the corresponding named logo will be used and colored.'
+      schema:
+        type: 'string'
+      example: 'violet'
+    label:
+      name: 'label'
+      in: 'query'
+      required: false
+      description: 'Override the default left-hand-side text (<a href="https://developer.mozilla.org/en-US/docs/Glossary/percent-encoding">URL-Encoding</a> needed for spaces or special characters!)'
+      schema:
+        type: 'string'
+      example: 'healthiness'
+    labelColor:
+      name: 'labelColor'
+      in: 'query'
+      required: false
+      description: 'Background color of the left part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorA" is also supported.'
+      schema:
+        type: 'string'
+      example: 'abcdef'
+    color:
+      name: 'color'
+      in: 'query'
+      required: false
+      description: 'Background color of the right part (hex, rgb, rgba, hsl, hsla and css named colors supported). The legacy name "colorB" is also supported.'
+      schema:
+        type: 'string'
+      example: 'fedcba'
+    cacheSeconds:
+      name: 'cacheSeconds'
+      in: 'query'
+      required: false
+      description: 'HTTP cache lifetime (rules are applied to infer a default value on a per-badge basis, any values specified below the default will be ignored). The legacy name "maxAge" is also supported.'
+      schema:
+        type: 'string'
+      example: '3600'
+    link:
+      name: 'link'
+      in: 'query'
+      required: false
+      description: 'Specify what clicking on the left/right of a badge should do. Note that this only works when integrating your badge in an `<object>` HTML tag, but not an `<img>` tag or a markup language.'
+      style: 'form'
+      explode: true
+      schema:
+        type: 'array'
+        maxItems: 2
+        items: {'type': 'string'}
+paths:
+  /bundlephobia/{format}/{packageName}:
+    get:
+      summary: 'npm bundle size'
+      parameters:
+        - {'name': 'format', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['min', 'minzip']}, 'example': 'min'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'react'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm bundle size]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm bundle size"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm bundle size]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm bundle size" src="$url">'}
+  /bundlephobia/{format}/{scope}/{packageName}:
+    get:
+      summary: 'npm bundle size (scoped)'
+      parameters:
+        - {'name': 'format', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['min', 'minzip']}, 'example': 'min'}
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@cycle'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'core'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm bundle size (scoped)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm bundle size (scoped)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm bundle size (scoped)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm bundle size (scoped)" src="$url">'}
+  /bundlephobia/{format}/{packageName}/{version}:
+    get:
+      summary: 'npm bundle size (version)'
+      parameters:
+        - {'name': 'format', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['min', 'minzip']}, 'example': 'min'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'react'}
+        - {'name': 'version', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '15.0.0'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm bundle size (version)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm bundle size (version)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm bundle size (version)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm bundle size (version)" src="$url">'}
+  /bundlephobia/{format}/{scope}/{packageName}/{version}:
+    get:
+      summary: 'npm bundle size (scoped version)'
+      parameters:
+        - {'name': 'format', 'in': 'path', 'required': true, 'schema': {'type': 'string', 'enum': ['min', 'minzip']}, 'example': 'min'}
+        - {'name': 'scope', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '@cycle'}
+        - {'name': 'packageName', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'core'}
+        - {'name': 'version', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '7.0.0'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![npm bundle size (scoped version)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: npm bundle size (scoped version)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[npm bundle size (scoped version)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="npm bundle size (scoped version)" src="$url">'}
+  /docker/image-size/{user}/{repo}:
+    get:
+      summary: 'Docker Image Size with architecture (latest by date/latest semver)'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'library'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'mysql'}
+        - {'name': 'sort', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'date'}
+        - {'name': 'arch', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'amd64'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Docker Image Size with architecture (latest by date/latest semver)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Docker Image Size with architecture (latest by date/latest semver)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Docker Image Size with architecture (latest by date/latest semver)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Docker Image Size with architecture (latest by date/latest semver)" src="$url">'}
+  /docker/image-size/{user}/{repo}/{tag}:
+    get:
+      summary: 'Docker Image Size (tag)'
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'fedora'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'apache'}
+        - {'name': 'tag', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'latest'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Docker Image Size (tag)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Docker Image Size (tag)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Docker Image Size (tag)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Docker Image Size (tag)" src="$url">'}
+  /github/languages/code-size/{user}/{repo}:
+    get:
+      summary: 'GitHub code size in bytes'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub code size in bytes]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub code size in bytes"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub code size in bytes]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub code size in bytes" src="$url">'}
+  /github/directory-file-count/{user}/{repo}:
+    get:
+      summary: 'GitHub repo file count (file type)'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n\n<p>\n  <b>Note:</b><br />\n  1. Parameter <code>type</code> accepts either <code>file</code> or <code>dir</code> value. Passing any other value will result in an error.<br />\n  2. Parameter <code>extension</code> accepts file extension without a leading dot.\n     For instance for <code>.js</code> extension pass <code>js</code>.\n     Only single <code>extension</code> value can be specified.\n     <code>extension</code> is applicable for <code>type</code> <code>file</code> only.\n     Passing it either without <code>type</code> or along with <code>type</code> <code>dir</code> will result in an error.<br />\n  3. GitHub API has an upper limit of 1,000 files for a directory.\n     In case a directory contains files above the limit, a badge might present inaccurate information.<br />\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'type', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'file'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub repo file count (file type)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub repo file count (file type)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub repo file count (file type)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub repo file count (file type)" src="$url">'}
+  /github/directory-file-count/{user}/{repo}/{path}:
+    get:
+      summary: 'GitHub repo file count (file extension)'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n\n<p>\n  <b>Note:</b><br />\n  1. Parameter <code>type</code> accepts either <code>file</code> or <code>dir</code> value. Passing any other value will result in an error.<br />\n  2. Parameter <code>extension</code> accepts file extension without a leading dot.\n     For instance for <code>.js</code> extension pass <code>js</code>.\n     Only single <code>extension</code> value can be specified.\n     <code>extension</code> is applicable for <code>type</code> <code>file</code> only.\n     Passing it either without <code>type</code> or along with <code>type</code> <code>dir</code> will result in an error.<br />\n  3. GitHub API has an upper limit of 1,000 files for a directory.\n     In case a directory contains files above the limit, a badge might present inaccurate information.<br />\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'name': 'path', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'services'}
+        - {'name': 'type', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'file'}
+        - {'name': 'extension', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'js'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub repo file count (file extension)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub repo file count (file extension)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub repo file count (file extension)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub repo file count (file extension)" src="$url">'}
+  /github/repo-size/{user}/{repo}:
+    get:
+      summary: 'GitHub repo size'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'atom'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'atom'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub repo size]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub repo size"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub repo size]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub repo size" src="$url">'}
+  /github/size/{user}/{repo}/{path}:
+    get:
+      summary: 'GitHub file size in bytes on a specified ref (branch/commit/tag)'
+      description: "\n<p>\n  If your GitHub badge errors, it might be because you hit GitHub's rate limits.\n  You can increase Shields.io's rate limit by\n  <a href=\"https://img.shields.io/github-auth\">adding the Shields GitHub\n  application</a> using your GitHub account.\n</p>\n"
+      parameters:
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'webcaetano'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'craft'}
+        - {'name': 'path', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'build/phaser-craft.min.js'}
+        - {'name': 'branch', 'in': 'query', 'required': false, 'schema': {'type': 'string'}, 'example': 'master'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![GitHub file size in bytes on a specified ref (branch/commit/tag)]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: GitHub file size in bytes on a specified ref (branch/commit/tag)"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[GitHub file size in bytes on a specified ref (branch/commit/tag)]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="GitHub file size in bytes on a specified ref (branch/commit/tag)" src="$url">'}
+  /spiget/download-size/{resourceId}:
+    get:
+      summary: 'Spiget Download Size'
+      description: "\n<p>You can find your resource ID in the url for your resource page.</p>\n<p>Example: <code>https://www.spigotmc.org/resources/essentialsx.9089/</code> - Here the Resource ID is 9089.</p>"
+      parameters:
+        - {'name': 'resourceId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '15904'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Spiget Download Size]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Spiget Download Size"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Spiget Download Size]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Spiget Download Size" src="$url">'}
+  /steam/size/{fileId}:
+    get:
+      summary: 'Steam File Size'
+      description: "\n<p>\n  Using a web browser, you can find the ID in the url here:\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/6497721/46358801-1bcb3200-c668-11e8-9963-931397853945.PNG\"\n  alt=\"The ID is the number found right after ?id= in the URI\" />\n<p>\n  In the steam client you can simply just Right-Click and 'Copy Page URL' and follow the above step\n</p>\n<img\n  src=\"https://user-images.githubusercontent.com/7288322/46567027-27c83400-c987-11e8-9850-ab67d987202f.png\"\n  alt=\"Right-Click and 'Copy Page URL'\" />\n"
+      parameters:
+        - {'name': 'fileId', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': '100'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Steam File Size]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Steam File Size"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Steam File Size]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Steam File Size" src="$url">'}
+  /tokei/lines/{provider}/{user}/{repo}:
+    get:
+      summary: 'Lines of code'
+      description: "\n<p>\n  The <code>provider</code> is the domain name of git host.\n  If no TLD is provided, <code>.com</code> will be added.\n  For example, setting <code>gitlab</code> or <code>bitbucket.org</code> as the\n  provider also works.\n  <br /><br />\n  Tokei will automatically count all files with a recognized extension. It will\n  automatically ignore files and folders in <code>.ignore</code> files. If you\n  want to ignore files or folders specifically for tokei, add them to the\n  <code>.tokeignore</code> in the root of your repository.\n  See \n    <a href=\"https://github.com/XAMPPRocky/tokei#excluding-folders\">https://github.com/XAMPPRocky/tokei#excluding-folders</a>\n  for more info.\n</p>\n"
+      parameters:
+        - {'name': 'provider', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'github'}
+        - {'name': 'user', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'badges'}
+        - {'name': 'repo', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'shields'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Lines of code]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Lines of code"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Lines of code]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Lines of code" src="$url">'}
+  /visual-studio-app-center/releases/size/{owner}/{app}/{token}:
+    get:
+      summary: 'Visual Studio App Center Size'
+      description: 'You will need to create a <b>read-only</b> API token <a target=''_blank'' href=''https://appcenter.ms/settings/apitokens''>here</a>.'
+      parameters:
+        - {'name': 'owner', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'jct'}
+        - {'name': 'app', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'my-amazing-app'}
+        - {'name': 'token', 'in': 'path', 'required': true, 'schema': {'type': 'string'}, 'example': 'ac70cv...'}
+        - {'$ref': '#/components/parameters/style'}
+        - {'$ref': '#/components/parameters/logo'}
+        - {'$ref': '#/components/parameters/logoColor'}
+        - {'$ref': '#/components/parameters/label'}
+        - {'$ref': '#/components/parameters/labelColor'}
+        - {'$ref': '#/components/parameters/color'}
+        - {'$ref': '#/components/parameters/cacheSeconds'}
+        - {'$ref': '#/components/parameters/link'}
+      x-code-samples:
+        - {'lang': 'URL', 'label': 'URL', 'source': '$url'}
+        - {'lang': 'Markdown', 'label': 'Markdown', 'source': '![Visual Studio App Center Size]($url)'}
+        - {'lang': 'reStructuredText', 'label': 'rSt', 'source': ".. image:: $url\n:   alt: Visual Studio App Center Size"}
+        - {'lang': 'AsciiDoc', 'label': 'AsciiDoc', 'source': 'image:$url[Visual Studio App Center Size]'}
+        - {'lang': 'HTML', 'label': 'HTML', 'source': '<img alt="Visual Studio App Center Size" src="$url">'}
